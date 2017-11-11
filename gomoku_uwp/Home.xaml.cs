@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Input;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
@@ -64,7 +66,7 @@ namespace gomoku_uwp
         bool computerrunning = false;
         private int turn = 1;
         // Resource
-        Windows.Storage.ApplicationDataContainer gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
+        Windows.Storage.ApplicationDataContainer _gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
         private unmanaged.cliwrapper invoke = new unmanaged.cliwrapper();
         // UIElement List
         private List<chessboard_line_class> chessboard_line = new List<chessboard_line_class>();
@@ -156,7 +158,7 @@ namespace gomoku_uwp
                 line.Stroke = new SolidColorBrush(Colors.White);
             else
                 line.Stroke = new SolidColorBrush(Colors.Black);
-            line.StrokeThickness = 1.2;
+            line.StrokeThickness = 2;
             chessboard_father.Children.Add(line);
             chessboard_noticeline.Add(new chessboard_notice_line_class(line, row, col, false));
         }
@@ -203,6 +205,7 @@ namespace gomoku_uwp
                 Drawchessboard(ii, true);
                 Drawchessboard(ii, false);
             }
+            PlayGame();
         }
         public void WinPrinter()
         {
@@ -220,6 +223,164 @@ namespace gomoku_uwp
                 }
             }
             invoke.Checkwin(false);
+        }
+        private async Task PlaybyComputer(bool black)
+        {
+            computerrunning = true;
+            Task<int[]> com;
+            if (black)
+            {
+                if (_gameOptions.Values["mode"].ToString() == "hard")
+                    com = Task.Run(() => invoke.Putcomputer(true, 1));
+                else
+                    com = Task.Run(() => invoke.Putcomputer(false, 1));
+            }
+            else
+            {
+                if (_gameOptions.Values["mode"].ToString() == "hard")
+                    com = Task.Run(() => invoke.Putcomputer(true, 2));
+                else
+                    com = Task.Run(() => invoke.Putcomputer(false, 2));
+            }
+            await com;
+            var data = com.Result;
+            Clear_noticeLine();
+            if (black)
+            {
+                DrawPoint(data[2], data[1], true);
+                DrawNoticeLine(data[2], data[1], true);
+            }
+            else
+            {
+                DrawPoint(data[2], data[1], false);
+                DrawNoticeLine(data[2], data[1], false);
+            }
+            ++turn;
+            computerrunning = false;
+            if (black && invoke.Checkwin(false) == 1)
+            {
+                WinPrinter();
+                ContentDialog Result = new ContentDialog
+                {
+                    Title = "Result",
+                    Content = "ヾ(*ΦωΦ)ツ\nBlack: Computer wins.",
+                    CloseButtonText = "Ok"
+                };
+                ContentDialogResult result = await Result.ShowAsync();
+            }
+            else if ((!black) && invoke.Checkwin(false) == 2)
+            {
+                WinPrinter();
+                ContentDialog Result = new ContentDialog
+                {
+                    Title = "Result",
+                    Content = "ヾ(*ΦωΦ)ツ\nWhite: Computer wins.",
+                    CloseButtonText = "Ok"
+                };
+                ContentDialogResult result = await Result.ShowAsync();
+            }
+            else
+                PlayGame();
+        }
+        public async void PlayGame()
+        {
+            if (invoke.Fullboard())
+            {
+                ContentDialog Fullboard = new ContentDialog
+                {
+                    Title = "Fullboard",
+                    Content = "ヾ(*ΦωΦ)ツ\nChess board is full.",
+                    CloseButtonText = "Ok"
+                };
+                ContentDialogResult result = await Fullboard.ShowAsync();
+                return;
+            }
+            if (invoke.Checkwin(false) == 0)
+            {
+                //Black
+                if (turn % 2 == 1)
+                {
+                    if (_gameOptions.Values["black"].ToString() == "computer")
+                    {
+#pragma warning disable CS4014 
+                        PlaybyComputer(true);
+#pragma warning restore CS4014 
+                    }
+                }
+                //White
+                else
+                {
+                    if (_gameOptions.Values["white"].ToString() == "computer")
+                    {
+#pragma warning disable CS4014 
+                        PlaybyComputer(false);
+#pragma warning restore CS4014 
+                    }
+                }
+            }
+            else
+                return;
+        }
+        private async void chessboard_background_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            if (computerrunning || invoke.Checkwin(false) != 0)
+                return;
+            var deltax = Convert.ToDouble(chessboard_background.ActualWidth) / 16;
+            var deltay = Convert.ToDouble(chessboard_background.ActualHeight) / 16;
+            PointerPoint ptr = e.GetCurrentPoint(chessboard_background);
+            Point pt = ptr.Position;
+            if (turn % 2 == 1)
+            {
+                bool x = invoke.Puthuman((int)Math.Round(pt.Y / deltay) - 1, (int)Math.Round(pt.X / deltax) - 1, 1);
+                if (x == true)
+                {
+                    Clear_noticeLine();
+                    DrawPoint((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, true);
+                    DrawNoticeLine((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, true);
+                    ++turn;
+                    if (invoke.Checkwin(false) == 1)
+                    {
+                        WinPrinter();
+                        ContentDialog Result = new ContentDialog
+                        {
+                            Title = "Result",
+                            Content = "ヾ(*ΦωΦ)ツ\nBlack: Human wins.",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
+                    }
+                    else
+                        PlayGame();
+                }
+                else
+                    return;
+            }
+            else
+            {
+                bool x = invoke.Puthuman((int)Math.Round(pt.Y / deltay) - 1, (int)Math.Round(pt.X / deltax) - 1, 2);
+                if (x == true)
+                {
+                    Clear_noticeLine();
+                    DrawPoint((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, false);
+                    DrawNoticeLine((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, false);
+                    ++turn;
+                    if (invoke.Checkwin(false) == 2)
+                    {
+                        WinPrinter();
+                        ContentDialog Result = new ContentDialog
+                        {
+                            Title = "Result",
+                            Content = "ヾ(*ΦωΦ)ツ\nWhite: Human wins.",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
+                    }
+                    else
+                        PlayGame();
+                }
+                else
+                    return;
+            }
         }
     }
 }

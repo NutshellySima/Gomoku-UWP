@@ -11,7 +11,7 @@
         <Grid Name="chessboard_mother">
             <Viewbox Stretch="Uniform">
                 <Grid Name="chessboard_father">
-                    <Rectangle Stroke="Black" Stretch="Fill" Canvas.Left="10" Canvas.Top="10" Margin="10,10,10,10" Fill="#FF9A9A9B" Name="chessboard_background" Height="1600" Width="1600"/>
+                    <Rectangle Stroke="Black" Stretch="Fill" Canvas.Left="10" Canvas.Top="10" Margin="10,10,10,10"  Fill="#FF9A9A9B" Name="chessboard_background" Height="1600" Width="1600" PointerReleased="chessboard_background_PointerReleased"/>
                 </Grid>
             </Viewbox>
         </Grid>
