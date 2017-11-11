@@ -46,7 +46,7 @@ namespace unmanaged
 		{
 			auto x = ptr->Gethistory();
 			auto res = ref new Array<int>(x.size() * 3);
-			for (int i = 0; i < x.size(); i++)
+			for (size_t i = 0; i < x.size(); i++)
 			{
 				res[3 * i] = std::get<0>(x[i]);
 				res[3 * i + 1] = std::get<1>(x[i]);
