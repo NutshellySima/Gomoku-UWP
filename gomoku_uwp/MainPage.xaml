@@ -22,7 +22,7 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame" Margin="24">
+            <Frame x:Name="ContentFrame">
                 <Frame.ContentTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition/>
