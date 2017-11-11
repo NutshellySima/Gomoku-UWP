@@ -5,9 +5,47 @@
     xmlns:local="using:gomoku_uwp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" FontFamily="Segoe UI">
 
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        
+        <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
+    <LineBreak/>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28">
+        About
+    </Run>
+    <LineBreak/>
+    <LineBreak/>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28">
+        Gomoku
+    </Run>
+    <LineBreak/>
+    <LineBreak/>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="20">
+        Copyright (C) 2017  Chijun Sima
+    </Run>
+            <LineBreak FontFamily="Segoe UI"></LineBreak>
+            <LineBreak FontFamily="Segoe UI"></LineBreak>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="15">
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see&lt;
+    </Run>
+            <Hyperlink NavigateUri="https://www.gnu.org/licenses/">
+                https://www.gnu.org/licenses/
+             </Hyperlink>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="15">
+           &gt;.
+    </Run>
+        </TextBlock>
     </Grid>
 </Page>
