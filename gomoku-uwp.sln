@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gomoku-uwp", "gomoku-uwp\gomoku-uwp.vcxproj", "{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chessboard", "chessboard\chessboard.vcxproj", "{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "evaluation", "evaluation\evaluation.vcxproj", "{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}"
@@ -12,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "searcher", "searcher\searcher.vcxproj", "{C143B690-83AC-458D-9E26-83F8268DC789}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wrapper", "wrapper\wrapper.vcxproj", "{443D700C-DB84-4100-8284-3FE2B07441D1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unmanaged", "unmanaged\unmanaged.vcxproj", "{72BB2445-02A7-45BF-88B8-02E5618F0B31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,24 +23,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|ARM.ActiveCfg = Debug|ARM
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|ARM.Build.0 = Debug|ARM
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|ARM.Deploy.0 = Debug|ARM
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|x64.ActiveCfg = Debug|x64
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|x64.Build.0 = Debug|x64
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|x64.Deploy.0 = Debug|x64
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|x86.ActiveCfg = Debug|Win32
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|x86.Build.0 = Debug|Win32
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Debug|x86.Deploy.0 = Debug|Win32
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|ARM.ActiveCfg = Release|ARM
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|ARM.Build.0 = Release|ARM
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|ARM.Deploy.0 = Release|ARM
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|x64.ActiveCfg = Release|x64
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|x64.Build.0 = Release|x64
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|x64.Deploy.0 = Release|x64
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|x86.ActiveCfg = Release|Win32
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|x86.Build.0 = Release|Win32
-		{923C5B02-FCDC-423C-8FCF-DD9B231A8D7C}.Release|x86.Deploy.0 = Release|Win32
 		{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}.Debug|ARM.ActiveCfg = Debug|ARM
 		{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}.Debug|ARM.Build.0 = Debug|ARM
 		{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}.Debug|x64.ActiveCfg = Debug|x64
@@ -89,6 +71,18 @@ Global
 		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|x64.Build.0 = Release|x64
 		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|x86.ActiveCfg = Release|Win32
 		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|x86.Build.0 = Release|Win32
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Debug|ARM.ActiveCfg = Debug|ARM
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Debug|ARM.Build.0 = Debug|ARM
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Debug|x64.ActiveCfg = Debug|x64
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Debug|x64.Build.0 = Debug|x64
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Debug|x86.ActiveCfg = Debug|Win32
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Debug|x86.Build.0 = Debug|Win32
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Release|ARM.ActiveCfg = Release|ARM
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Release|ARM.Build.0 = Release|ARM
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Release|x64.ActiveCfg = Release|x64
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Release|x64.Build.0 = Release|x64
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Release|x86.ActiveCfg = Release|Win32
+		{72BB2445-02A7-45BF-88B8-02E5618F0B31}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
