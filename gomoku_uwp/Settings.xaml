@@ -8,6 +8,34 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-
+        <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
+    <LineBreak/>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28">
+        Settings
+    </Run>
+        </TextBlock>
+        <StackPanel Margin="40,80,0,0">
+            <StackPanel>
+                <TextBlock Text="Mode" Style="{ThemeResource BaseTextBlockStyle}"/>
+                <StackPanel Orientation="Vertical">
+                    <RadioButton Content="Easy" Tag="Easy" GroupName="Mode" Name="Mode_Easy" Checked="B_Checked" />
+                    <RadioButton Content="Hard" Tag="Hard" GroupName="Mode" Name="Mode_Hard" Checked="B_Checked"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="0,30,0,0">
+                <TextBlock Text="Black Role" Style="{ThemeResource BaseTextBlockStyle}"/>
+                <StackPanel Orientation="Vertical">
+                    <RadioButton Content="Human" Tag="HumanBlack" GroupName="Black" Name="Black_Human" Checked="B_Checked"/>
+                    <RadioButton Content="Computer" Tag="ComputerBlack" GroupName="Black" Name="Black_Computer" Checked="B_Checked"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="0,30,0,0">
+                <TextBlock Text="White Role" Style="{ThemeResource BaseTextBlockStyle}"/>
+                <StackPanel Orientation="Vertical">
+                    <RadioButton Content="Human" Tag="HumanWhite" GroupName="White" Name="White_Human" Checked="B_Checked"/>
+                    <RadioButton Content="Computer" GroupName="White" Tag="ComputerWhite" Name="White_Computer" Checked="B_Checked"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>
