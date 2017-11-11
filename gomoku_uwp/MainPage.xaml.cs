@@ -26,5 +26,58 @@ namespace gomoku_uwp
         {
             this.InitializeComponent();
         }
+
+        private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            if(args.IsSettingsInvoked)
+            {
+                ContentFrame.Navigate(typeof(Settings));
+            }
+            else
+            {
+                switch(args.InvokedItem)
+                {
+                    case "Home":
+                        ContentFrame.Navigate(typeof(Home));
+                        break;
+                    case "About":
+                        ContentFrame.Navigate(typeof(About));
+                        break;
+                }
+            }
+        }
+
+        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            if(args.IsSettingsSelected)
+            {
+                ContentFrame.Navigate(typeof(Settings));
+            }
+            else
+            {
+                NavigationViewItem item = args.SelectedItem as NavigationViewItem;
+                switch(item.Tag)
+                {
+                    case "Home":
+                        ContentFrame.Navigate(typeof(Home));
+                        break;
+                    case "About":
+                        ContentFrame.Navigate(typeof(About));
+                        break;
+                }
+            }
+        }
+
+        private void NavigationView_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == "Home")
+                {
+                    NavView.SelectedItem = item;
+                    break;
+                }
+            }
+        }
     }
 }
