@@ -353,7 +353,7 @@ namespace gomoku_uwp
                 Clear_noticeLine();
                 Remove_chessboardPoint(1);
                 turn -= 1;
-                if (invoke.Gethistory().Length >= 3)
+                if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                 {
                     var x3 = invoke.Gethistory()[invoke.Gethistory().Length - 1];
                     var x2 = invoke.Gethistory()[invoke.Gethistory().Length - 2];
@@ -440,7 +440,7 @@ namespace gomoku_uwp
                 return;
             if (_gameOptions.Values["black"].ToString() == "human" && _gameOptions.Values["white"].ToString() == "human")
             {
-                if (invoke.Gethistory().Length >= 3)
+                if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                     Clear_noticeLine();
                 bool Undostatus = UndoGame();
                 if (Undostatus == false)
@@ -456,7 +456,7 @@ namespace gomoku_uwp
             }
             else
             {
-                if (invoke.Gethistory().Length >= 6)
+                if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 6)
                 {
                     Clear_noticeLine();
                     UndoGame();
@@ -488,11 +488,14 @@ namespace gomoku_uwp
             char a1, a2;
             var history = invoke.Gethistory();
             string output = "ヾ(*ΦωΦ)ツ\n";
-            output += "Turn: " + Convert.ToString(history.Length/3) + "\n";
-            for (int ii = 0; ii < history.Length/3; ++ii)
+            var length = 0;
+            if (history != null)
+                length = history.Length;
+            output += "Turn: " + Convert.ToString(length / 3) + "\n";
+            for (int ii = 0; ii < length / 3; ++ii)
             {
-                a1 = (char)(history[ii*3+1] + 'A');
-                a2 = (char)(history[ii*3+2] + 'A');
+                a1 = (char)(history[ii * 3 + 1] + 'A');
+                a2 = (char)(history[ii * 3 + 2] + 'A');
                 output += Convert.ToString(ii + 1) + ": " + Convert.ToString(a1) + Convert.ToString(a2) + " ";
             }
             ContentDialog Result = new ContentDialog
