@@ -76,7 +76,20 @@ namespace gomoku_uwp
         public Home()
         {
             this.InitializeComponent();
+            initSettings();
             InitWindow();
+        }
+        public void initSettings()
+        {
+            Object valueMode = _gameOptions.Values["mode"];
+            Object valueBlack = _gameOptions.Values["black"];
+            Object valueWhite = _gameOptions.Values["white"];
+            if (valueMode == null || valueBlack == null || valueWhite == null)
+            {
+                _gameOptions.Values["mode"] = "hard";
+                _gameOptions.Values["black"] = "computer";
+                _gameOptions.Values["white"] = "human";
+            }
         }
         // specific Draw related
         public void Drawchessboard(int i, bool horizontal)
