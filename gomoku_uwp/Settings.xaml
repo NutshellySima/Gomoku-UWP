@@ -8,7 +8,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
     <LineBreak/>
     <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28">
         Settings
@@ -37,5 +39,7 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
