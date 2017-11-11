@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="c0f6965a-c2cc-482b-8aa8-2c633d99da32"
+    Name="f255c2ec-3c07-477f-a301-ede1403a6a93"
     Publisher="CN=NutshellySima"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="c0f6965a-c2cc-482b-8aa8-2c633d99da32" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="f255c2ec-3c07-477f-a301-ede1403a6a93" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>gomoku_uwp</DisplayName>
