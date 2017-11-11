@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chessboard", "chessboard\ch
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "evaluation", "evaluation\evaluation.vcxproj", "{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "searcher", "searcher\searcher.vcxproj", "{C143B690-83AC-458D-9E26-83F8268DC789}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -61,6 +63,18 @@ Global
 		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|x64.Build.0 = Release|x64
 		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|x86.ActiveCfg = Release|Win32
 		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|x86.Build.0 = Release|Win32
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Debug|ARM.ActiveCfg = Debug|ARM
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Debug|ARM.Build.0 = Debug|ARM
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Debug|x64.ActiveCfg = Debug|x64
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Debug|x64.Build.0 = Debug|x64
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Debug|x86.ActiveCfg = Debug|Win32
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Debug|x86.Build.0 = Debug|Win32
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|ARM.ActiveCfg = Release|ARM
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|ARM.Build.0 = Release|ARM
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|x64.ActiveCfg = Release|x64
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|x64.Build.0 = Release|x64
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|x86.ActiveCfg = Release|Win32
+		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
