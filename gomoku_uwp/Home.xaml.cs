@@ -440,7 +440,7 @@ namespace gomoku_uwp
                 return;
             if (_gameOptions.Values["black"].ToString() == "human" && _gameOptions.Values["white"].ToString() == "human")
             {
-                if (invoke.Gethistory().Length >= 1)
+                if (invoke.Gethistory().Length >= 3)
                     Clear_noticeLine();
                 bool Undostatus = UndoGame();
                 if (Undostatus == false)
@@ -456,7 +456,7 @@ namespace gomoku_uwp
             }
             else
             {
-                if (invoke.Gethistory().Length >= 2)
+                if (invoke.Gethistory().Length >= 6)
                 {
                     Clear_noticeLine();
                     UndoGame();
@@ -488,7 +488,7 @@ namespace gomoku_uwp
             char a1, a2;
             var history = invoke.Gethistory();
             string output = "ヾ(*ΦωΦ)ツ\n";
-            output += "Turn: " + Convert.ToString(history.Length) + "\n";
+            output += "Turn: " + Convert.ToString(history.Length/3) + "\n";
             for (int ii = 0; ii < history.Length/3; ++ii)
             {
                 a1 = (char)(history[ii*3+1] + 'A');

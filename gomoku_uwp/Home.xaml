@@ -42,9 +42,9 @@
                         <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10"/>
                     </Canvas>
             <Canvas Grid.Row="3" Margin="10,0,10,0">
-                <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton"/>
-                <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton"/>
-                <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton"/>
+                <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton" Click="UndoButton_Click" />
+                <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton" Click="RestartButton_Click" />
+                <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton" Click="DumpButton_Click" />
             </Canvas>
         </Grid>
     </Grid>
