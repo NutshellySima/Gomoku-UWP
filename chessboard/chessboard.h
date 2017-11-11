@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include"pch.h"
-#define DllExport __declspec(dllexport)
+#ifndef DllExport
+#define DllExport   __declspec( dllexport )  
+#endif // !DllExport
 
 class DllExport chessboard
 {

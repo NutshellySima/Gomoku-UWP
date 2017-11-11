@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "evaluation", "evaluation\ev
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "searcher", "searcher\searcher.vcxproj", "{C143B690-83AC-458D-9E26-83F8268DC789}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wrapper", "wrapper\wrapper.vcxproj", "{443D700C-DB84-4100-8284-3FE2B07441D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -75,6 +77,18 @@ Global
 		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|x64.Build.0 = Release|x64
 		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|x86.ActiveCfg = Release|Win32
 		{C143B690-83AC-458D-9E26-83F8268DC789}.Release|x86.Build.0 = Release|Win32
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Debug|ARM.ActiveCfg = Debug|ARM
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Debug|ARM.Build.0 = Debug|ARM
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Debug|x64.ActiveCfg = Debug|x64
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Debug|x64.Build.0 = Debug|x64
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Debug|x86.ActiveCfg = Debug|Win32
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Debug|x86.Build.0 = Debug|Win32
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|ARM.ActiveCfg = Release|ARM
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|ARM.Build.0 = Release|ARM
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|x64.ActiveCfg = Release|x64
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|x64.Build.0 = Release|x64
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|x86.ActiveCfg = Release|Win32
+		{443D700C-DB84-4100-8284-3FE2B07441D1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
