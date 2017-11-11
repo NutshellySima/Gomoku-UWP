@@ -433,5 +433,75 @@ namespace gomoku_uwp
         {
             operationCanceled = true;
         }
+
+        private async void UndoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer")
+                return;
+            if (_gameOptions.Values["black"].ToString() == "human" && _gameOptions.Values["white"].ToString() == "human")
+            {
+                if (invoke.Gethistory().Length >= 1)
+                    Clear_noticeLine();
+                bool Undostatus = UndoGame();
+                if (Undostatus == false)
+                {
+                    ContentDialog Result = new ContentDialog
+                    {
+                        Title = "Undo",
+                        Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Result.ShowAsync();
+                }
+            }
+            else
+            {
+                if (invoke.Gethistory().Length >= 2)
+                {
+                    Clear_noticeLine();
+                    UndoGame();
+                    UndoGame();
+                }
+                else
+                {
+                    ContentDialog Result = new ContentDialog
+                    {
+                        Title = "Undo",
+                        Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Result.ShowAsync();
+                }
+            }
+        }
+
+        private void RestartButton_Click(object sender, RoutedEventArgs e)
+        {
+            EvalLabel.Text = "Eval: ---";
+            Clear_noticeLine();
+            while (UndoGame() == true) ;
+            PlayGame();
+        }
+
+        private async void DumpButton_Click(object sender, RoutedEventArgs e)
+        {
+            char a1, a2;
+            var history = invoke.Gethistory();
+            string output = "ヾ(*ΦωΦ)ツ\n";
+            output += "Turn: " + Convert.ToString(history.Length) + "\n";
+            for (int ii = 0; ii < history.Length/3; ++ii)
+            {
+                a1 = (char)(history[ii*3+1] + 'A');
+                a2 = (char)(history[ii*3+2] + 'A');
+                output += Convert.ToString(ii + 1) + ": " + Convert.ToString(a1) + Convert.ToString(a2) + " ";
+            }
+            ContentDialog Result = new ContentDialog
+            {
+                Title = "Dump",
+                Content = output,
+                CloseButtonText = "Ok"
+            };
+            ContentDialogResult result = await Result.ShowAsync();
+        }
     }
 }
