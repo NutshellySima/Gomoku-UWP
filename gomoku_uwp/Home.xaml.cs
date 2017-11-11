@@ -64,6 +64,7 @@ namespace gomoku_uwp
         }
         // Global definitions
         bool computerrunning = false;
+        bool operationCanceled = false;
         private int turn = 1;
         // Resource
         Windows.Storage.ApplicationDataContainer _gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -284,6 +285,8 @@ namespace gomoku_uwp
         }
         public async void PlayGame()
         {
+            if (operationCanceled)
+                return;
             if (invoke.Fullboard())
             {
                 ContentDialog Fullboard = new ContentDialog
@@ -381,6 +384,11 @@ namespace gomoku_uwp
                 else
                     return;
             }
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            operationCanceled = true;
         }
     }
 }
