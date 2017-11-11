@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gomoku-uwp", "gomoku-uwp\go
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chessboard", "chessboard\chessboard.vcxproj", "{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "evaluation", "evaluation\evaluation.vcxproj", "{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -47,6 +49,18 @@ Global
 		{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}.Release|x64.Build.0 = Release|x64
 		{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}.Release|x86.ActiveCfg = Release|Win32
 		{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}.Release|x86.Build.0 = Release|Win32
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Debug|ARM.Build.0 = Debug|ARM
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Debug|x64.ActiveCfg = Debug|x64
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Debug|x64.Build.0 = Debug|x64
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Debug|x86.ActiveCfg = Debug|Win32
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Debug|x86.Build.0 = Debug|Win32
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|ARM.ActiveCfg = Release|ARM
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|ARM.Build.0 = Release|ARM
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|x64.ActiveCfg = Release|x64
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|x64.Build.0 = Release|x64
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|x86.ActiveCfg = Release|Win32
+		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
