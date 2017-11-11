@@ -23,28 +23,28 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="46*"/>
-                <RowDefinition Height="211*"/>
-                <RowDefinition Height="51*"/>
-                <RowDefinition Height="380*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="300*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="300*"/>
             </Grid.RowDefinitions>
             <Canvas Grid.Row="0" Background="LightGray" Margin="10,0,10,0">
-                <TextBlock Text="Game Status" Canvas.Top="10" Canvas.Left="10"/>
+                    <TextBlock Text="Game Status" VerticalAlignment="Center" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="10"/>
             </Canvas>
-            <Canvas Grid.Row="1" Margin="10,0,10,0">
-                <TextBlock Text="Black: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Canvas.Top="10" Canvas.Left="10" Name="BlackLabel"/>
-                <TextBlock Text="White: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Canvas.Top="50" Canvas.Left="10" Name="WhiteLabel"/>
-                <TextBlock Text="Mode: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Canvas.Top="90" Canvas.Left="10" Name="ModeLabel"/>
-                <TextBlock Text="Eval: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Canvas.Top="130" Canvas.Left="10" Name="EvalLabel"/>
-            </Canvas>
+                <Grid Grid.Row="1" Margin="10,0,10,0">
+                    <TextBlock Text="Black: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,20,0,0" Name="BlackLabel"/>
+                    <TextBlock Text="White: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,60,0,0" Name="WhiteLabel"/>
+                    <TextBlock Text="Mode: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,100,0,0" Name="ModeLabel"/>
+                <TextBlock Text="Eval: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,140,0,0" Name="EvalLabel"/>
+            </Grid>
+
             <Canvas Grid.Row="2" Background="LightGray" Margin="10,0,10,0">
-                <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10"/>
-            </Canvas>
+                        <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10"/>
+                    </Canvas>
             <Canvas Grid.Row="3" Margin="10,0,10,0">
                 <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton"/>
                 <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton"/>
                 <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton"/>
-                <Button Content="Quit" Canvas.Left="10" Canvas.Top="140" Width="75" Name="QuitButton"/>
             </Canvas>
         </Grid>
     </Grid>

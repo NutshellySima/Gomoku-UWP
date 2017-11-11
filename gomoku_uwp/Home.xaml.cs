@@ -206,11 +206,17 @@ namespace gomoku_uwp
                 Drawchessboard(ii, true);
                 Drawchessboard(ii, false);
             }
+            BlackLabel.Text = "Black: " + _gameOptions.Values["black"].ToString();
+            WhiteLabel.Text = "White: " + _gameOptions.Values["white"].ToString();
+            ModeLabel.Text = "Mode: " + _gameOptions.Values["mode"].ToString();
+            EvalLabel.Text = "Eval: ---";
             PlayGame();
         }
         public void WinPrinter()
         {
             Clear_noticeLine();
+            UndoButton.IsEnabled = false;
+            RestartButton.IsEnabled = false;
             invoke.Checkwin(true);
             var board = invoke.Getchessboard();
             for (int ii = 0; ii < 15; ++ii)
@@ -224,10 +230,15 @@ namespace gomoku_uwp
                 }
             }
             invoke.Checkwin(false);
+            UndoButton.IsEnabled = true;
+            RestartButton.IsEnabled = true;
         }
         private async Task PlaybyComputer(bool black)
         {
+            UndoButton.IsEnabled = false;
+            RestartButton.IsEnabled = false;
             computerrunning = true;
+            EvalLabel.Text = "Eval: Calculating.";
             Task<int[]> com;
             if (black)
             {
@@ -245,6 +256,10 @@ namespace gomoku_uwp
             }
             await com;
             var data = com.Result;
+            //System.Text.Encoding encode = System.Text.Encoding.ASCII;
+            //byte[] bytedata = encode.GetBytes(Convert.ToString(data.Item1));
+            //EvalLabel.Content = "Eval: " + Convert.ToBase64String(bytedata, 0, bytedata.Length);
+            EvalLabel.Text = "Eval: " + Convert.ToString(data[0]);
             Clear_noticeLine();
             if (black)
             {
@@ -257,6 +272,8 @@ namespace gomoku_uwp
                 DrawNoticeLine(data[2], data[1], false);
             }
             ++turn;
+            UndoButton.IsEnabled = true;
+            RestartButton.IsEnabled = true;
             computerrunning = false;
             if (black && invoke.Checkwin(false) == 1)
             {
@@ -323,6 +340,32 @@ namespace gomoku_uwp
             }
             else
                 return;
+        }
+        public bool UndoGame()
+        {
+            bool Undostatus = invoke.BoardUndo();
+            if (Undostatus == false)
+            {
+                return false;
+            }
+            else
+            {
+                Clear_noticeLine();
+                Remove_chessboardPoint(1);
+                turn -= 1;
+                if (invoke.Gethistory().Length >= 3)
+                {
+                    var x3 = invoke.Gethistory()[invoke.Gethistory().Length - 1];
+                    var x2 = invoke.Gethistory()[invoke.Gethistory().Length - 2];
+                    var x1 = invoke.Gethistory()[invoke.Gethistory().Length - 3];
+                    if (x1 == 1)
+                        DrawNoticeLine(x3, x2, true);
+                    else
+                        DrawNoticeLine(x3, x2, false);
+                }
+                EvalLabel.Text = "Eval: ---";
+                return true;
+            }
         }
         private async void chessboard_background_PointerReleased(object sender, PointerRoutedEventArgs e)
         {

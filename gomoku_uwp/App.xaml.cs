@@ -9,6 +9,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
@@ -68,6 +69,7 @@ namespace gomoku_uwp
                     // 参数
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 430));
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
