@@ -152,6 +152,12 @@
       <Version>6.0.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\unmanaged\unmanaged.vcxproj">
+      <Project>{72bb2445-02a7-45bf-88b8-02e5618f0b31}</Project>
+      <Name>unmanaged</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
