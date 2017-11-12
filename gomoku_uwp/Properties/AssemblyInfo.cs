@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("gomoku_uwp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Nut_Gomoku")]
+[assembly: AssemblyDescription("A gomoku game with an AI.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("gomoku_uwp")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyProduct("Gomoku")]
+[assembly: AssemblyCopyright("Copyright ©  2017 Chijun Sima")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
