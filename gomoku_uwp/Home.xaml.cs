@@ -451,8 +451,8 @@ namespace gomoku_uwp
                     else
                         DrawNoticeLine(x3, x2, false);
                 }
-                if(!isChinese)
-                EvalLabel.Text = "Eval: ---";
+                if (!isChinese)
+                    EvalLabel.Text = "Eval: ---";
                 else
                     EvalLabel.Text = "评分：---";
                 return true;
@@ -598,8 +598,8 @@ namespace gomoku_uwp
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            if(!isChinese)
-            EvalLabel.Text = "Eval: ---";
+            if (!isChinese)
+                EvalLabel.Text = "Eval: ---";
             else
                 EvalLabel.Text = "评分：---";
             Clear_noticeLine();
@@ -615,16 +615,18 @@ namespace gomoku_uwp
             var length = 0;
             if (history != null)
                 length = history.Length;
-            if(!isChinese)
-            output += "Turn: " + Convert.ToString(length / 3) + "\n";
+            if (!isChinese)
+                output += "Turn: " + Convert.ToString(length / 3);
             else
-                output += "步数：" + Convert.ToString(length / 3) + "\n";
+                output += "步数：" + Convert.ToString(length / 3);
+            if (length != 0)
+                output += "\n";
             for (int ii = 0; ii < length / 3; ++ii)
             {
                 a1 = (char)(history[ii * 3 + 1] + 'A');
                 a2 = (char)(history[ii * 3 + 2] + 'A');
                 output += Convert.ToString(ii + 1).PadLeft(3) + ": " + Convert.ToString(a1) + Convert.ToString(a2) + " ";
-                if (ii != 0 && (ii+1) % 6 == 0)
+                if (ii != 0 && (ii + 1) % 6 == 0)
                     output += "\n";
             }
             Dump_Text.Text = output;
