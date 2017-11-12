@@ -29,22 +29,22 @@
                 <RowDefinition Height="300*"/>
             </Grid.RowDefinitions>
             <Canvas Grid.Row="0" Background="LightGray" Margin="10,0,10,0">
-                    <TextBlock Text="Game Status" VerticalAlignment="Center" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="10"/>
+                    <TextBlock Text="Game Status" VerticalAlignment="Center" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="10" x:Uid="Status_bar"/>
             </Canvas>
                 <Grid Grid.Row="1" Margin="10,0,10,0">
-                    <TextBlock Text="Black: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,20,0,0" Name="BlackLabel"/>
-                    <TextBlock Text="White: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,60,0,0" Name="WhiteLabel"/>
-                    <TextBlock Text="Mode: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,100,0,0" Name="ModeLabel"/>
-                <TextBlock Text="Eval: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,140,0,0" Name="EvalLabel"/>
+                    <TextBlock Text="Black: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,20,0,0" Name="BlackLabel" x:Uid="Black_lab"/>
+                    <TextBlock Text="White: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,60,0,0" Name="WhiteLabel" x:Uid="White_lab"/>
+                    <TextBlock Text="Mode: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,100,0,0" Name="ModeLabel" x:Uid="Mode_lab"/>
+                <TextBlock Text="Eval: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,140,0,0" Name="EvalLabel" x:Uid="Eval_lab"/>
             </Grid>
 
             <Canvas Grid.Row="2" Background="LightGray" Margin="10,0,10,0">
-                        <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10"/>
+                        <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10" x:Uid="Control"/>
                     </Canvas>
             <Canvas Grid.Row="3" Margin="10,0,10,0">
-                <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton" Click="UndoButton_Click" />
-                <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton" Click="RestartButton_Click" />
-                <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton" Click="DumpButton_Click" />
+                <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton" Click="UndoButton_Click" x:Uid="Undo_But"/>
+                <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton" Click="RestartButton_Click" x:Uid="Restart_But"/>
+                <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton" Click="DumpButton_Click" x:Uid="Dump_But"/>
             </Canvas>
         </Grid>
     </Grid>

@@ -26,6 +26,7 @@ namespace gomoku_uwp
     /// </summary>
     public sealed partial class Home : Page
     {
+        IReadOnlyList<string> runtimeLanguages = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().Languages;
         class chessboard_line_class
         {
             public UIElement line;
@@ -65,6 +66,7 @@ namespace gomoku_uwp
         // Global definitions
         bool computerrunning = false;
         bool operationCanceled = false;
+        bool isChinese = false;
         private int turn = 1;
         // Resource
         Windows.Storage.ApplicationDataContainer _gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -76,6 +78,9 @@ namespace gomoku_uwp
         public Home()
         {
             this.InitializeComponent();
+            runtimeLanguages = Windows.Globalization.ApplicationLanguages.Languages;
+            if (runtimeLanguages[0].Length >= 2 && runtimeLanguages[0][0] == 'z' && runtimeLanguages[0][1] == 'h')
+                isChinese = true;
             initSettings();
             InitWindow();
         }
@@ -219,10 +224,35 @@ namespace gomoku_uwp
                 Drawchessboard(ii, true);
                 Drawchessboard(ii, false);
             }
-            BlackLabel.Text = "Black: " + _gameOptions.Values["black"].ToString();
-            WhiteLabel.Text = "White: " + _gameOptions.Values["white"].ToString();
-            ModeLabel.Text = "Mode: " + _gameOptions.Values["mode"].ToString();
-            EvalLabel.Text = "Eval: ---";
+            if (!isChinese)
+            {
+                BlackLabel.Text = "Black: " + _gameOptions.Values["black"].ToString();
+                WhiteLabel.Text = "White: " + _gameOptions.Values["white"].ToString();
+                ModeLabel.Text = "Mode: " + _gameOptions.Values["mode"].ToString();
+                EvalLabel.Text = "Eval: ---";
+            }
+            else
+            {
+                String ModeLab = _gameOptions.Values["mode"].ToString();
+                String BlackLab = _gameOptions.Values["black"].ToString();
+                String WhiteLab = _gameOptions.Values["white"].ToString();
+                BlackLabel.Text = "黑棋：";
+                WhiteLabel.Text = "白棋：";
+                ModeLabel.Text = "模式：";
+                if (BlackLab == "computer")
+                    BlackLabel.Text += "人工智能";
+                else
+                    BlackLabel.Text += "人类玩家";
+                if (WhiteLab == "computer")
+                    WhiteLabel.Text += "人工智能";
+                else
+                    WhiteLabel.Text += "人类玩家";
+                if (ModeLab == "easy")
+                    ModeLabel.Text += "简单";
+                else
+                    ModeLabel.Text += "困难";
+                EvalLabel.Text = "评分：---";
+            }
             PlayGame();
         }
         public void WinPrinter()
@@ -251,7 +281,10 @@ namespace gomoku_uwp
             UndoButton.IsEnabled = false;
             RestartButton.IsEnabled = false;
             computerrunning = true;
-            EvalLabel.Text = "Eval: Calculating.";
+            if (!isChinese)
+                EvalLabel.Text = "Eval: Calculating.";
+            else
+                EvalLabel.Text = "评分：计算中";
             Task<int[]> com;
             if (black)
             {
@@ -272,7 +305,10 @@ namespace gomoku_uwp
             //System.Text.Encoding encode = System.Text.Encoding.ASCII;
             //byte[] bytedata = encode.GetBytes(Convert.ToString(data.Item1));
             //EvalLabel.Content = "Eval: " + Convert.ToBase64String(bytedata, 0, bytedata.Length);
-            EvalLabel.Text = "Eval: " + Convert.ToString(data[0]);
+            if (!isChinese)
+                EvalLabel.Text = "Eval: " + Convert.ToString(data[0]);
+            else
+                EvalLabel.Text = "评分：" + Convert.ToString(data[0]);
             Clear_noticeLine();
             if (black)
             {
@@ -291,24 +327,50 @@ namespace gomoku_uwp
             if (black && invoke.Checkwin(false) == 1)
             {
                 WinPrinter();
-                ContentDialog Result = new ContentDialog
+                if (!isChinese)
                 {
-                    Title = "Result",
-                    Content = "ヾ(*ΦωΦ)ツ\nBlack: Computer wins.",
-                    CloseButtonText = "Ok"
-                };
-                ContentDialogResult result = await Result.ShowAsync();
+                    ContentDialog Result = new ContentDialog
+                    {
+                        Title = "Result",
+                        Content = "ヾ(*ΦωΦ)ツ\nBlack: Computer wins.",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Result.ShowAsync();
+                }
+                else
+                {
+                    ContentDialog Result = new ContentDialog
+                    {
+                        Title = "结果",
+                        Content = "ヾ(*ΦωΦ)ツ\n黑棋：人工智能胜利。",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Result.ShowAsync();
+                }
             }
             else if ((!black) && invoke.Checkwin(false) == 2)
             {
                 WinPrinter();
-                ContentDialog Result = new ContentDialog
+                if (!isChinese)
                 {
-                    Title = "Result",
-                    Content = "ヾ(*ΦωΦ)ツ\nWhite: Computer wins.",
-                    CloseButtonText = "Ok"
-                };
-                ContentDialogResult result = await Result.ShowAsync();
+                    ContentDialog Result = new ContentDialog
+                    {
+                        Title = "Result",
+                        Content = "ヾ(*ΦωΦ)ツ\nWhite: Computer wins.",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Result.ShowAsync();
+                }
+                else
+                {
+                    ContentDialog Result = new ContentDialog
+                    {
+                        Title = "结果",
+                        Content = "ヾ(*ΦωΦ)ツ\n白棋：人工智能胜利。",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Result.ShowAsync();
+                }
             }
             else
                 PlayGame();
@@ -319,13 +381,26 @@ namespace gomoku_uwp
                 return;
             if (invoke.Fullboard())
             {
-                ContentDialog Fullboard = new ContentDialog
+                if (!isChinese)
                 {
-                    Title = "Fullboard",
-                    Content = "ヾ(*ΦωΦ)ツ\nChess board is full.",
-                    CloseButtonText = "Ok"
-                };
-                ContentDialogResult result = await Fullboard.ShowAsync();
+                    ContentDialog Fullboard = new ContentDialog
+                    {
+                        Title = "Fullboard",
+                        Content = "ヾ(*ΦωΦ)ツ\nChess board is full.",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Fullboard.ShowAsync();
+                }
+                else
+                {
+                    ContentDialog Fullboard = new ContentDialog
+                    {
+                        Title = "棋盘已满",
+                        Content = "ヾ(*ΦωΦ)ツ\n棋盘已满。",
+                        CloseButtonText = "Ok"
+                    };
+                    ContentDialogResult result = await Fullboard.ShowAsync();
+                }
                 return;
             }
             if (invoke.Checkwin(false) == 0)
@@ -376,7 +451,10 @@ namespace gomoku_uwp
                     else
                         DrawNoticeLine(x3, x2, false);
                 }
+                if(!isChinese)
                 EvalLabel.Text = "Eval: ---";
+                else
+                    EvalLabel.Text = "评分：---";
                 return true;
             }
         }
@@ -400,13 +478,26 @@ namespace gomoku_uwp
                     if (invoke.Checkwin(false) == 1)
                     {
                         WinPrinter();
-                        ContentDialog Result = new ContentDialog
+                        if (!isChinese)
                         {
-                            Title = "Result",
-                            Content = "ヾ(*ΦωΦ)ツ\nBlack: Human wins.",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await Result.ShowAsync();
+                            ContentDialog Result = new ContentDialog
+                            {
+                                Title = "Result",
+                                Content = "ヾ(*ΦωΦ)ツ\nBlack: Human wins.",
+                                CloseButtonText = "Ok"
+                            };
+                            ContentDialogResult result = await Result.ShowAsync();
+                        }
+                        else
+                        {
+                            ContentDialog Result = new ContentDialog
+                            {
+                                Title = "结果",
+                                Content = "ヾ(*ΦωΦ)ツ\n黑棋：人类胜利。",
+                                CloseButtonText = "Ok"
+                            };
+                            ContentDialogResult result = await Result.ShowAsync();
+                        }
                     }
                     else
                         PlayGame();
@@ -426,13 +517,26 @@ namespace gomoku_uwp
                     if (invoke.Checkwin(false) == 2)
                     {
                         WinPrinter();
-                        ContentDialog Result = new ContentDialog
+                        if (!isChinese)
                         {
-                            Title = "Result",
-                            Content = "ヾ(*ΦωΦ)ツ\nWhite: Human wins.",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await Result.ShowAsync();
+                            ContentDialog Result = new ContentDialog
+                            {
+                                Title = "Result",
+                                Content = "ヾ(*ΦωΦ)ツ\nWhite: Human wins.",
+                                CloseButtonText = "Ok"
+                            };
+                            ContentDialogResult result = await Result.ShowAsync();
+                        }
+                        else
+                        {
+                            ContentDialog Result = new ContentDialog
+                            {
+                                Title = "结果",
+                                Content = "ヾ(*ΦωΦ)ツ\n白棋：人类胜利。",
+                                CloseButtonText = "Ok"
+                            };
+                            ContentDialogResult result = await Result.ShowAsync();
+                        }
                     }
                     else
                         PlayGame();
@@ -458,13 +562,26 @@ namespace gomoku_uwp
                 bool Undostatus = UndoGame();
                 if (Undostatus == false)
                 {
-                    ContentDialog Result = new ContentDialog
+                    if (!isChinese)
                     {
-                        Title = "Undo",
-                        Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Result.ShowAsync();
+                        ContentDialog Result = new ContentDialog
+                        {
+                            Title = "Undo",
+                            Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
+                    }
+                    else
+                    {
+                        ContentDialog Result = new ContentDialog
+                        {
+                            Title = "悔棋",
+                            Content = "ヾ(*ΦωΦ)ツ\n无棋可悔。",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
+                    }
                 }
             }
             else
@@ -477,20 +594,36 @@ namespace gomoku_uwp
                 }
                 else
                 {
-                    ContentDialog Result = new ContentDialog
+                    if (!isChinese)
                     {
-                        Title = "Undo",
-                        Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Result.ShowAsync();
+                        ContentDialog Result = new ContentDialog
+                        {
+                            Title = "Undo",
+                            Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
+                    }
+                    else
+                    {
+                        ContentDialog Result = new ContentDialog
+                        {
+                            Title = "悔棋",
+                            Content = "ヾ(*ΦωΦ)ツ\n无棋可悔。",
+                            CloseButtonText = "Ok"
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
+                    }
                 }
             }
         }
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
+            if(!isChinese)
             EvalLabel.Text = "Eval: ---";
+            else
+                EvalLabel.Text = "评分：---";
             Clear_noticeLine();
             while (UndoGame() == true) ;
             PlayGame();
@@ -504,20 +637,36 @@ namespace gomoku_uwp
             var length = 0;
             if (history != null)
                 length = history.Length;
+            if(!isChinese)
             output += "Turn: " + Convert.ToString(length / 3) + "\n";
+            else
+                output += "步数：" + Convert.ToString(length / 3) + "\n";
             for (int ii = 0; ii < length / 3; ++ii)
             {
                 a1 = (char)(history[ii * 3 + 1] + 'A');
                 a2 = (char)(history[ii * 3 + 2] + 'A');
                 output += Convert.ToString(ii + 1) + ": " + Convert.ToString(a1) + Convert.ToString(a2) + " ";
             }
-            ContentDialog Result = new ContentDialog
+            if (!isChinese)
             {
-                Title = "Dump",
-                Content = output,
-                CloseButtonText = "Ok"
-            };
-            ContentDialogResult result = await Result.ShowAsync();
+                ContentDialog Result = new ContentDialog
+                {
+                    Title = "Dump",
+                    Content = output,
+                    CloseButtonText = "Ok"
+                };
+                ContentDialogResult result = await Result.ShowAsync();
+            }
+            else
+            {
+                ContentDialog Result = new ContentDialog
+                {
+                    Title = "棋路",
+                    Content = output,
+                    CloseButtonText = "Ok"
+                };
+                ContentDialogResult result = await Result.ShowAsync();
+            }
         }
     }
 }

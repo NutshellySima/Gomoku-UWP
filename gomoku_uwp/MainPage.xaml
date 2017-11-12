@@ -10,13 +10,13 @@
     <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
         <NavigationView CompactModeThresholdWidth="1920" ExpandedModeThresholdWidth="1920" ItemInvoked="NavigationView_ItemInvoked" SelectionChanged="NavigationView_SelectionChanged" Loaded="NavigationView_Loaded" Name="NavView">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Home" Tag="Home">
+                <NavigationViewItem Content="Home" Tag="Home" x:Uid="Home_Nav">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE10F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItemSeparator/>
-                <NavigationViewItem Content="About" Tag="About">
+                <NavigationViewItem Content="About" Tag="About" x:Uid="About_Nav">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE946;"/>
                     </NavigationViewItem.Icon>

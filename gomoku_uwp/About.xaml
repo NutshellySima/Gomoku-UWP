@@ -12,14 +12,11 @@
             <StackPanel>
                 <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
     <LineBreak/>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28">
-        About
-    </Run>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28" Text="About" x:Uid="About"/>
+    
     <LineBreak/>
     <LineBreak/>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28">
-        Gomoku
-    </Run>
+    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28" Text="Gomoku" x:Uid="Gomoku_Name"/>
     <LineBreak/>
     <LineBreak/>
     <Run Foreground="Black" FontFamily="Segoe UI" FontSize="20">
