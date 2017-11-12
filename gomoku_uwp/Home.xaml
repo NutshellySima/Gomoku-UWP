@@ -42,15 +42,15 @@
                         <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10" x:Uid="Control" Foreground="Black"/>
                     </Canvas>
             <Canvas Grid.Row="3" Margin="10,0,10,0">
-                <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton" Click="UndoButton_Click" x:Uid="Undo_But">
+                <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton" Click="UndoButton_Click" x:Uid="Undo_But"  Style="{StaticResource ButtonRevealStyle}">
                     <FlyoutBase.AttachedFlyout>
                         <Flyout>
                             <TextBlock Name="Undo_Text"/>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </Button>
-                <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton" Click="RestartButton_Click" x:Uid="Restart_But"/>
-                <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton" Click="DumpButton_Click" x:Uid="Dump_But">
+                <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton" Click="RestartButton_Click" x:Uid="Restart_But" Style="{StaticResource ButtonRevealStyle}"/>
+                <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton" Click="DumpButton_Click" x:Uid="Dump_But" Style="{StaticResource ButtonRevealStyle}">
                     <FlyoutBase.AttachedFlyout>
                         <Flyout>
                             <TextBlock Name="Dump_Text"/>
