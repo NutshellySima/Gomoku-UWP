@@ -12,19 +12,19 @@
             <StackPanel>
                 <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
     <LineBreak/>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28" Text="About" x:Uid="About"/>
+    <Run FontFamily="Segoe UI" FontSize="28" Text="About" x:Uid="About"/>
     
     <LineBreak/>
     <LineBreak/>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28" Text="Gomoku" x:Uid="Gomoku_Name"/>
+    <Run FontFamily="Segoe UI" FontSize="28" Text="Gomoku" x:Uid="Gomoku_Name"/>
     <LineBreak/>
     <LineBreak/>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="20">
+    <Run  FontFamily="Segoe UI" FontSize="20">
         Copyright (C) 2017  Chijun Sima
     </Run>
             <LineBreak FontFamily="Segoe UI"></LineBreak>
             <LineBreak FontFamily="Segoe UI"></LineBreak>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="15">
+    <Run  FontFamily="Segoe UI" FontSize="15">
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
             <Hyperlink NavigateUri="https://www.gnu.org/licenses/">
                 https://www.gnu.org/licenses/
              </Hyperlink>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="15">
+    <Run  FontFamily="Segoe UI" FontSize="15">
            &gt;.
     </Run>
         </TextBlock>

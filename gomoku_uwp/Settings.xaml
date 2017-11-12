@@ -12,7 +12,7 @@
             <StackPanel>
                 <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
     <LineBreak/>
-    <Run Foreground="Black" FontFamily="Segoe UI" FontSize="28" x:Uid="Settings" Text="Settings"/>
+    <Run FontFamily="Segoe UI" FontSize="28" x:Uid="Settings" Text="Settings"/>
                 </TextBlock>
         <StackPanel Margin="40,80,0,0">
             <StackPanel>

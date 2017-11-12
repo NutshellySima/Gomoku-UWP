@@ -29,7 +29,7 @@
                 <RowDefinition Height="300*"/>
             </Grid.RowDefinitions>
             <Canvas Grid.Row="0" Background="LightGray" Margin="10,0,10,0">
-                    <TextBlock Text="Game Status" VerticalAlignment="Center" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="10" x:Uid="Status_bar"/>
+                    <TextBlock Text="Game Status" VerticalAlignment="Center" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="10" x:Uid="Status_bar" Foreground="Black"/>
             </Canvas>
                 <Grid Grid.Row="1" Margin="10,0,10,0">
                     <TextBlock Text="Black: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,20,0,0" Name="BlackLabel" x:Uid="Black_lab"/>
@@ -39,7 +39,7 @@
             </Grid>
 
             <Canvas Grid.Row="2" Background="LightGray" Margin="10,0,10,0">
-                        <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10" x:Uid="Control"/>
+                        <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10" x:Uid="Control" Foreground="Black"/>
                     </Canvas>
             <Canvas Grid.Row="3" Margin="10,0,10,0">
                 <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton" Click="UndoButton_Click" x:Uid="Undo_But"/>
