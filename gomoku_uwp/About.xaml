@@ -45,7 +45,37 @@
     <Run  FontFamily="Segoe UI" FontSize="15">
            &gt;.
     </Run>
+              <LineBreak/>
+                <LineBreak/>
+                        <Run  FontFamily="Segoe UI" FontSize="15">
+           Source Code is available at  
+    </Run>
+            <Hyperlink NavigateUri="https://github.com/NutshellySima/Gomoku-UWP">
+                Nut-Gomoku
+             </Hyperlink>
+    <Run  FontFamily="Segoe UI" FontSize="15">
+           .
+    </Run>
+                                  <LineBreak/>
+                <LineBreak/>
+                        <Run  FontFamily="Segoe UI" FontSize="15">
+           This software is proudly powered by 
+    </Run>
+            <Hyperlink NavigateUri="https://github.com/NutshellySima/Nut-engine">
+                Nut-engine
+             </Hyperlink>
+    <Run  FontFamily="Segoe UI" FontSize="15">
+            v0.3.8, which is licensed under the 
+    </Run>
+                    <Hyperlink NavigateUri="http://www.apache.org/licenses/">
+                Apache License 2.0
+             </Hyperlink>
+                        <Run  FontFamily="Segoe UI" FontSize="15">
+           .
+    </Run>
         </TextBlock>
+
+                
             </StackPanel>
         </ScrollViewer>
     </Grid>
