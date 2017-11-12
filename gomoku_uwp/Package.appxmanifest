@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="f255c2ec-3c07-477f-a301-ede1403a6a97" Publisher="CN=Chijun Sima" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="f255c2ec-3c07-477f-a301-ede1403a6a93" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="24493NutshellySima.Nut-gomoku" Publisher="CN=70269625-7369-43FA-B651-F4915C3E94B8" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="ff572be7-3f87-43ab-b007-46cc05ddeea1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Nut_Gomoku</DisplayName>
-    <PublisherDisplayName>Chijun Sima</PublisherDisplayName>
+    <DisplayName>Nut-gomoku</DisplayName>
+    <PublisherDisplayName>NutshellySima</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
