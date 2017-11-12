@@ -607,7 +607,7 @@ namespace gomoku_uwp
             PlayGame();
         }
 
-        private async void DumpButton_Click(object sender, RoutedEventArgs e)
+        private void DumpButton_Click(object sender, RoutedEventArgs e)
         {
             char a1, a2;
             var history = invoke.Gethistory();
