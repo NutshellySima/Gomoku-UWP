@@ -551,7 +551,7 @@ namespace gomoku_uwp
             operationCanceled = true;
         }
 
-        private async void UndoButton_Click(object sender, RoutedEventArgs e)
+        private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
             if (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer")
                 return;
@@ -564,24 +564,13 @@ namespace gomoku_uwp
                 {
                     if (!isChinese)
                     {
-                        ContentDialog Result = new ContentDialog
-                        {
-                            Title = "Undo",
-                            Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await Result.ShowAsync();
+                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\nNo chess to undo.";
                     }
                     else
                     {
-                        ContentDialog Result = new ContentDialog
-                        {
-                            Title = "悔棋",
-                            Content = "ヾ(*ΦωΦ)ツ\n无棋可悔。",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await Result.ShowAsync();
+                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\n无棋可悔。";
                     }
+                    FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
                 }
             }
             else
@@ -596,24 +585,13 @@ namespace gomoku_uwp
                 {
                     if (!isChinese)
                     {
-                        ContentDialog Result = new ContentDialog
-                        {
-                            Title = "Undo",
-                            Content = "ヾ(*ΦωΦ)ツ\nNo chess to undo.",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await Result.ShowAsync();
+                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\nNo chess to undo.";
                     }
                     else
                     {
-                        ContentDialog Result = new ContentDialog
-                        {
-                            Title = "悔棋",
-                            Content = "ヾ(*ΦωΦ)ツ\n无棋可悔。",
-                            CloseButtonText = "Ok"
-                        };
-                        ContentDialogResult result = await Result.ShowAsync();
+                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\n无棋可悔。";
                     }
+                    FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
                 }
             }
         }
@@ -645,28 +623,12 @@ namespace gomoku_uwp
             {
                 a1 = (char)(history[ii * 3 + 1] + 'A');
                 a2 = (char)(history[ii * 3 + 2] + 'A');
-                output += Convert.ToString(ii + 1) + ": " + Convert.ToString(a1) + Convert.ToString(a2) + " ";
+                output += Convert.ToString(ii + 1).PadLeft(3) + ": " + Convert.ToString(a1) + Convert.ToString(a2) + " ";
+                if (ii != 0 && (ii+1) % 6 == 0)
+                    output += "\n";
             }
-            if (!isChinese)
-            {
-                ContentDialog Result = new ContentDialog
-                {
-                    Title = "Dump",
-                    Content = output,
-                    CloseButtonText = "Ok"
-                };
-                ContentDialogResult result = await Result.ShowAsync();
-            }
-            else
-            {
-                ContentDialog Result = new ContentDialog
-                {
-                    Title = "棋路",
-                    Content = output,
-                    CloseButtonText = "Ok"
-                };
-                ContentDialogResult result = await Result.ShowAsync();
-            }
+            Dump_Text.Text = output;
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
     }
 }
