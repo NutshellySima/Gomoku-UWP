@@ -3,6 +3,10 @@
 
 This is a UWP gomoku game.  It also contains a strong AI for gomoku.
 
+## Screenshots
+
+![screenshot](https://raw.githubusercontent.com/NutshellySima/Gomoku-UWP/master/screenshots/1.png)
+
 
 ## Prerequisites
 
