@@ -24,6 +24,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gomoku_uwp", "gomoku_uwp\go
 		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12} = {7F56C7C6-5224-4A40-AEDC-11F3F1279F12}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97600E0F-E2A6-4B20-938E-F911F17CD3D8}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
