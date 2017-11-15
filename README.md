@@ -15,4 +15,6 @@ This is a UWP gomoku game.  It also contains a strong AI for gomoku.
 
 Copyright (c) 2017 Chijun Sima
 
+![GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png)
+
 Licensed under the [GNU General Public License v3.0 or any later version](https://www.gnu.org/licenses/).
