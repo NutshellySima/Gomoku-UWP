@@ -111,6 +111,65 @@ namespace gomoku_uwp
                 _gameOptions.Values["black"] = "computer";
                 _gameOptions.Values["white"] = "human";
             }
+            else
+            {
+                switch (_gameOptions.Values["mode"])
+                {
+                    case "hard":
+                        Mode_Hard.IsChecked = true;
+                        break;
+                    case "easy":
+                        Mode_Easy.IsChecked = true;
+                        break;
+                }
+                switch (_gameOptions.Values["black"])
+                {
+                    case "computer":
+                        Black_Computer.IsChecked = true;
+                        break;
+                    case "human":
+                        Black_Human.IsChecked = true;
+                        break;
+                }
+                switch (_gameOptions.Values["white"])
+                {
+                    case "computer":
+                        White_Computer.IsChecked = true;
+                        break;
+                    case "human":
+                        White_Human.IsChecked = true;
+                        break;
+                }
+            }
+        }
+        private void B_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb != null)
+            {
+                string Name = rb.Tag.ToString();
+                switch (Name)
+                {
+                    case "Hard":
+                        _gameOptions.Values["mode"] = "hard";
+                        break;
+                    case "Easy":
+                        _gameOptions.Values["mode"] = "easy";
+                        break;
+                    case "ComputerWhite":
+                        _gameOptions.Values["white"] = "computer";
+                        break;
+                    case "HumanWhite":
+                        _gameOptions.Values["white"] = "human";
+                        break;
+                    case "ComputerBlack":
+                        _gameOptions.Values["black"] = "computer";
+                        break;
+                    case "HumanBlack":
+                        _gameOptions.Values["black"] = "human";
+                        break;
+                }
+            }
         }
         // specific Draw related
         public void Drawchessboard(int i, bool horizontal)
@@ -240,35 +299,7 @@ namespace gomoku_uwp
                 Drawchessboard(ii, true);
                 Drawchessboard(ii, false);
             }
-            if (!isChinese)
-            {
-                BlackLabel.Text = "Black: " + _gameOptions.Values["black"].ToString();
-                WhiteLabel.Text = "White: " + _gameOptions.Values["white"].ToString();
-                ModeLabel.Text = "Mode: " + _gameOptions.Values["mode"].ToString();
-                EvalLabel.Text = "Eval: ---";
-            }
-            else
-            {
-                String ModeLab = _gameOptions.Values["mode"].ToString();
-                String BlackLab = _gameOptions.Values["black"].ToString();
-                String WhiteLab = _gameOptions.Values["white"].ToString();
-                BlackLabel.Text = "黑棋：";
-                WhiteLabel.Text = "白棋：";
-                ModeLabel.Text = "模式：";
-                if (BlackLab == "computer")
-                    BlackLabel.Text += "人工智能";
-                else
-                    BlackLabel.Text += "人类玩家";
-                if (WhiteLab == "computer")
-                    WhiteLabel.Text += "人工智能";
-                else
-                    WhiteLabel.Text += "人类玩家";
-                if (ModeLab == "easy")
-                    ModeLabel.Text += "简单";
-                else
-                    ModeLabel.Text += "困难";
-                EvalLabel.Text = "评分：---";
-            }
+
             PlayGame();
         }
         public void WinPrinter()
@@ -298,9 +329,9 @@ namespace gomoku_uwp
             RestartButton.IsEnabled = false;
             computerrunning = true;
             if (!isChinese)
-                EvalLabel.Text = "Eval: Calculating.";
+                nav_bar.Text = "The robot is thinking.";
             else
-                EvalLabel.Text = "评分：计算中";
+                nav_bar.Text = "机器人正在思考。";
             Task<int[]> com;
             if (black)
             {
@@ -318,13 +349,6 @@ namespace gomoku_uwp
             }
             await com;
             var data = com.Result;
-            //System.Text.Encoding encode = System.Text.Encoding.ASCII;
-            //byte[] bytedata = encode.GetBytes(Convert.ToString(data.Item1));
-            //EvalLabel.Content = "Eval: " + Convert.ToBase64String(bytedata, 0, bytedata.Length);
-            if (!isChinese)
-                EvalLabel.Text = "Eval: " + Convert.ToString(data[0]);
-            else
-                EvalLabel.Text = "评分：" + Convert.ToString(data[0]);
             Clear_noticeLine();
             if (black)
             {
@@ -390,6 +414,7 @@ namespace gomoku_uwp
             }
             else
                 PlayGame();
+            nav_bar.Text = "It's your turn.";
         }
         public async void PlayGame()
         {
@@ -467,10 +492,6 @@ namespace gomoku_uwp
                     else
                         DrawNoticeLine(x3, x2, false);
                 }
-                if (!isChinese)
-                    EvalLabel.Text = "Eval: ---";
-                else
-                    EvalLabel.Text = "评分：---";
                 return true;
             }
         }
@@ -614,10 +635,6 @@ namespace gomoku_uwp
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!isChinese)
-                EvalLabel.Text = "Eval: ---";
-            else
-                EvalLabel.Text = "评分：---";
             Clear_noticeLine();
             while (UndoGame() == true) ;
             PlayGame();
@@ -625,9 +642,39 @@ namespace gomoku_uwp
 
         private void DumpButton_Click(object sender, RoutedEventArgs e)
         {
+
             char a1, a2;
             var history = invoke.Gethistory();
             string output = "ヾ(*ΦωΦ)ツ\n";
+            if (!isChinese)
+            {
+                output += "Black: " + _gameOptions.Values["black"].ToString()+"\n";
+                output += "White: " + _gameOptions.Values["white"].ToString();
+                output += "Mode: " + _gameOptions.Values["mode"].ToString();
+            }
+            else
+            {
+                String ModeLab = _gameOptions.Values["mode"].ToString();
+                String BlackLab = _gameOptions.Values["black"].ToString();
+                String WhiteLab = _gameOptions.Values["white"].ToString();
+                String blt, wlt, mlt;
+                blt = "黑棋：";
+                wlt = "白棋：";
+                mlt = "模式：";
+                if (BlackLab == "computer")
+                    blt += "人工智能";
+                else
+                    blt += "人类玩家";
+                if (WhiteLab == "computer")
+                    wlt += "人工智能";
+                else
+                    wlt += "人类玩家";
+                if (ModeLab == "easy")
+                    mlt += "简单";
+                else
+                    mlt += "困难";
+                output += (blt + "\n") + (wlt + "\n") + (mlt + "\n");
+            }
             var length = 0;
             if (history != null)
                 length = history.Length;
@@ -647,6 +694,28 @@ namespace gomoku_uwp
             }
             Dump_Text.Text = output;
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void Flyout_Closed(object sender, object e)
+        {
+            Clear_noticeLine();
+            while (UndoGame() == true) ;
+            PlayGame();
+        }
+
+        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(About));
         }
     }
 }

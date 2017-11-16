@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chessboard", "chessboard\chessboard.vcxproj", "{1FE0144E-79EA-4EF3-8A3B-A828B532CD29}"
 EndProject
@@ -16,18 +16,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wrapper", "wrapper\wrapper.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unmanaged", "unmanaged\unmanaged.vcxproj", "{72BB2445-02A7-45BF-88B8-02E5618F0B31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gomoku_uwp", "gomoku_uwp\gomoku_uwp.csproj", "{8A750806-3CF9-43E8-8312-E170B144E3B0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{443D700C-DB84-4100-8284-3FE2B07441D1} = {443D700C-DB84-4100-8284-3FE2B07441D1}
-		{1FE0144E-79EA-4EF3-8A3B-A828B532CD29} = {1FE0144E-79EA-4EF3-8A3B-A828B532CD29}
-		{C143B690-83AC-458D-9E26-83F8268DC789} = {C143B690-83AC-458D-9E26-83F8268DC789}
-		{7F56C7C6-5224-4A40-AEDC-11F3F1279F12} = {7F56C7C6-5224-4A40-AEDC-11F3F1279F12}
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97600E0F-E2A6-4B20-938E-F911F17CD3D8}"
 	ProjectSection(SolutionItems) = preProject
 		LICENSE.txt = LICENSE.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gomoku_uwp", "gomoku_uwp\gomoku_uwp.csproj", "{8A750806-3CF9-43E8-8312-E170B144E3B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,57 +7,72 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Unloaded="Page_Unloaded"
     >
-
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="344*"/>
-            <ColumnDefinition Width="153*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid Name="chessboard_mother" Margin="20,0,0,0" Grid.Column="0">
-            <Viewbox Stretch="Uniform">
-                <Grid Name="chessboard_father">
-                    <Rectangle Stroke="Black" Stretch="Fill" Canvas.Left="10" Canvas.Top="10" Margin="10,10,10,10"  Fill="#FF9A9A9B" Name="chessboard_background" Height="1600" Width="1600" PointerReleased="chessboard_background_PointerReleased"/>
-                </Grid>
-            </Viewbox>
-        </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="300*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="300*"/>
-            </Grid.RowDefinitions>
-            <Canvas Grid.Row="0" Background="LightGray" Margin="10,0,10,0">
-                    <TextBlock Text="Game Status" VerticalAlignment="Center" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="10" x:Uid="Status_bar" Foreground="Black"/>
-            </Canvas>
-                <Grid Grid.Row="1" Margin="10,0,10,0">
-                    <TextBlock Text="Black: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,20,0,0" Name="BlackLabel" x:Uid="Black_lab"/>
-                    <TextBlock Text="White: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,60,0,0" Name="WhiteLabel" x:Uid="White_lab"/>
-                    <TextBlock Text="Mode: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,100,0,0" Name="ModeLabel" x:Uid="Mode_lab"/>
-                <TextBlock Text="Eval: " HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Margin="10,140,0,0" Name="EvalLabel" x:Uid="Eval_lab"/>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="58"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <CommandBar Grid.Row="0" FontFamily="Segoe UI">
+            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout>
+                        <TextBlock Name="Undo_Text"/>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+            </AppBarButton>
+            <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton"/>
+            <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout>
+                        <TextBlock Name="Dump_Text"/>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+            </AppBarButton>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Setting" Label="Settings" Click="AppBarButton_Click">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout LightDismissOverlayMode="On" Closed="Flyout_Closed">
+                        <StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Mode" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="Mode"/>
+                                <StackPanel Orientation="Vertical">
+                                    <RadioButton Content="Easy" Tag="Easy" GroupName="Mode" Name="Mode_Easy" Checked="B_Checked" x:Uid="EasyButton"/>
+                                    <RadioButton Content="Hard" Tag="Hard" GroupName="Mode" Name="Mode_Hard" Checked="B_Checked" x:Uid="HardButton"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,30,0,0">
+                                <TextBlock Text="Black Role" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="Black_role"/>
+                                <StackPanel Orientation="Vertical">
+                                    <RadioButton Content="Human" Tag="HumanBlack" GroupName="Black" Name="Black_Human" Checked="B_Checked" x:Uid="Black_Human"/>
+                                    <RadioButton Content="Computer" Tag="ComputerBlack" GroupName="Black" Name="Black_Computer" Checked="B_Checked" x:Uid="Black_Computer"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,30,0,0">
+                                <TextBlock Text="White Role" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="White_role"/>
+                                <StackPanel Orientation="Vertical">
+                                    <RadioButton Content="Human" Tag="HumanWhite" GroupName="White" Name="White_Human" Checked="B_Checked" x:Uid="White_Human"/>
+                                    <RadioButton Content="Computer" GroupName="White" Tag="ComputerWhite" Name="White_Computer" Checked="B_Checked" x:Uid="White_Computer"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <HyperlinkButton Content="About"
+             Click="HyperlinkButton_Click"
+             HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+            </AppBarButton>
+            <CommandBar.Content>
+                <TextBlock Name="nav_bar" Text="It's your turn." Margin="12,14"/>
+            </CommandBar.Content>
+        </CommandBar>
+        <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid Name="chessboard_mother">
+                <Viewbox Stretch="Uniform">
+                    <Grid Name="chessboard_father">
+                        <Rectangle Stroke="Black" Stretch="Fill" Canvas.Left="10" Canvas.Top="10" Margin="10,10,10,10"  Fill="#FF9A9A9B" Name="chessboard_background" Height="1600" Width="1600" PointerReleased="chessboard_background_PointerReleased"/>
+                    </Grid>
+                </Viewbox>
             </Grid>
-
-            <Canvas Grid.Row="2" Background="LightGray" Margin="10,0,10,0">
-                        <TextBlock Text="Game Control" Canvas.Left="10" Canvas.Top="10" x:Uid="Control" Foreground="Black"/>
-                    </Canvas>
-            <Canvas Grid.Row="3" Margin="10,0,10,0">
-                <Button Content="Undo" Canvas.Left="10" Canvas.Top="20" Width="75" Name="UndoButton" Click="UndoButton_Click" x:Uid="Undo_But"  Style="{StaticResource ButtonRevealStyle}">
-                    <FlyoutBase.AttachedFlyout>
-                        <Flyout>
-                            <TextBlock Name="Undo_Text"/>
-                        </Flyout>
-                    </FlyoutBase.AttachedFlyout>
-                </Button>
-                <Button Content="Restart" Canvas.Left="10" Canvas.Top="60" Width="75" Name="RestartButton" Click="RestartButton_Click" x:Uid="Restart_But" Style="{StaticResource ButtonRevealStyle}"/>
-                <Button Content="Dump" Canvas.Left="10" Canvas.Top="100" Width="75" Name="DumpButton" Click="DumpButton_Click" x:Uid="Dump_But" Style="{StaticResource ButtonRevealStyle}">
-                    <FlyoutBase.AttachedFlyout>
-                        <Flyout>
-                            <TextBlock Name="Dump_Text"/>
-                        </Flyout>
-                    </FlyoutBase.AttachedFlyout>
-                </Button>
-            </Canvas>
         </Grid>
     </Grid>
 </Page>

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" FontFamily="Segoe UI">
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
             <StackPanel>
                 <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
@@ -52,6 +52,7 @@
                                   <LineBreak/>
                 <LineBreak/>
                 </TextBlock>
+                <Button HorizontalAlignment="Left" Margin="40,0,0,0" Content="OK" Click="Button_Click"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
