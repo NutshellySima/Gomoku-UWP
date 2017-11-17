@@ -21,6 +21,7 @@ using Windows.UI;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Resources.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -43,6 +44,7 @@ namespace gomoku_uwp
     public sealed partial class Home : Page
     {
         IReadOnlyList<string> runtimeLanguages = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().Languages;
+
         class chessboard_line_class
         {
             public UIElement line;
@@ -198,7 +200,7 @@ namespace gomoku_uwp
             line.Y2 += 10;
             line.IsHitTestVisible = false;
             line.Stroke = new SolidColorBrush(Colors.Black);
-            line.StrokeThickness = 1;
+            line.StrokeThickness = 2;
             chessboard_father.Children.Add(line);
             chessboard_line.Add(new chessboard_line_class(line, i, horizontal));
         }
@@ -238,7 +240,7 @@ namespace gomoku_uwp
                 line.Stroke = new SolidColorBrush(Colors.White);
             else
                 line.Stroke = new SolidColorBrush(Colors.Black);
-            line.StrokeThickness = 1.2;
+            line.StrokeThickness = 2;
             chessboard_father.Children.Add(line);
             chessboard_noticeline.Add(new chessboard_notice_line_class(line, row, col, true));
             line = new Windows.UI.Xaml.Shapes.Line()
