@@ -7,60 +7,57 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Unloaded="Page_Unloaded"
     >
+    <Page.Resources>
+        <CollectionViewSource x:Key="cvs" x:Name="cvs" IsSourceGrouped="True"/>
+        <Flyout x:Key="Settings-fly" LightDismissOverlayMode="On" Closed="Flyout_Closed">
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Mode" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="Mode"/>
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="Easy" Tag="Easy" GroupName="Mode" Name="Mode_Easy" Checked="B_Checked" x:Uid="EasyButton"/>
+                        <RadioButton Content="Hard" Tag="Hard" GroupName="Mode" Name="Mode_Hard" Checked="B_Checked" x:Uid="HardButton"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0,30,0,0">
+                    <TextBlock Text="Black Role" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="Black_role"/>
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="Human" Tag="HumanBlack" GroupName="Black" Name="Black_Human" Checked="B_Checked" x:Uid="Black_Human"/>
+                        <RadioButton Content="Computer" Tag="ComputerBlack" GroupName="Black" Name="Black_Computer" Checked="B_Checked" x:Uid="Black_Computer"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0,30,0,0">
+                    <TextBlock Text="White Role" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="White_role"/>
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="Human" Tag="HumanWhite" GroupName="White" Name="White_Human" Checked="B_Checked" x:Uid="White_Human"/>
+                        <RadioButton Content="Computer" GroupName="White" Tag="ComputerWhite" Name="White_Computer" Checked="B_Checked" x:Uid="White_Computer"/>
+                    </StackPanel>
+                </StackPanel>
+                <HyperlinkButton Content="About"
+             Click="HyperlinkButton_Click"
+             HorizontalAlignment="Left"/>
+            </StackPanel>
+        </Flyout>
+        <Flyout x:Key="Undo_fly">
+            <TextBlock Name="Undo_Text"/>
+        </Flyout>
+        <Flyout x:Key="Dump_fly">
+            <TextBlock Name="Dump_Text"/>
+        </Flyout>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="58"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <CommandBar Grid.Row="0" FontFamily="Segoe UI">
-            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton">
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout>
-                        <TextBlock Name="Undo_Text"/>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-            </AppBarButton>
+            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton" Flyout="{StaticResource Undo_fly}"/>
+
             <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton"/>
-            <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click">
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout>
-                        <TextBlock Name="Dump_Text"/>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-            </AppBarButton>
+            <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click" Flyout="{StaticResource Dump_fly}"/>
+
             <AppBarSeparator/>
-            <AppBarButton Icon="Setting" Label="Settings" Click="AppBarButton_Click">
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout LightDismissOverlayMode="On" Closed="Flyout_Closed">
-                        <StackPanel>
-                            <StackPanel>
-                                <TextBlock Text="Mode" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="Mode"/>
-                                <StackPanel Orientation="Vertical">
-                                    <RadioButton Content="Easy" Tag="Easy" GroupName="Mode" Name="Mode_Easy" Checked="B_Checked" x:Uid="EasyButton"/>
-                                    <RadioButton Content="Hard" Tag="Hard" GroupName="Mode" Name="Mode_Hard" Checked="B_Checked" x:Uid="HardButton"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Margin="0,30,0,0">
-                                <TextBlock Text="Black Role" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="Black_role"/>
-                                <StackPanel Orientation="Vertical">
-                                    <RadioButton Content="Human" Tag="HumanBlack" GroupName="Black" Name="Black_Human" Checked="B_Checked" x:Uid="Black_Human"/>
-                                    <RadioButton Content="Computer" Tag="ComputerBlack" GroupName="Black" Name="Black_Computer" Checked="B_Checked" x:Uid="Black_Computer"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Margin="0,30,0,0">
-                                <TextBlock Text="White Role" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="White_role"/>
-                                <StackPanel Orientation="Vertical">
-                                    <RadioButton Content="Human" Tag="HumanWhite" GroupName="White" Name="White_Human" Checked="B_Checked" x:Uid="White_Human"/>
-                                    <RadioButton Content="Computer" GroupName="White" Tag="ComputerWhite" Name="White_Computer" Checked="B_Checked" x:Uid="White_Computer"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <HyperlinkButton Content="About"
-             Click="HyperlinkButton_Click"
-             HorizontalAlignment="Left"/>
-                        </StackPanel>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-            </AppBarButton>
+            <AppBarButton Icon="Setting" Label="Settings" Flyout="{StaticResource Settings-fly}" Name="Settings_nav"/>
+
             <CommandBar.Content>
                 <TextBlock Name="nav_bar" Text="It's your turn." Margin="12,14"/>
             </CommandBar.Content>

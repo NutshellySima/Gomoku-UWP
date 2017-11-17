@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
             <StackPanel>
-                <TextBlock FontFamily="Segoe UI" Width="400" HorizontalAlignment="Left" Margin="40,0,0,0" TextWrapping="WrapWholeWords">
+                <TextBlock FontFamily="Segoe UI" MaxWidth="400" HorizontalAlignment="Left" Margin="40,0,40,0" TextWrapping="WrapWholeWords">
     <LineBreak/>
     <Run FontFamily="Segoe UI" FontSize="28" Text="About" x:Uid="About"/>
     

@@ -607,7 +607,6 @@ namespace gomoku_uwp
                     {
                         Undo_Text.Text = "ヾ(*ΦωΦ)ツ\n无棋可悔。";
                     }
-                    FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
                 }
             }
             else
@@ -628,7 +627,6 @@ namespace gomoku_uwp
                     {
                         Undo_Text.Text = "ヾ(*ΦωΦ)ツ\n无棋可悔。";
                     }
-                    FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
                 }
             }
         }
@@ -648,9 +646,9 @@ namespace gomoku_uwp
             string output = "ヾ(*ΦωΦ)ツ\n";
             if (!isChinese)
             {
-                output += "Black: " + _gameOptions.Values["black"].ToString()+"\n";
-                output += "White: " + _gameOptions.Values["white"].ToString();
-                output += "Mode: " + _gameOptions.Values["mode"].ToString();
+                output += "Black: " + _gameOptions.Values["black"].ToString() + "\n";
+                output += "White: " + _gameOptions.Values["white"].ToString() + "\n";
+                output += "Mode: " + _gameOptions.Values["mode"].ToString() + "\n";
             }
             else
             {
@@ -693,24 +691,14 @@ namespace gomoku_uwp
                     output += "\n";
             }
             Dump_Text.Text = output;
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-        }
 
         private void Flyout_Closed(object sender, object e)
         {
             Clear_noticeLine();
             while (UndoGame() == true) ;
             PlayGame();
-        }
-
-        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
