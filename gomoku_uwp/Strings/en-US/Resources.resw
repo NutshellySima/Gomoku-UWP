@@ -189,4 +189,58 @@
   <data name="White_role.Text" xml:space="preserve">
     <value>White Role</value>
   </data>
+  <data name="ai" xml:space="preserve">
+    <value>Computer</value>
+  </data>
+  <data name="blt" xml:space="preserve">
+    <value>Black: </value>
+  </data>
+  <data name="easy_txt" xml:space="preserve">
+    <value>Easy</value>
+  </data>
+  <data name="fullboard" xml:space="preserve">
+    <value>Fullboard</value>
+  </data>
+  <data name="fullboard_txt" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\nChess board is full.</value>
+  </data>
+  <data name="hard_txt" xml:space="preserve">
+    <value>Hard</value>
+  </data>
+  <data name="human" xml:space="preserve">
+    <value>Human</value>
+  </data>
+  <data name="mlt" xml:space="preserve">
+    <value>Mode: </value>
+  </data>
+  <data name="ok_txt" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Result_txt" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="turn_txt" xml:space="preserve">
+    <value>Turn: </value>
+  </data>
+  <data name="undo_fail_txt" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\nNo chess to undo.</value>
+  </data>
+  <data name="win_bc" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\nBlack: Computer wins.</value>
+  </data>
+  <data name="win_bh" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\nBlack: Human wins.</value>
+  </data>
+  <data name="win_wc" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\nWhite: Computer wins.</value>
+  </data>
+  <data name="win_wh" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\nWhite: Human wins.</value>
+  </data>
+  <data name="wlt" xml:space="preserve">
+    <value>White: </value>
+  </data>
+  <data name="your_turn_txt" xml:space="preserve">
+    <value>It's your turn.</value>
+  </data>
 </root>

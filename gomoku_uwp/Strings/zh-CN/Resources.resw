@@ -189,4 +189,58 @@
   <data name="White_role.Text" xml:space="preserve">
     <value>执白者</value>
   </data>
+  <data name="ai" xml:space="preserve">
+    <value>人工智能</value>
+  </data>
+  <data name="blt" xml:space="preserve">
+    <value>黑棋：</value>
+  </data>
+  <data name="easy_txt" xml:space="preserve">
+    <value>简单</value>
+  </data>
+  <data name="fullboard" xml:space="preserve">
+    <value>棋盘已满</value>
+  </data>
+  <data name="fullboard_txt" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\n棋盘已满。</value>
+  </data>
+  <data name="hard_txt" xml:space="preserve">
+    <value>困难</value>
+  </data>
+  <data name="human" xml:space="preserve">
+    <value>人类玩家</value>
+  </data>
+  <data name="mlt" xml:space="preserve">
+    <value>模式：</value>
+  </data>
+  <data name="ok_txt" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Result_txt" xml:space="preserve">
+    <value>结果</value>
+  </data>
+  <data name="turn_txt" xml:space="preserve">
+    <value>步数：</value>
+  </data>
+  <data name="undo_fail_txt" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\n无棋可悔。</value>
+  </data>
+  <data name="win_bc" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\n黑棋：人工智能胜利。</value>
+  </data>
+  <data name="win_bh" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\n黑棋：人类胜利。</value>
+  </data>
+  <data name="win_wc" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\n白棋：人工智能胜利。</value>
+  </data>
+  <data name="win_wh" xml:space="preserve">
+    <value>ヾ(*ΦωΦ)ツ\n白棋：人类胜利。</value>
+  </data>
+  <data name="wlt" xml:space="preserve">
+    <value>白棋：</value>
+  </data>
+  <data name="your_turn_txt" xml:space="preserve">
+    <value>轮到你了。</value>
+  </data>
 </root>

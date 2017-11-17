@@ -43,7 +43,6 @@ namespace gomoku_uwp
     /// </summary>
     public sealed partial class Home : Page
     {
-        IReadOnlyList<string> runtimeLanguages = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().Languages;
         ResourceLoader rl = new ResourceLoader();
         class chessboard_line_class
         {
@@ -84,7 +83,6 @@ namespace gomoku_uwp
         // Global definitions
         bool computerrunning = false;
         bool operationCanceled = false;
-        bool isChinese = false;
         private int turn = 1;
         // Resource
         Windows.Storage.ApplicationDataContainer _gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -96,9 +94,6 @@ namespace gomoku_uwp
         public Home()
         {
             this.InitializeComponent();
-            runtimeLanguages = Windows.Globalization.ApplicationLanguages.Languages;
-            if (runtimeLanguages[0].Length >= 2 && runtimeLanguages[0][0] == 'z' && runtimeLanguages[0][1] == 'h')
-                isChinese = true;
             initSettings();
             InitWindow();
         }
@@ -366,54 +361,28 @@ namespace gomoku_uwp
             if (black && invoke.Checkwin(false) == 1)
             {
                 WinPrinter();
-                if (!isChinese)
+                ContentDialog Result = new ContentDialog
                 {
-                    ContentDialog Result = new ContentDialog
-                    {
-                        Title = "Result",
-                        Content = "ヾ(*ΦωΦ)ツ\nBlack: Computer wins.",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Result.ShowAsync();
-                }
-                else
-                {
-                    ContentDialog Result = new ContentDialog
-                    {
-                        Title = "结果",
-                        Content = "ヾ(*ΦωΦ)ツ\n黑棋：人工智能胜利。",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Result.ShowAsync();
-                }
+                    Title = rl.GetString("Result_txt"),
+                    Content = rl.GetString("win_bc"),
+                    CloseButtonText = rl.GetString("ok_txt")
+                };
+                ContentDialogResult result = await Result.ShowAsync();
             }
             else if ((!black) && invoke.Checkwin(false) == 2)
             {
                 WinPrinter();
-                if (!isChinese)
+                ContentDialog Result = new ContentDialog
                 {
-                    ContentDialog Result = new ContentDialog
-                    {
-                        Title = "Result",
-                        Content = "ヾ(*ΦωΦ)ツ\nWhite: Computer wins.",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Result.ShowAsync();
-                }
-                else
-                {
-                    ContentDialog Result = new ContentDialog
-                    {
-                        Title = "结果",
-                        Content = "ヾ(*ΦωΦ)ツ\n白棋：人工智能胜利。",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Result.ShowAsync();
-                }
+                    Title = rl.GetString("Result_txt"),
+                    Content = rl.GetString("win_wc"),
+                    CloseButtonText = rl.GetString("ok_txt")
+                };
+                ContentDialogResult result = await Result.ShowAsync();
             }
             else
                 PlayGame();
-            nav_bar.Text = "It's your turn.";
+            nav_bar.Text = rl.GetString("your_turn_txt");
         }
         public async void PlayGame()
         {
@@ -421,26 +390,13 @@ namespace gomoku_uwp
                 return;
             if (invoke.Fullboard())
             {
-                if (!isChinese)
+                ContentDialog Fullboard = new ContentDialog
                 {
-                    ContentDialog Fullboard = new ContentDialog
-                    {
-                        Title = "Fullboard",
-                        Content = "ヾ(*ΦωΦ)ツ\nChess board is full.",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Fullboard.ShowAsync();
-                }
-                else
-                {
-                    ContentDialog Fullboard = new ContentDialog
-                    {
-                        Title = "棋盘已满",
-                        Content = "ヾ(*ΦωΦ)ツ\n棋盘已满。",
-                        CloseButtonText = "Ok"
-                    };
-                    ContentDialogResult result = await Fullboard.ShowAsync();
-                }
+                    Title = rl.GetString("fullboard"),
+                    Content = rl.GetString("fullboard_txt"),
+                    CloseButtonText = rl.GetString("ok_txt")
+                };
+                ContentDialogResult result = await Fullboard.ShowAsync();
                 return;
             }
             if (invoke.Checkwin(false) == 0)
@@ -514,26 +470,13 @@ namespace gomoku_uwp
                     if (invoke.Checkwin(false) == 1)
                     {
                         WinPrinter();
-                        if (!isChinese)
+                        ContentDialog Result = new ContentDialog
                         {
-                            ContentDialog Result = new ContentDialog
-                            {
-                                Title = "Result",
-                                Content = "ヾ(*ΦωΦ)ツ\nBlack: Human wins.",
-                                CloseButtonText = "Ok"
-                            };
-                            ContentDialogResult result = await Result.ShowAsync();
-                        }
-                        else
-                        {
-                            ContentDialog Result = new ContentDialog
-                            {
-                                Title = "结果",
-                                Content = "ヾ(*ΦωΦ)ツ\n黑棋：人类胜利。",
-                                CloseButtonText = "Ok"
-                            };
-                            ContentDialogResult result = await Result.ShowAsync();
-                        }
+                            Title = rl.GetString("Result_txt"),
+                            Content = rl.GetString("win_bh"),
+                            CloseButtonText = rl.GetString("ok_txt")
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
                     }
                     else
                         PlayGame();
@@ -553,26 +496,13 @@ namespace gomoku_uwp
                     if (invoke.Checkwin(false) == 2)
                     {
                         WinPrinter();
-                        if (!isChinese)
+                        ContentDialog Result = new ContentDialog
                         {
-                            ContentDialog Result = new ContentDialog
-                            {
-                                Title = "Result",
-                                Content = "ヾ(*ΦωΦ)ツ\nWhite: Human wins.",
-                                CloseButtonText = "Ok"
-                            };
-                            ContentDialogResult result = await Result.ShowAsync();
-                        }
-                        else
-                        {
-                            ContentDialog Result = new ContentDialog
-                            {
-                                Title = "结果",
-                                Content = "ヾ(*ΦωΦ)ツ\n白棋：人类胜利。",
-                                CloseButtonText = "Ok"
-                            };
-                            ContentDialogResult result = await Result.ShowAsync();
-                        }
+                            Title = rl.GetString("Result_txt"),
+                            Content = rl.GetString("win_wh"),
+                            CloseButtonText = rl.GetString("ok_txt")
+                        };
+                        ContentDialogResult result = await Result.ShowAsync();
                     }
                     else
                         PlayGame();
@@ -598,14 +528,7 @@ namespace gomoku_uwp
                 bool Undostatus = UndoGame();
                 if (Undostatus == false)
                 {
-                    if (!isChinese)
-                    {
-                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\nNo chess to undo.";
-                    }
-                    else
-                    {
-                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\n无棋可悔。";
-                    }
+                    Undo_Text.Text = rl.GetString("undo_fail_txt");
                 }
             }
             else
@@ -618,14 +541,7 @@ namespace gomoku_uwp
                 }
                 else
                 {
-                    if (!isChinese)
-                    {
-                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\nNo chess to undo.";
-                    }
-                    else
-                    {
-                        Undo_Text.Text = "ヾ(*ΦωΦ)ツ\n无棋可悔。";
-                    }
+                    Undo_Text.Text = rl.GetString("undo_fail_txt");
                 }
             }
         }
@@ -639,46 +555,33 @@ namespace gomoku_uwp
 
         private void DumpButton_Click(object sender, RoutedEventArgs e)
         {
-
             char a1, a2;
             var history = invoke.Gethistory();
             string output = "ヾ(*ΦωΦ)ツ\n";
-            if (!isChinese)
-            {
-                output += "Black: " + _gameOptions.Values["black"].ToString() + "\n";
-                output += "White: " + _gameOptions.Values["white"].ToString() + "\n";
-                output += "Mode: " + _gameOptions.Values["mode"].ToString() + "\n";
-            }
+            String ModeLab = _gameOptions.Values["mode"].ToString();
+            String BlackLab = _gameOptions.Values["black"].ToString();
+            String WhiteLab = _gameOptions.Values["white"].ToString();
+            String blt, wlt, mlt;
+            blt = rl.GetString("blt");
+            wlt = rl.GetString("wlt");
+            mlt = rl.GetString("mlt");
+            if (BlackLab == "computer")
+                blt += rl.GetString("ai");
             else
-            {
-                String ModeLab = _gameOptions.Values["mode"].ToString();
-                String BlackLab = _gameOptions.Values["black"].ToString();
-                String WhiteLab = _gameOptions.Values["white"].ToString();
-                String blt, wlt, mlt;
-                blt = "黑棋：";
-                wlt = "白棋：";
-                mlt = "模式：";
-                if (BlackLab == "computer")
-                    blt += "人工智能";
-                else
-                    blt += "人类玩家";
-                if (WhiteLab == "computer")
-                    wlt += "人工智能";
-                else
-                    wlt += "人类玩家";
-                if (ModeLab == "easy")
-                    mlt += "简单";
-                else
-                    mlt += "困难";
-                output += (blt + "\n") + (wlt + "\n") + (mlt + "\n");
-            }
+                blt += rl.GetString("human");
+            if (WhiteLab == "computer")
+                wlt += rl.GetString("ai");
+            else
+                wlt += rl.GetString("human");
+            if (ModeLab == "easy")
+                mlt += rl.GetString("easy_txt");
+            else
+                mlt += rl.GetString("hard_txt");
+            output += (blt + "\n") + (wlt + "\n") + (mlt + "\n");
             var length = 0;
             if (history != null)
                 length = history.Length;
-            if (!isChinese)
-                output += "Turn: " + Convert.ToString(length / 3);
-            else
-                output += "步数：" + Convert.ToString(length / 3);
+            output += rl.GetString("turn_txt") + Convert.ToString(length / 3);
             if (length != 0)
                 output += "\n";
             for (int ii = 0; ii < length / 3; ++ii)
@@ -691,7 +594,6 @@ namespace gomoku_uwp
             }
             Dump_Text.Text = output;
         }
-
 
         private void Flyout_Closed(object sender, object e)
         {
