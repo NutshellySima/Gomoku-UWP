@@ -11,6 +11,10 @@ This is a UWP gomoku game.  It also contains a strong AI for gomoku.
 
 + Visual Studio 2017 (Need UWP C++ support)
 
+## Privacy Policy
+
+[Privacy Policy](privacy_policy.md).
+
 ## License
 
 Copyright (c) 2017 Chijun Sima
