@@ -171,6 +171,9 @@
   <data name="Status_bar.Text" xml:space="preserve">
     <value>游戏状态</value>
   </data>
+  <data name="thinking_txt" xml:space="preserve">
+    <value>机器人正在思考。</value>
+  </data>
   <data name="Undo_But.Content" xml:space="preserve">
     <value>悔棋</value>
   </data>

@@ -21,7 +21,7 @@ using Windows.UI;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.Resources.Core;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -44,7 +44,7 @@ namespace gomoku_uwp
     public sealed partial class Home : Page
     {
         IReadOnlyList<string> runtimeLanguages = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().Languages;
-
+        ResourceLoader rl = new ResourceLoader();
         class chessboard_line_class
         {
             public UIElement line;
@@ -330,10 +330,7 @@ namespace gomoku_uwp
             UndoButton.IsEnabled = false;
             RestartButton.IsEnabled = false;
             computerrunning = true;
-            if (!isChinese)
-                nav_bar.Text = "The robot is thinking.";
-            else
-                nav_bar.Text = "机器人正在思考。";
+            nav_bar.Text = rl.GetString("thinking_txt");
             Task<int[]> com;
             if (black)
             {
