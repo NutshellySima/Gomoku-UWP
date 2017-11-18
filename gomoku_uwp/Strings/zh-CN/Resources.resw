@@ -222,9 +222,6 @@
   <data name="turn_txt" xml:space="preserve">
     <value>步数：</value>
   </data>
-  <data name="undo_fail_txt" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\n无棋可悔。</value>
-  </data>
   <data name="win_bc" xml:space="preserve">
     <value>ヾ(*ΦωΦ)ツ\n黑棋：人工智能胜利。</value>
   </data>

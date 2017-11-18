@@ -37,9 +37,6 @@
              HorizontalAlignment="Left"/>
             </StackPanel>
         </Flyout>
-        <Flyout x:Key="Undo_fly">
-            <TextBlock Name="Undo_Text"/>
-        </Flyout>
         <Flyout x:Key="Dump_fly">
             <TextBlock Name="Dump_Text"/>
         </Flyout>
@@ -50,7 +47,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <CommandBar Grid.Row="0" FontFamily="Segoe UI">
-            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton" Flyout="{StaticResource Undo_fly}"/>
+            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton"/>
 
             <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton"/>
             <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click" Flyout="{StaticResource Dump_fly}"/>

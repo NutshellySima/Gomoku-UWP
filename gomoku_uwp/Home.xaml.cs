@@ -526,10 +526,10 @@ namespace gomoku_uwp
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                     Clear_noticeLine();
                 bool Undostatus = UndoGame();
-                if (Undostatus == false)
-                {
-                    Undo_Text.Text = rl.GetString("undo_fail_txt");
-                }
+                //if (Undostatus == false)
+                //{
+                    
+                //}
             }
             else
             {
@@ -539,10 +539,10 @@ namespace gomoku_uwp
                     UndoGame();
                     UndoGame();
                 }
-                else
-                {
-                    Undo_Text.Text = rl.GetString("undo_fail_txt");
-                }
+                //else
+                //{
+                    
+                //}
             }
         }
 

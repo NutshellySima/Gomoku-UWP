@@ -222,9 +222,6 @@
   <data name="turn_txt" xml:space="preserve">
     <value>Turn: </value>
   </data>
-  <data name="undo_fail_txt" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\nNo chess to undo.</value>
-  </data>
   <data name="win_bc" xml:space="preserve">
     <value>ヾ(*ΦωΦ)ツ\nBlack: Computer wins.</value>
   </data>
