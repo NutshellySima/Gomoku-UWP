@@ -120,9 +120,6 @@
   <data name="About.Text" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="About_Nav.Content" xml:space="preserve">
-    <value>About</value>
-  </data>
   <data name="Black_Computer.Content" xml:space="preserve">
     <value>Computer</value>
   </data>
@@ -138,7 +135,7 @@
   <data name="Control.Text" xml:space="preserve">
     <value>Game Control</value>
   </data>
-  <data name="Dump_But.Content" xml:space="preserve">
+  <data name="Dump_But.Label" xml:space="preserve">
     <value>Dump</value>
   </data>
   <data name="EasyButton.Content" xml:space="preserve">
@@ -162,10 +159,10 @@
   <data name="Mode_lab.Text" xml:space="preserve">
     <value>Mode: </value>
   </data>
-  <data name="Restart_But.Content" xml:space="preserve">
+  <data name="Restart_But.Label" xml:space="preserve">
     <value>Restart</value>
   </data>
-  <data name="Settings.Text" xml:space="preserve">
+  <data name="Settings.Label" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="Status_bar.Text" xml:space="preserve">
@@ -174,7 +171,7 @@
   <data name="thinking_txt" xml:space="preserve">
     <value>The robot is thinking.</value>
   </data>
-  <data name="Undo_But.Content" xml:space="preserve">
+  <data name="Undo_But.Label" xml:space="preserve">
     <value>Undo</value>
   </data>
   <data name="White_Computer.Content" xml:space="preserve">

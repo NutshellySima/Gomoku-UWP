@@ -47,16 +47,16 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <CommandBar Grid.Row="0" FontFamily="Segoe UI">
-            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton"/>
+            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton" x:Uid="Undo_But"/>
 
-            <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton"/>
-            <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click" Flyout="{StaticResource Dump_fly}"/>
+            <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton" x:Uid="Restart_But"/>
+            <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click" Flyout="{StaticResource Dump_fly}" x:Uid="Dump_But"/>
 
             <AppBarSeparator/>
-            <AppBarButton Icon="Setting" Label="Settings" Flyout="{StaticResource Settings-fly}" Name="Settings_nav"/>
+            <AppBarButton Icon="Setting" Label="Settings" Flyout="{StaticResource Settings-fly}" Name="Settings_nav" x:Uid="Settings"/>
 
             <CommandBar.Content>
-                <TextBlock Name="nav_bar" Text="It's your turn." Margin="12,14"/>
+                <TextBlock Name="nav_bar" Margin="12,14"/>
             </CommandBar.Content>
         </CommandBar>
         <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
