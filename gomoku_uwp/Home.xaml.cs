@@ -380,12 +380,18 @@ namespace gomoku_uwp
                 };
                 ContentDialogResult result = await Result.ShowAsync();
             }
-            else
-                PlayGame();
-            nav_bar.Text = rl.GetString("your_turn_txt");
+            PlayGame();
         }
         public async void PlayGame()
         {
+            if (turn == 1)
+            {
+                UndoButton.IsEnabled = false;
+            }
+            else
+            {
+                UndoButton.IsEnabled = true;
+            }
             if (operationCanceled)
                 return;
             if (invoke.Fullboard())
@@ -410,6 +416,10 @@ namespace gomoku_uwp
                         PlaybyComputer(true);
 #pragma warning restore CS4014 
                     }
+                    else
+                    {
+                        nav_bar.Text = rl.GetString("your_turn_txt");
+                    }
                 }
                 //White
                 else
@@ -420,23 +430,33 @@ namespace gomoku_uwp
                         PlaybyComputer(false);
 #pragma warning restore CS4014 
                     }
+                    else
+                    {
+                        nav_bar.Text = rl.GetString("your_turn_txt");
+                    }
                 }
             }
             else
+            {
+                nav_bar.Text = "";
                 return;
+            }
         }
         public bool UndoGame()
         {
             bool Undostatus = invoke.BoardUndo();
             if (Undostatus == false)
             {
+                PlayGame();
                 return false;
             }
             else
             {
                 Clear_noticeLine();
                 Remove_chessboardPoint(1);
-                turn -= 1;
+                --turn;
+                if (turn == 1)
+                    UndoButton.IsEnabled = false;
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                 {
                     var x3 = invoke.Gethistory()[invoke.Gethistory().Length - 1];
@@ -447,6 +467,7 @@ namespace gomoku_uwp
                     else
                         DrawNoticeLine(x3, x2, false);
                 }
+                PlayGame();
                 return true;
             }
         }
@@ -467,6 +488,8 @@ namespace gomoku_uwp
                     DrawPoint((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, true);
                     DrawNoticeLine((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, true);
                     ++turn;
+                    UndoButton.IsEnabled = true;
+                    PlayGame();
                     if (invoke.Checkwin(false) == 1)
                     {
                         WinPrinter();
@@ -477,9 +500,7 @@ namespace gomoku_uwp
                             CloseButtonText = rl.GetString("ok_txt")
                         };
                         ContentDialogResult result = await Result.ShowAsync();
-                    }
-                    else
-                        PlayGame();
+                    }  
                 }
                 else
                     return;
@@ -493,6 +514,8 @@ namespace gomoku_uwp
                     DrawPoint((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, false);
                     DrawNoticeLine((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, false);
                     ++turn;
+                    UndoButton.IsEnabled = true;
+                    PlayGame();
                     if (invoke.Checkwin(false) == 2)
                     {
                         WinPrinter();
@@ -504,8 +527,6 @@ namespace gomoku_uwp
                         };
                         ContentDialogResult result = await Result.ShowAsync();
                     }
-                    else
-                        PlayGame();
                 }
                 else
                     return;
@@ -526,10 +547,6 @@ namespace gomoku_uwp
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                     Clear_noticeLine();
                 bool Undostatus = UndoGame();
-                //if (Undostatus == false)
-                //{
-                    
-                //}
             }
             else
             {
@@ -539,10 +556,6 @@ namespace gomoku_uwp
                     UndoGame();
                     UndoGame();
                 }
-                //else
-                //{
-                    
-                //}
             }
         }
 
@@ -581,7 +594,7 @@ namespace gomoku_uwp
             var length = 0;
             if (history != null)
                 length = history.Length;
-            output += rl.GetString("turn_txt") + Convert.ToString(length / 3);
+            output += rl.GetString("turn_txt") + Convert.ToString(turn - 1);
             if (length != 0)
                 output += "\n";
             for (int ii = 0; ii < length / 3; ++ii)

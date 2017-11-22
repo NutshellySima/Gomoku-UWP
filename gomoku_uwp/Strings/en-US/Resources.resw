@@ -199,7 +199,7 @@
     <value>Fullboard</value>
   </data>
   <data name="fullboard_txt" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\nChess board is full.</value>
+    <value>Chess board is full.</value>
   </data>
   <data name="hard_txt" xml:space="preserve">
     <value>Hard</value>
@@ -220,16 +220,16 @@
     <value>Turn: </value>
   </data>
   <data name="win_bc" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\nBlack: Computer wins.</value>
+    <value>Black: Computer wins.</value>
   </data>
   <data name="win_bh" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\nBlack: Human wins.</value>
+    <value>Black: Human wins.</value>
   </data>
   <data name="win_wc" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\nWhite: Computer wins.</value>
+    <value>White: Computer wins.</value>
   </data>
   <data name="win_wh" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\nWhite: Human wins.</value>
+    <value>White: Human wins.</value>
   </data>
   <data name="wlt" xml:space="preserve">
     <value>White: </value>

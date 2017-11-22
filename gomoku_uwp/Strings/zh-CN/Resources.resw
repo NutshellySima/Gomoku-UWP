@@ -199,7 +199,7 @@
     <value>棋盘已满</value>
   </data>
   <data name="fullboard_txt" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\n棋盘已满。</value>
+    <value>棋盘已满。</value>
   </data>
   <data name="hard_txt" xml:space="preserve">
     <value>困难</value>
@@ -220,16 +220,16 @@
     <value>步数：</value>
   </data>
   <data name="win_bc" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\n黑棋：人工智能胜利。</value>
+    <value>黑棋：人工智能胜利。</value>
   </data>
   <data name="win_bh" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\n黑棋：人类胜利。</value>
+    <value>黑棋：人类胜利。</value>
   </data>
   <data name="win_wc" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\n白棋：人工智能胜利。</value>
+    <value>白棋：人工智能胜利。</value>
   </data>
   <data name="win_wh" xml:space="preserve">
-    <value>ヾ(*ΦωΦ)ツ\n白棋：人类胜利。</value>
+    <value>白棋：人类胜利。</value>
   </data>
   <data name="wlt" xml:space="preserve">
     <value>白棋：</value>
