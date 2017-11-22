@@ -34,7 +34,7 @@
                 </StackPanel>
                 <HyperlinkButton Content="About"
              Click="HyperlinkButton_Click"
-             HorizontalAlignment="Left"/>
+             HorizontalAlignment="Left" x:Uid="About_but"/>
             </StackPanel>
         </Flyout>
         <Flyout x:Key="Dump_fly">
