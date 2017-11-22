@@ -382,9 +382,9 @@ namespace gomoku_uwp
             }
             PlayGame();
         }
-        public async void PlayGame()
+        public async void PlayGame(bool computer = true)
         {
-            if (turn == 1)
+            if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human"))
             {
                 UndoButton.IsEnabled = false;
             }
@@ -410,7 +410,7 @@ namespace gomoku_uwp
                 //Black
                 if (turn % 2 == 1)
                 {
-                    if (_gameOptions.Values["black"].ToString() == "computer")
+                    if (_gameOptions.Values["black"].ToString() == "computer" && computer == true)
                     {
 #pragma warning disable CS4014 
                         PlaybyComputer(true);
@@ -424,7 +424,7 @@ namespace gomoku_uwp
                 //White
                 else
                 {
-                    if (_gameOptions.Values["white"].ToString() == "computer")
+                    if (_gameOptions.Values["white"].ToString() == "computer" && computer == true)
                     {
 #pragma warning disable CS4014 
                         PlaybyComputer(false);
@@ -447,7 +447,7 @@ namespace gomoku_uwp
             bool Undostatus = invoke.BoardUndo();
             if (Undostatus == false)
             {
-                PlayGame();
+                PlayGame(false);
                 return false;
             }
             else
@@ -455,7 +455,7 @@ namespace gomoku_uwp
                 Clear_noticeLine();
                 Remove_chessboardPoint(1);
                 --turn;
-                if (turn == 1)
+                if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human"))
                     UndoButton.IsEnabled = false;
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                 {
@@ -467,7 +467,7 @@ namespace gomoku_uwp
                     else
                         DrawNoticeLine(x3, x2, false);
                 }
-                PlayGame();
+                PlayGame(false);
                 return true;
             }
         }
@@ -500,7 +500,7 @@ namespace gomoku_uwp
                             CloseButtonText = rl.GetString("ok_txt")
                         };
                         ContentDialogResult result = await Result.ShowAsync();
-                    }  
+                    }
                 }
                 else
                     return;
