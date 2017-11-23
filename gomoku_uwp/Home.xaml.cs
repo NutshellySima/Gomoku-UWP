@@ -307,6 +307,7 @@ namespace gomoku_uwp
             Clear_noticeLine();
             UndoButton.IsEnabled = false;
             RestartButton.IsEnabled = false;
+            Settings_nav.IsEnabled = false;
             invoke.Checkwin(true);
             var board = invoke.Getchessboard();
             for (int ii = 0; ii < 15; ++ii)
@@ -322,11 +323,13 @@ namespace gomoku_uwp
             invoke.Checkwin(false);
             UndoButton.IsEnabled = true;
             RestartButton.IsEnabled = true;
+            Settings_nav.IsEnabled = true;
         }
         private async Task PlaybyComputer(bool black)
         {
             UndoButton.IsEnabled = false;
             RestartButton.IsEnabled = false;
+            Settings_nav.IsEnabled = false;
             computerrunning = true;
             nav_bar.Text = rl.GetString("thinking_txt");
             Task<int[]> com;
@@ -360,6 +363,7 @@ namespace gomoku_uwp
             ++turn;
             UndoButton.IsEnabled = true;
             RestartButton.IsEnabled = true;
+            Settings_nav.IsEnabled = true;
             computerrunning = false;
             if (black && invoke.Checkwin(false) == 1)
             {
@@ -387,7 +391,7 @@ namespace gomoku_uwp
         }
         public async void PlayGame(bool computer = true)
         {
-            if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human"))
+            if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human")|| (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer"))
             {
                 UndoButton.IsEnabled = false;
             }
@@ -458,7 +462,7 @@ namespace gomoku_uwp
                 Clear_noticeLine();
                 Remove_chessboardPoint(1);
                 --turn;
-                if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human"))
+                if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human") || (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer"))
                     UndoButton.IsEnabled = false;
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                 {
@@ -594,7 +598,9 @@ namespace gomoku_uwp
         private void Flyout_Closed(object sender, object e)
         {
             var currentSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            if ((currentSettings.Values["mode"].ToString() == flyout_mode)&&(currentSettings.Values["black"].ToString() == flyout_black)&&(currentSettings.Values["white"].ToString() == flyout_white))
+            if ((currentSettings.Values["mode"].ToString() == flyout_mode) && (currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white))
+                return;
+            if ((currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white) && flyout_black == "human" && flyout_white == "human")
                 return;
             Clear_noticeLine();
             while (UndoGame() == true) ;
@@ -617,8 +623,8 @@ namespace gomoku_uwp
             initSettings();
             Windows.Storage.ApplicationDataContainer temp = Windows.Storage.ApplicationData.Current.LocalSettings;
             flyout_mode = temp.Values["mode"].ToString();
-            flyout_black= temp.Values["black"].ToString();
-            flyout_white= temp.Values["white"].ToString();
+            flyout_black = temp.Values["black"].ToString();
+            flyout_white = temp.Values["white"].ToString();
         }
     }
 }
