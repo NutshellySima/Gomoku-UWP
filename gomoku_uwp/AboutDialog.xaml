@@ -1,0 +1,19 @@
+﻿<ContentDialog
+    x:Class="gomoku_uwp.AboutDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:gomoku_uwp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    PrimaryButtonText="OK"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Nut-Gomoku" HorizontalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="© 2017 Chijun Sima" HorizontalAlignment="Center"/>
+            <HyperlinkButton Content="Source code" HorizontalAlignment="Center"/>
+            <HyperlinkButton Content="Privacy statement" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

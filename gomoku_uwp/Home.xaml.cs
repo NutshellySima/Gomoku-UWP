@@ -615,9 +615,10 @@ namespace gomoku_uwp
             PlayGame();
         }
 
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(About));
+            ContentDialog about = new AboutDialog();
+            await about.ShowAsync();
         }
 
         private void Flyout_Opened(object sender, object e)
