@@ -619,5 +619,10 @@ namespace gomoku_uwp
         {
             this.Frame.Navigate(typeof(About));
         }
+
+        private void Flyout_Opened(object sender, object e)
+        {
+            initSettings();
+        }
     }
 }
