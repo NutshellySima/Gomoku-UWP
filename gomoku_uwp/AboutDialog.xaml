@@ -7,13 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     PrimaryButtonText="OK"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    x:Uid="about">
     <Grid>
         <StackPanel>
             <TextBlock Text="Nut-gomoku" HorizontalAlignment="Center" FontSize="25"/>
             <TextBlock Text="© 2017 Chijun Sima" HorizontalAlignment="Center"/>
-            <HyperlinkButton Content="Source code" HorizontalAlignment="Center"/>
-            <HyperlinkButton Content="Privacy statement" HorizontalAlignment="Center"/>
+            <HyperlinkButton Content="Source code" HorizontalAlignment="Center" x:Uid="SourceCode" NavigateUri="https://github.com/NutshellySima/Gomoku-UWP"/>
+            <HyperlinkButton Content="Privacy policy" HorizontalAlignment="Center" x:Uid="PS" NavigateUri="https://github.com/NutshellySima/Gomoku-UWP/blob/master/privacy_policy.md"/>
         </StackPanel>
     </Grid>
 </ContentDialog>

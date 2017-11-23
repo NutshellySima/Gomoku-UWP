@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About.Text" xml:space="preserve">
-    <value>关于</value>
-  </data>
   <data name="Black_Computer.Content" xml:space="preserve">
     <value>人工智能</value>
   </data>
@@ -210,8 +207,8 @@
   <data name="mlt" xml:space="preserve">
     <value>模式：</value>
   </data>
-  <data name="ok_txt" xml:space="preserve">
-    <value>Ok</value>
+  <data name="about.PrimaryButtonText" xml:space="preserve">
+    <value>确定</value>
   </data>
   <data name="Result_txt" xml:space="preserve">
     <value>结果</value>
@@ -243,11 +240,20 @@
   <data name="Dump_But.ToolTipService.ToolTip" xml:space="preserve">
     <value>棋路</value>
   </data>
+  <data name="ok_txt" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="PS.Content" xml:space="preserve">
+    <value>隐私政策</value>
+  </data>
   <data name="Restart_But.ToolTipService.ToolTip" xml:space="preserve">
     <value>重开</value>
   </data>
   <data name="Settings.ToolTipService.ToolTip" xml:space="preserve">
     <value>设置</value>
+  </data>
+  <data name="SourceCode.Content" xml:space="preserve">
+    <value>软件源代码</value>
   </data>
   <data name="Undo_But.ToolTipService.ToolTip" xml:space="preserve">
     <value>悔棋</value>
