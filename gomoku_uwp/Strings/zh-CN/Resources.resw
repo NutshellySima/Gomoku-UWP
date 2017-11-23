@@ -138,9 +138,6 @@
   <data name="EasyButton.Content" xml:space="preserve">
     <value>简单</value>
   </data>
-  <data name="Eval_lab.Text" xml:space="preserve">
-    <value>评分：</value>
-  </data>
   <data name="Gomoku_Name.Text" xml:space="preserve">
     <value>五子棋</value>
   </data>
@@ -193,10 +190,10 @@
     <value>简单</value>
   </data>
   <data name="fullboard" xml:space="preserve">
-    <value>棋盘已满</value>
+    <value>和局</value>
   </data>
   <data name="fullboard_txt" xml:space="preserve">
-    <value>棋盘已满。</value>
+    <value>棋盘已满，和局。</value>
   </data>
   <data name="hard_txt" xml:space="preserve">
     <value>困难</value>
@@ -211,7 +208,7 @@
     <value>确定</value>
   </data>
   <data name="Result_txt" xml:space="preserve">
-    <value>结果</value>
+    <value>赢家</value>
   </data>
   <data name="turn_txt" xml:space="preserve">
     <value>步数：</value>

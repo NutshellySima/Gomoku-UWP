@@ -127,28 +127,22 @@
     <value>Black: </value>
   </data>
   <data name="Black_role.Text" xml:space="preserve">
-    <value>Black Role</value>
+    <value>Black</value>
   </data>
   <data name="Control.Text" xml:space="preserve">
     <value>Game Control</value>
   </data>
   <data name="Dump_But.Label" xml:space="preserve">
-    <value>Dump</value>
+    <value>Info</value>
   </data>
   <data name="EasyButton.Content" xml:space="preserve">
     <value>Medium</value>
-  </data>
-  <data name="Eval_lab.Text" xml:space="preserve">
-    <value>Eval: </value>
   </data>
   <data name="Gomoku_Name.Text" xml:space="preserve">
     <value>Gomoku</value>
   </data>
   <data name="HardButton.Content" xml:space="preserve">
     <value>Hard</value>
-  </data>
-  <data name="Home_Nav.Content" xml:space="preserve">
-    <value>Home</value>
   </data>
   <data name="Mode.Text" xml:space="preserve">
     <value>Mode</value>
@@ -181,7 +175,7 @@
     <value>White: </value>
   </data>
   <data name="White_role.Text" xml:space="preserve">
-    <value>White Role</value>
+    <value>White</value>
   </data>
   <data name="ai" xml:space="preserve">
     <value>Computer</value>
@@ -193,10 +187,10 @@
     <value>Medium</value>
   </data>
   <data name="fullboard" xml:space="preserve">
-    <value>Fullboard</value>
+    <value>Draw</value>
   </data>
   <data name="fullboard_txt" xml:space="preserve">
-    <value>Chess board is full.</value>
+    <value>Chess board is full, draw.</value>
   </data>
   <data name="hard_txt" xml:space="preserve">
     <value>Hard</value>
@@ -211,22 +205,22 @@
     <value>Ok</value>
   </data>
   <data name="Result_txt" xml:space="preserve">
-    <value>Result</value>
+    <value>Winner</value>
   </data>
   <data name="turn_txt" xml:space="preserve">
     <value>Turn: </value>
   </data>
   <data name="win_bc" xml:space="preserve">
-    <value>Black: Computer wins.</value>
+    <value>Computer wins.</value>
   </data>
   <data name="win_bh" xml:space="preserve">
-    <value>Black: Human wins.</value>
+    <value>Human wins.</value>
   </data>
   <data name="win_wc" xml:space="preserve">
-    <value>White: Computer wins.</value>
+    <value>Computer wins.</value>
   </data>
   <data name="win_wh" xml:space="preserve">
-    <value>White: Human wins.</value>
+    <value>Human wins.</value>
   </data>
   <data name="wlt" xml:space="preserve">
     <value>White: </value>
@@ -238,7 +232,7 @@
     <value>About</value>
   </data>
   <data name="Dump_But.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Dump</value>
+    <value>Info</value>
   </data>
   <data name="game_over_txt" xml:space="preserve">
     <value>Game Over</value>
@@ -250,7 +244,7 @@
     <value>Privacy policy</value>
   </data>
   <data name="Restart_But.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Restart</value>
+    <value>Restart Game</value>
   </data>
   <data name="Settings.ToolTipService.ToolTip" xml:space="preserve">
     <value>Settings</value>
