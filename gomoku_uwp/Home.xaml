@@ -41,25 +41,25 @@
             <TextBlock Name="Dump_Text"/>
         </Flyout>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="58"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <CommandBar Grid.Row="0" FontFamily="Segoe UI">
-            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton" x:Uid="Undo_But" ToolTipService.Placement="Mouse"/>
+        <CommandBar Grid.Row="0" FontFamily="Segoe UI" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+            <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton" x:Uid="Undo_But" ToolTipService.Placement="Mouse" Style="{StaticResource AppBarButtonRevealStyle}"/>
 
-            <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton" x:Uid="Restart_But" ToolTipService.Placement="Mouse"/>
-            <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click" Flyout="{StaticResource Dump_fly}" x:Uid="Dump_But" ToolTipService.Placement="Mouse"/>
+            <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton" x:Uid="Restart_But" ToolTipService.Placement="Mouse" Style="{StaticResource AppBarButtonRevealStyle}"/>
+            <AppBarButton Icon="Message" Label="Info" Click="DumpButton_Click" Flyout="{StaticResource Dump_fly}" x:Uid="Dump_But" ToolTipService.Placement="Mouse" Style="{StaticResource AppBarButtonRevealStyle}"/>
 
             <AppBarSeparator/>
-            <AppBarButton Icon="Setting" Label="Settings" Flyout="{StaticResource Settings-fly}" Name="Settings_nav" x:Uid="Settings" ToolTipService.Placement="Mouse"/>
+            <AppBarButton Icon="Setting" Label="Settings" Flyout="{StaticResource Settings-fly}" Name="Settings_nav" x:Uid="Settings" ToolTipService.Placement="Mouse" Style="{StaticResource AppBarButtonRevealStyle}"/>
 
             <CommandBar.Content>
                 <TextBlock Name="nav_bar" Margin="12,14"/>
             </CommandBar.Content>
         </CommandBar>
-        <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Grid.Row="1" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
             <Grid Name="chessboard_mother">
                 <Viewbox Stretch="Uniform">
                     <Grid Name="chessboard_father">
