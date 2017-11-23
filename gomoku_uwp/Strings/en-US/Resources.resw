@@ -240,4 +240,16 @@
   <data name="About_but.Content" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Dump_But.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Dump</value>
+  </data>
+  <data name="Restart_But.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="Settings.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Undo_But.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Undo</value>
+  </data>
 </root>

@@ -10,7 +10,7 @@
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Nut-Gomoku" HorizontalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="Nut-gomoku" HorizontalAlignment="Center" FontSize="25"/>
             <TextBlock Text="© 2017 Chijun Sima" HorizontalAlignment="Center"/>
             <HyperlinkButton Content="Source code" HorizontalAlignment="Center"/>
             <HyperlinkButton Content="Privacy statement" HorizontalAlignment="Center"/>
