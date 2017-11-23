@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="24493NutshellySima.Nut-gomoku" Publisher="CN=70269625-7369-43FA-B651-F4915C3E94B8" Version="1.1.0.0" />
+  <Identity Name="24495NutshellySima.Nut-gomoku" Publisher="CN=70269625-7369-43FA-B651-F4915C3E94B8" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="0661df32-f72e-4feb-9807-dfa9c497e18b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Nut-gomoku</DisplayName>
