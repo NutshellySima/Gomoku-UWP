@@ -226,7 +226,7 @@
     <value>White: </value>
   </data>
   <data name="your_turn_txt" xml:space="preserve">
-    <value>It's your turn</value>
+    <value>It's your turn.</value>
   </data>
   <data name="About_but.Content" xml:space="preserve">
     <value>About</value>
