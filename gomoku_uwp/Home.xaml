@@ -38,7 +38,7 @@
             </StackPanel>
         </Flyout>
         <Flyout x:Key="Dump_fly">
-            <TextBlock Name="Dump_Text"/>
+            <TextBlock Name="Dump_Text" FontFamily="Consolas"/>
         </Flyout>
     </Page.Resources>
     <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
