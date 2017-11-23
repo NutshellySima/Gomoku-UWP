@@ -136,7 +136,7 @@
     <value>Dump</value>
   </data>
   <data name="EasyButton.Content" xml:space="preserve">
-    <value>Easy</value>
+    <value>Medium</value>
   </data>
   <data name="Eval_lab.Text" xml:space="preserve">
     <value>Eval: </value>
@@ -190,7 +190,7 @@
     <value>Black: </value>
   </data>
   <data name="easy_txt" xml:space="preserve">
-    <value>Easy</value>
+    <value>Medium</value>
   </data>
   <data name="fullboard" xml:space="preserve">
     <value>Fullboard</value>
@@ -232,13 +232,16 @@
     <value>White: </value>
   </data>
   <data name="your_turn_txt" xml:space="preserve">
-    <value>It's your turn.</value>
+    <value>It's your turn</value>
   </data>
   <data name="About_but.Content" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="Dump_But.ToolTipService.ToolTip" xml:space="preserve">
     <value>Dump</value>
+  </data>
+  <data name="game_over_txt" xml:space="preserve">
+    <value>Game Over</value>
   </data>
   <data name="ok_txt" xml:space="preserve">
     <value>Ok</value>

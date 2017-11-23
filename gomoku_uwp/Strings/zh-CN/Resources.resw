@@ -232,13 +232,16 @@
     <value>白棋：</value>
   </data>
   <data name="your_turn_txt" xml:space="preserve">
-    <value>轮到你了。</value>
+    <value>轮到你了</value>
   </data>
   <data name="About_but.Content" xml:space="preserve">
     <value>关于</value>
   </data>
   <data name="Dump_But.ToolTipService.ToolTip" xml:space="preserve">
     <value>棋路</value>
+  </data>
+  <data name="game_over_txt" xml:space="preserve">
+    <value>游戏结束</value>
   </data>
   <data name="ok_txt" xml:space="preserve">
     <value>确定</value>

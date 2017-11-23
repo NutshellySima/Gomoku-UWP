@@ -107,7 +107,7 @@ namespace gomoku_uwp
             Object valueWhite = _gameOptions.Values["white"];
             if (valueMode == null || valueBlack == null || valueWhite == null)
             {
-                _gameOptions.Values["mode"] = "hard";
+                _gameOptions.Values["mode"] = "easy";
                 _gameOptions.Values["black"] = "computer";
                 _gameOptions.Values["white"] = "human";
             }
@@ -445,7 +445,7 @@ namespace gomoku_uwp
             }
             else
             {
-                nav_bar.Text = "";
+                nav_bar.Text = rl.GetString("game_over_txt");
                 return;
             }
         }
