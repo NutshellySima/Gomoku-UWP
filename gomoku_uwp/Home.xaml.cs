@@ -84,6 +84,9 @@ namespace gomoku_uwp
         bool computerrunning = false;
         bool operationCanceled = false;
         private int turn = 1;
+        string flyout_mode;
+        string flyout_black;
+        string flyout_white;
         // Resource
         Windows.Storage.ApplicationDataContainer _gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
         private unmanaged.cliwrapper invoke = new unmanaged.cliwrapper();
@@ -570,27 +573,7 @@ namespace gomoku_uwp
         {
             char a1, a2;
             var history = invoke.Gethistory();
-            string output = "ヾ(*ΦωΦ)ツ\n";
-            String ModeLab = _gameOptions.Values["mode"].ToString();
-            String BlackLab = _gameOptions.Values["black"].ToString();
-            String WhiteLab = _gameOptions.Values["white"].ToString();
-            String blt, wlt, mlt;
-            blt = rl.GetString("blt");
-            wlt = rl.GetString("wlt");
-            mlt = rl.GetString("mlt");
-            if (BlackLab == "computer")
-                blt += rl.GetString("ai");
-            else
-                blt += rl.GetString("human");
-            if (WhiteLab == "computer")
-                wlt += rl.GetString("ai");
-            else
-                wlt += rl.GetString("human");
-            if (ModeLab == "easy")
-                mlt += rl.GetString("easy_txt");
-            else
-                mlt += rl.GetString("hard_txt");
-            output += (blt + "\n") + (wlt + "\n") + (mlt + "\n");
+            string output = "";
             var length = 0;
             if (history != null)
                 length = history.Length;
@@ -610,6 +593,9 @@ namespace gomoku_uwp
 
         private void Flyout_Closed(object sender, object e)
         {
+            var currentSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if ((currentSettings.Values["mode"].ToString() == flyout_mode)&&(currentSettings.Values["black"].ToString() == flyout_black)&&(currentSettings.Values["white"].ToString() == flyout_white))
+                return;
             Clear_noticeLine();
             while (UndoGame() == true) ;
             PlayGame();
@@ -624,6 +610,15 @@ namespace gomoku_uwp
         private void Flyout_Opened(object sender, object e)
         {
             initSettings();
+        }
+
+        private void Flyout_Opening(object sender, object e)
+        {
+            initSettings();
+            Windows.Storage.ApplicationDataContainer temp = Windows.Storage.ApplicationData.Current.LocalSettings;
+            flyout_mode = temp.Values["mode"].ToString();
+            flyout_black= temp.Values["black"].ToString();
+            flyout_white= temp.Values["white"].ToString();
         }
     }
 }
