@@ -372,7 +372,8 @@ namespace gomoku_uwp
                 {
                     Title = rl.GetString("Result_txt"),
                     Content = rl.GetString("win_bc"),
-                    CloseButtonText = rl.GetString("ok_txt")
+                    CloseButtonText = rl.GetString("ok_txt"),
+                    CloseButtonStyle = this.Resources["b_s"] as Style
                 };
                 ContentDialogResult result = await Result.ShowAsync();
             }
@@ -383,7 +384,8 @@ namespace gomoku_uwp
                 {
                     Title = rl.GetString("Result_txt"),
                     Content = rl.GetString("win_wc"),
-                    CloseButtonText = rl.GetString("ok_txt")
+                    CloseButtonText = rl.GetString("ok_txt"),
+                    CloseButtonStyle = this.Resources["b_s"] as Style
                 };
                 ContentDialogResult result = await Result.ShowAsync();
             }
@@ -407,7 +409,8 @@ namespace gomoku_uwp
                 {
                     Title = rl.GetString("fullboard"),
                     Content = rl.GetString("fullboard_txt"),
-                    CloseButtonText = rl.GetString("ok_txt")
+                    CloseButtonText = rl.GetString("ok_txt"),
+                    CloseButtonStyle = this.Resources["b_s"] as Style
                 };
                 ContentDialogResult result = await Fullboard.ShowAsync();
                 return;
@@ -504,7 +507,8 @@ namespace gomoku_uwp
                         {
                             Title = rl.GetString("Result_txt"),
                             Content = rl.GetString("win_bh"),
-                            CloseButtonText = rl.GetString("ok_txt")
+                            CloseButtonText = rl.GetString("ok_txt"),
+                            CloseButtonStyle = this.Resources["b_s"] as Style
                         };
                         ContentDialogResult result = await Result.ShowAsync();
                     }
@@ -530,7 +534,8 @@ namespace gomoku_uwp
                         {
                             Title = rl.GetString("Result_txt"),
                             Content = rl.GetString("win_wh"),
-                            CloseButtonText = rl.GetString("ok_txt")
+                            CloseButtonText = rl.GetString("ok_txt"),
+                            CloseButtonStyle = this.Resources["b_s"] as Style
                         };
                         ContentDialogResult result = await Result.ShowAsync();
                     }

@@ -40,6 +40,7 @@
         <Flyout x:Key="Dump_fly">
             <TextBlock Name="Dump_Text" FontFamily="Consolas"/>
         </Flyout>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}" x:Key="b_s"/>
     </Page.Resources>
     <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
         <Grid.RowDefinitions>
