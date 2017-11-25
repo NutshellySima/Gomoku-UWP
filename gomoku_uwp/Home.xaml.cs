@@ -365,6 +365,7 @@ namespace gomoku_uwp
             RestartButton.IsEnabled = true;
             Settings_nav.IsEnabled = true;
             computerrunning = false;
+            Update_Output();
             if (black && invoke.Checkwin(false) == 1)
             {
                 WinPrinter();
@@ -465,6 +466,7 @@ namespace gomoku_uwp
                 Clear_noticeLine();
                 Remove_chessboardPoint(1);
                 --turn;
+                Update_Output();
                 if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human") || (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer"))
                     UndoButton.IsEnabled = false;
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
@@ -498,6 +500,7 @@ namespace gomoku_uwp
                     DrawPoint((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, true);
                     DrawNoticeLine((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, true);
                     ++turn;
+                    Update_Output();
                     UndoButton.IsEnabled = true;
                     PlayGame();
                     if (invoke.Checkwin(false) == 1)
@@ -525,6 +528,7 @@ namespace gomoku_uwp
                     DrawPoint((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, false);
                     DrawNoticeLine((int)Math.Round(pt.X / deltax) - 1, (int)Math.Round(pt.Y / deltay) - 1, false);
                     ++turn;
+                    Update_Output();
                     UndoButton.IsEnabled = true;
                     PlayGame();
                     if (invoke.Checkwin(false) == 2)
@@ -578,7 +582,7 @@ namespace gomoku_uwp
             PlayGame();
         }
 
-        private void DumpButton_Click(object sender, RoutedEventArgs e)
+        private void Update_Output()
         {
             char a1, a2;
             var history = invoke.Gethistory();
@@ -598,6 +602,11 @@ namespace gomoku_uwp
                     output += "\n";
             }
             Dump_Text.Text = output;
+        }
+
+        private void DumpButton_Click(object sender, RoutedEventArgs e)
+        {
+            Update_Output();
         }
 
         private void Flyout_Closed(object sender, object e)
