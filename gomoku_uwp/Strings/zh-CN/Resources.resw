@@ -258,4 +258,7 @@
   <data name="Undo_But.ToolTipService.ToolTip" xml:space="preserve">
     <value>悔棋</value>
   </data>
+  <data name="AppName" xml:space="preserve">
+    <value>五子棋</value>
+  </data>
 </root>

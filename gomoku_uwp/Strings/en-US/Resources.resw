@@ -255,4 +255,7 @@
   <data name="Undo_But.ToolTipService.ToolTip" xml:space="preserve">
     <value>Undo</value>
   </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Nut-gomoku</value>
+  </data>
 </root>
