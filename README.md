@@ -1,11 +1,10 @@
 # Gomoku
 
-This is a UWP gomoku game.  It also contains a strong AI for gomoku.
+A UWP gomoku (renju, five in a row) game which contains a really strong AI.
 
 ## Screenshots
 
 ![screenshot](https://raw.githubusercontent.com/NutshellySima/Gomoku-UWP/master/screenshots/1.png)
-
 
 ## Prerequisites
 
