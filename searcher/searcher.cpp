@@ -5,7 +5,7 @@
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	   http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -204,7 +204,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value(int8_t turn, chessboard& boa
 		return std::make_tuple(10000000 - ply, i, ii);
 	else if (res == -100000)
 		return std::make_tuple(0 - 10000000 + ply, i, ii);
-	else if (depth <= 0)
+	else if (depth <= 0 || board.Fullboard())
 	{
 		//res = evaluator.evaluate(ref(board), turn, i, ii, false);
 		return std::make_tuple(res, i, ii);
@@ -264,7 +264,7 @@ std::tuple<int, int8_t, int8_t> searcher::min_value(int8_t turn, chessboard& boa
 		return std::make_tuple(0 - 10000000 + ply, i, ii);
 	else if (res == 100000)
 		return std::make_tuple(10000000 - ply, i, ii);
-	else if (depth <= 0)
+	else if (depth <= 0 || board.Fullboard())
 	{
 		//res = 0 - evaluator.evaluate(ref(board), turn, i, ii, false);
 		return std::make_tuple(res, i, ii);

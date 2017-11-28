@@ -5,7 +5,7 @@
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	   http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -438,7 +438,7 @@ std::vector<std::tuple<int, int8_t, int8_t>> chessboard::genmove() const noexcep
 			}
 		}
 	}
-	if (moves.empty())
+	if (0 == number)
 		moves.push_back(std::make_tuple(3, 7, 7));
 	std::sort(moves.rbegin(), moves.rend());
 	return moves;
