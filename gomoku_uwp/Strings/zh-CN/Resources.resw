@@ -144,9 +144,6 @@
   <data name="HardButton.Content" xml:space="preserve">
     <value>困难</value>
   </data>
-  <data name="Home_Nav.Content" xml:space="preserve">
-    <value>首页</value>
-  </data>
   <data name="Mode.Text" xml:space="preserve">
     <value>模式</value>
   </data>
