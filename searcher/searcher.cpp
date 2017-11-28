@@ -183,6 +183,7 @@ std::tuple<int, int8_t, int8_t> searcher::alpha_beta_search(int8_t turn, chessbo
 	timeoutnum = timeout;
 	start = clock.now();
 	//evaluator.evaluate(ref(board), turn, -1, -1, true);
+	this->search_depth = depth;
 	return max_value(turn, ref(board), -0x7fffffff, 0x7fffffff, depth, -1, -1, 0);
 }
 
@@ -216,7 +217,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value(int8_t turn, chessboard& boa
 	{
 		board.put(ref(std::get<1>(x)), ref(std::get<2>(x)), ref(turn));
 		std::tuple<int, int8_t, int8_t> temp;
-		if (depth == 7)
+		if (depth == this->search_depth)
 		{
 			if (changed == false)
 			{

@@ -5,7 +5,7 @@
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	   http://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,10 @@ public:
 	DllExport Cwrapper(void);
 	DllExport int8_t Getchessboard(int8_t row, int8_t col)
 	{
-		return chessboarddata[row][col];
+		if (row >= 0 && row < 15 && col >= 0 && col < 15)
+			return chessboarddata[row][col];
+		else
+			return -1;
 	}
 	DllExport std::vector<std::tuple<int8_t, int8_t, int8_t>> Gethistory()
 	{
@@ -76,7 +79,7 @@ public:
 		if (valid)
 		{
 			chessboarddata[row][col] = turn;
-			history.push_back(std::make_tuple(turn, row, col));
+			history.emplace_back(std::make_tuple(turn, row, col));
 		}
 		return valid;
 	}
@@ -125,11 +128,11 @@ public:
 					if (checker)
 					{
 						for (int c = ii; c > ii - 5; --c)
-							changer.push_back(make_tuple(3, i, c));
+							changer.emplace_back(make_tuple(3, i, c));
 						for (int c = ii; c < 15; ++c)
 						{
 							if (chessboarddata[i][c] == 1)
-								changer.push_back(make_tuple(3, i, c));
+								changer.emplace_back(make_tuple(3, i, c));
 							else
 								break;
 						}
@@ -141,11 +144,11 @@ public:
 					if (checker)
 					{
 						for (int c = ii; c > ii - 5; --c)
-							changer.push_back(make_tuple(4, i, c));
+							changer.emplace_back(make_tuple(4, i, c));
 						for (int c = ii; c < 15; ++c)
 						{
 							if (chessboarddata[i][c] == 2)
-								changer.push_back(make_tuple(4, i, c));
+								changer.emplace_back(make_tuple(4, i, c));
 							else
 								break;
 						}
@@ -178,11 +181,11 @@ public:
 					if (checker)
 					{
 						for (int c = ii; c > ii - 5; --c)
-							changer.push_back(make_tuple(3, c, i));
+							changer.emplace_back(make_tuple(3, c, i));
 						for (int c = ii; c < 15; ++c)
 						{
 							if (chessboarddata[c][i] == 1)
-								changer.push_back(make_tuple(3, c, i));
+								changer.emplace_back(make_tuple(3, c, i));
 							else
 								break;
 						}
@@ -194,11 +197,11 @@ public:
 					if (checker)
 					{
 						for (int c = ii; c > ii - 5; --c)
-							changer.push_back(make_tuple(4, c, i));
+							changer.emplace_back(make_tuple(4, c, i));
 						for (int c = ii; c < 15; ++c)
 						{
 							if (chessboarddata[c][i] == 2)
-								changer.push_back(make_tuple(4, c, i));
+								changer.emplace_back(make_tuple(4, c, i));
 							else
 								break;
 						}
@@ -234,11 +237,11 @@ public:
 					if (checker)
 					{
 						for (int xx = x, yy = y; xx > x - 5; --xx, --yy)
-							changer.push_back(make_tuple(3, xx, yy));
+							changer.emplace_back(make_tuple(3, xx, yy));
 						for (int xx = x, yy = y; xx < 15 && yy < 15; ++xx, ++yy)
 						{
 							if (chessboarddata[xx][yy] == 1)
-								changer.push_back(make_tuple(3, xx, yy));
+								changer.emplace_back(make_tuple(3, xx, yy));
 							else
 								break;
 						}
@@ -250,11 +253,11 @@ public:
 					if (checker)
 					{
 						for (int xx = x, yy = y; xx > x - 5; --xx, --yy)
-							changer.push_back(make_tuple(4, xx, yy));
+							changer.emplace_back(make_tuple(4, xx, yy));
 						for (int xx = x, yy = y; xx < 15 && yy < 15; ++xx, ++yy)
 						{
 							if (chessboarddata[xx][yy] == 2)
-								changer.push_back(make_tuple(4, xx, yy));
+								changer.emplace_back(make_tuple(4, xx, yy));
 							else
 								break;
 						}
@@ -294,11 +297,11 @@ public:
 					if (checker)
 					{
 						for (int xx = x, yy = y; xx > x - 5; --xx, ++yy)
-							changer.push_back(make_tuple(3, xx, yy));
+							changer.emplace_back(make_tuple(3, xx, yy));
 						for (int xx = x, yy = y; xx < 15 && y >= 0; ++xx, --yy)
 						{
 							if (chessboarddata[xx][yy] == 1)
-								changer.push_back(make_tuple(3, xx, yy));
+								changer.emplace_back(make_tuple(3, xx, yy));
 							else
 								break;
 						}
@@ -310,11 +313,11 @@ public:
 					if (checker)
 					{
 						for (int xx = x, yy = y; xx > x - 5; --xx, ++yy)
-							changer.push_back(make_tuple(4, xx, yy));
+							changer.emplace_back(make_tuple(4, xx, yy));
 						for (int xx = x, yy = y; xx < 15 && y >= 0; ++xx, --yy)
 						{
 							if (chessboarddata[xx][yy] == 2)
-								changer.push_back(make_tuple(4, xx, yy));
+								changer.emplace_back(make_tuple(4, xx, yy));
 							else
 								break;
 						}

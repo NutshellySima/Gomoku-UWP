@@ -331,6 +331,7 @@ namespace gomoku_uwp
             RestartButton.IsEnabled = false;
             Settings_nav.IsEnabled = false;
             computerrunning = true;
+            String original = nav_bar.Text;
             nav_bar.Text = rl.GetString("thinking_txt");
             Task<int[]> com;
             if (black)
@@ -349,6 +350,16 @@ namespace gomoku_uwp
             }
             await com;
             var data = com.Result;
+            if (data[2] == -1 || data[1] == -1)
+            {
+                UndoButton.IsEnabled = true;
+                RestartButton.IsEnabled = true;
+                Settings_nav.IsEnabled = true;
+                computerrunning = false;
+                nav_bar.Text = original;
+                Update_Output();
+                return;
+            }
             Clear_noticeLine();
             if (black)
             {
@@ -394,7 +405,7 @@ namespace gomoku_uwp
         }
         public async void PlayGame(bool computer = true)
         {
-            if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human")|| (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer"))
+            if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human") || (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer"))
             {
                 UndoButton.IsEnabled = false;
             }
@@ -404,7 +415,7 @@ namespace gomoku_uwp
             }
             if (operationCanceled)
                 return;
-            if (invoke.Fullboard())
+            if (invoke.Fullboard() && invoke.Checkwin(false) == 0)
             {
                 ContentDialog Fullboard = new ContentDialog
                 {

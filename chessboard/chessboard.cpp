@@ -73,7 +73,10 @@ void chessboard::reset() noexcept
 
 int chessboard::get(const int row, const int col) const noexcept
 {
-	return board[row][col];
+	if (row >= 0 && row < 15 && col >= 0 && col < 15)
+		return board[row][col];
+	else
+		return -1;
 }
 
 bool chessboard::put(const int row, const int col, const int x) noexcept
@@ -439,7 +442,7 @@ std::vector<std::tuple<int, int8_t, int8_t>> chessboard::genmove() const noexcep
 		}
 	}
 	if (0 == number)
-		moves.push_back(std::make_tuple(3, 7, 7));
+		moves.emplace_back(std::make_tuple(3, 7, 7));
 	std::sort(moves.rbegin(), moves.rend());
 	return moves;
 }

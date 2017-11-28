@@ -35,4 +35,5 @@ private:
 	int timeoutnum = 30000;
 	std::chrono::steady_clock clock;
 	std::chrono::time_point<std::chrono::steady_clock> start;
+	int8_t search_depth;
 };
