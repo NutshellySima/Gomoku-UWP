@@ -609,7 +609,7 @@ namespace gomoku_uwp
                 a1 = (char)(history[ii * 3 + 1] + 'A');
                 a2 = (char)(history[ii * 3 + 2] + 'A');
                 output += Convert.ToString(ii + 1).PadLeft(3) + ": " + Convert.ToString(a1) + Convert.ToString(a2) + " ";
-                if (ii != 0 && (ii + 1) % 6 == 0)
+                if (ii != 0 && (ii + 1) % 6 == 0 && ii != length / 3 - 1)
                     output += "\n";
             }
             Dump_Text.Text = output;
