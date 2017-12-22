@@ -46,4 +46,5 @@ private:
 	std::array<std::array<uint8_t, 15>, 15> remote_cell;
 	uint8_t number;
 	std::array<std::array<uint8_t, 15>, 15> pos;
+	std::array<std::pair<int8_t, int8_t>, 15 * 15>score_cache;
 };

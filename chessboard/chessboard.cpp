@@ -17,6 +17,7 @@
 
 #include "pch.h"
 #include "chessboard.h"
+
 chessboard::chessboard() noexcept
 {
 	reset();
@@ -27,6 +28,16 @@ chessboard::chessboard() noexcept
 			pos[i][ii] = 7 - max(abs(i - 7), abs(ii - 7));
 		}
 	}
+	for (int i = 0; i < 15; ++i)
+	{
+		for (int ii = 0; ii < 15; ++ii)
+		{
+			score_cache[i * 15 + ii] = std::make_pair(i, ii);
+		}
+	}
+	std::stable_sort(score_cache.rbegin(), score_cache.rend(), [&](const std::pair<int8_t, int8_t> &i1, const std::pair<int8_t, int8_t> &i2) {
+		return pos[i1.first][i1.second] < pos[i2.first][i2.second];
+	});
 }
 
 //reset the chess board
@@ -430,20 +441,17 @@ std::vector<std::tuple<int, int8_t, int8_t>> chessboard::genmove() const noexcep
 	std::vector<std::tuple<int, int8_t, int8_t>> moves;
 	moves.reserve(64);
 	int score;
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < 15 * 15; ++i)
 	{
-		for (int ii = 0; ii < 15; ++ii)
+		auto& val = score_cache[i];
+		if (remote_cell[val.first][val.second] != 0 && board[val.first][val.second] == 0)
 		{
-			if (remote_cell[i][ii] != 0 && board[i][ii] == 0)
-			{
-				score = pos[i][ii];
-				moves.emplace_back(std::make_tuple(score, i, ii));
-			}
+			score = pos[val.first][val.second];
+			moves.emplace_back(std::make_tuple(score, val.first, val.second));
 		}
 	}
 	if (0 == number)
 		moves.emplace_back(std::make_tuple(3, 7, 7));
-	std::sort(moves.rbegin(), moves.rend());
 	return moves;
 }
 
