@@ -198,7 +198,7 @@ namespace gomoku_uwp
             line.Y2 += 10;
             line.IsHitTestVisible = false;
             line.Stroke = new SolidColorBrush(Colors.Black);
-            line.StrokeThickness = 2;
+            line.StrokeThickness = 3;
             chessboard_father.Children.Add(line);
             chessboard_line.Add(new chessboard_line_class(line, i, horizontal));
         }
@@ -238,7 +238,7 @@ namespace gomoku_uwp
                 line.Stroke = new SolidColorBrush(Colors.White);
             else
                 line.Stroke = new SolidColorBrush(Colors.Black);
-            line.StrokeThickness = 2;
+            line.StrokeThickness = 3;
             chessboard_father.Children.Add(line);
             chessboard_noticeline.Add(new chessboard_notice_line_class(line, row, col, true));
             line = new Windows.UI.Xaml.Shapes.Line()
@@ -252,7 +252,7 @@ namespace gomoku_uwp
                 line.Stroke = new SolidColorBrush(Colors.White);
             else
                 line.Stroke = new SolidColorBrush(Colors.Black);
-            line.StrokeThickness = 2;
+            line.StrokeThickness = 3;
             chessboard_father.Children.Add(line);
             chessboard_noticeline.Add(new chessboard_notice_line_class(line, row, col, false));
         }
