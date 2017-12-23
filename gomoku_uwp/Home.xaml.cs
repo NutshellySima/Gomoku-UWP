@@ -198,7 +198,7 @@ namespace gomoku_uwp
             line.Y2 += 10;
             line.IsHitTestVisible = false;
             line.Stroke = new SolidColorBrush(Colors.Black);
-            line.StrokeThickness = 3;
+            line.StrokeThickness = 2.5;
             chessboard_father.Children.Add(line);
             chessboard_line.Add(new chessboard_line_class(line, i, horizontal));
         }
