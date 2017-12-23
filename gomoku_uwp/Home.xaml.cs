@@ -577,7 +577,12 @@ namespace gomoku_uwp
             }
             else
             {
-                if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 6)
+                if (_gameOptions.Values["black"].ToString() == "human" && _gameOptions.Values["white"].ToString() == "computer" && invoke.Checkwin(false) == 1)
+                {
+                    Clear_noticeLine();
+                    UndoGame();
+                }
+                else if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 6)
                 {
                     Clear_noticeLine();
                     UndoGame();
