@@ -28,6 +28,7 @@ chessboard::chessboard() noexcept
 			pos[i][ii] = 7 - max(abs(i - 7), abs(ii - 7));
 		}
 	}
+	score_cache.reserve(15 * 15);
 	for (int i = 0; i < 15; ++i)
 	{
 		for (int ii = 0; ii < 15; ++ii)
