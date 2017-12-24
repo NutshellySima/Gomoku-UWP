@@ -32,7 +32,7 @@ chessboard::chessboard() noexcept
 	{
 		for (int ii = 0; ii < 15; ++ii)
 		{
-			score_cache[i * 15 + ii] = std::make_pair(i, ii);
+			score_cache.emplace_back(std::make_pair(i, ii));
 		}
 	}
 	std::stable_sort(score_cache.rbegin(), score_cache.rend(), [&](const std::pair<int8_t, int8_t> &i1, const std::pair<int8_t, int8_t> &i2) {
