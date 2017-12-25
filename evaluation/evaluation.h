@@ -50,8 +50,8 @@ private:
 	const uint8_t STWO = 1, STHREE = 2, SFOUR = 3, TWO = 4, THREE = 5, FOUR = 6, FIVE = 7, DFOUR = 8,
 		FOURT = 9, DTHREE = 10, NOTYPE = 11, ANALYSED = 255, TODO = 0;
 	const uint8_t BLACK = 1, WHITE = 2;
-	const std::array<uint8_t, 3> nturn = { 0, 2, 1 };
-	std::array<uint8_t, 15> result;
+	const std::vector<uint8_t> nturn = { 0, 2, 1 };
+	std::vector<uint8_t> result = std::vector<uint8_t>(15);
 	uint8_t flag;
-	std::array<uint8_t, 30>copy_place;
+	std::vector<uint8_t>copy_place = std::vector<uint8_t>(30);
 };

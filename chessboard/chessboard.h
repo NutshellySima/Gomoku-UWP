@@ -33,18 +33,18 @@ public:
 	int checkpoint(const int row, const int col) const noexcept;
 	std::vector<std::tuple<int, int8_t, int8_t>> genmove() const noexcept;
 protected:
-	std::array<std::array<int8_t, 15>, 15> board;
-	std::array<std::array<std::array<uint8_t, 15>, 29>, 4> layer_2;
-	std::array<std::array<std::array<uint8_t, 15>, 15>, 4> layer_3; //[direction][row][col]
-	std::array<std::array<uint8_t, 20>, 3> layer_4;
-	std::array<std::pair<uint8_t, uint8_t>, 225>layer_5;
+	std::vector<std::array<int8_t, 15>> board = std::vector<std::array<int8_t, 15>>(15);
+	std::vector<std::array<std::array<uint8_t, 15>, 29>> layer_2 = std::vector<std::array<std::array<uint8_t, 15>, 29>>(4);
+	std::vector<std::array<std::array<uint8_t, 15>, 15>> layer_3 = std::vector<std::array<std::array<uint8_t, 15>, 15>>(4); //[direction][row][col]
+	std::vector<std::array<uint8_t, 20>> layer_4 = std::vector<std::array<uint8_t, 20>>(3);
+	std::vector<std::pair<uint8_t, uint8_t>>layer_5 = std::vector<std::pair<uint8_t, uint8_t>>(225);
 
 private:
 	int check() const noexcept;
 	void update_remotecell(const int row, const int col, const bool add) noexcept;
 	void update_layer_2(const int row, const int col, const bool add) noexcept;
-	std::array<std::array<uint8_t, 15>, 15> remote_cell;
+	std::vector<std::array<uint8_t, 15>> remote_cell = std::vector<std::array<uint8_t, 15>>(15);
 	uint8_t number;
-	std::array<std::array<uint8_t, 15>, 15> pos;
+	std::vector<std::array<uint8_t, 15>> pos = std::vector<std::array<uint8_t, 15>>(15);
 	std::vector<std::pair<int8_t, int8_t>>score_cache;
 };
