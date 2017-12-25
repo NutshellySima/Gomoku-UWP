@@ -334,7 +334,7 @@ public:
 private:
 	chessboard board;
 	searcher searchman;
-	std::array<std::array<int8_t, 15>, 15>chessboarddata;
+	std::vector<std::array<int8_t, 15>>chessboarddata = std::vector<std::array<int8_t, 15>>(15);
 	std::vector<std::tuple<int8_t, int8_t, int8_t>>history;
 	int _Checkwin(const int row, const int col)
 	{
