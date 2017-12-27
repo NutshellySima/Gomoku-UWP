@@ -635,7 +635,7 @@ namespace gomoku_uwp
 
         private void DumpButton_Click(object sender, RoutedEventArgs e)
         {
-            Update_Output();
+            
         }
 
         private async void Flyout_Closed(object sender, object e)
