@@ -491,7 +491,7 @@ namespace gomoku_uwp
         }
         private async void chessboard_background_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            bool valid_Val = chessboard_lock.Wait(0);
+            bool valid_Val = await chessboard_lock.WaitAsync(0);
             if (!valid_Val)
                 return;
             // locked
@@ -578,7 +578,7 @@ namespace gomoku_uwp
         {
             if (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer")
                 return;
-            chessboard_lock.Wait();
+            await chessboard_lock.WaitAsync();
             if (_gameOptions.Values["black"].ToString() == "human" && _gameOptions.Values["white"].ToString() == "human")
             {
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
@@ -604,7 +604,7 @@ namespace gomoku_uwp
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            chessboard_lock.Wait();
+            await chessboard_lock.WaitAsync();
             Clear_noticeLine();
             while (await UndoGame() == true) ;
             await PlayGame();
@@ -645,7 +645,7 @@ namespace gomoku_uwp
                 return;
             if ((currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white) && flyout_black == "human" && flyout_white == "human")
                 return;
-            chessboard_lock.Wait();
+            await chessboard_lock.WaitAsync();
             Clear_noticeLine();
             while (await UndoGame() == true) ;
             await PlayGame();
