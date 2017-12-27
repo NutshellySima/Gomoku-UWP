@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 using Windows.UI;
 using System.IO;
 using System.Linq;
@@ -43,7 +44,6 @@ namespace gomoku_uwp
     /// </summary>
     public sealed partial class Home : Page
     {
-        ResourceLoader rl = new ResourceLoader();
         class chessboard_line_class
         {
             public UIElement line;
@@ -81,7 +81,8 @@ namespace gomoku_uwp
             }
         }
         // Global definitions
-        bool computerrunning = false;
+        ResourceLoader rl = new ResourceLoader();
+        SemaphoreSlim chessboard_lock = new SemaphoreSlim(1);
         bool operationCanceled = false;
         private int turn = 1;
         string flyout_mode;
@@ -97,8 +98,10 @@ namespace gomoku_uwp
         public Home()
         {
             this.InitializeComponent();
+            chessboard_lock.Wait();
             initSettings();
             InitWindow();
+            chessboard_lock.Release();
         }
         public void initSettings()
         {
@@ -292,15 +295,14 @@ namespace gomoku_uwp
             }
         }
         // Main logic related
-        public void InitWindow()
+        public async void InitWindow()
         {
             for (int ii = 1; ii <= 15; ++ii)
             {
                 Drawchessboard(ii, true);
                 Drawchessboard(ii, false);
             }
-
-            PlayGame();
+            await PlayGame();
         }
         public void WinPrinter()
         {
@@ -330,7 +332,6 @@ namespace gomoku_uwp
             UndoButton.IsEnabled = false;
             RestartButton.IsEnabled = false;
             Settings_nav.IsEnabled = false;
-            computerrunning = true;
             String original = nav_bar.Text;
             nav_bar.Text = rl.GetString("thinking_txt");
             Task<int[]> com;
@@ -355,7 +356,6 @@ namespace gomoku_uwp
                 UndoButton.IsEnabled = true;
                 RestartButton.IsEnabled = true;
                 Settings_nav.IsEnabled = true;
-                computerrunning = false;
                 nav_bar.Text = original;
                 Update_Output();
                 return;
@@ -375,7 +375,6 @@ namespace gomoku_uwp
             UndoButton.IsEnabled = true;
             RestartButton.IsEnabled = true;
             Settings_nav.IsEnabled = true;
-            computerrunning = false;
             Update_Output();
             if (black && invoke.Checkwin(false) == 1)
             {
@@ -401,9 +400,9 @@ namespace gomoku_uwp
                 };
                 ContentDialogResult result = await Result.ShowAsync();
             }
-            PlayGame();
+            await PlayGame();
         }
-        public async void PlayGame(bool computer = true)
+        public async Task PlayGame(bool computer = true)
         {
             if (turn == 1 || (turn == 2 && _gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human") || (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer"))
             {
@@ -434,9 +433,7 @@ namespace gomoku_uwp
                 {
                     if (_gameOptions.Values["black"].ToString() == "computer" && computer == true)
                     {
-#pragma warning disable CS4014 
-                        PlaybyComputer(true);
-#pragma warning restore CS4014 
+                        await PlaybyComputer(true);
                     }
                     else
                     {
@@ -448,9 +445,7 @@ namespace gomoku_uwp
                 {
                     if (_gameOptions.Values["white"].ToString() == "computer" && computer == true)
                     {
-#pragma warning disable CS4014 
-                        PlaybyComputer(false);
-#pragma warning restore CS4014 
+                        await PlaybyComputer(false);
                     }
                     else
                     {
@@ -464,12 +459,12 @@ namespace gomoku_uwp
                 return;
             }
         }
-        public bool UndoGame()
+        public async Task<bool> UndoGame()
         {
             bool Undostatus = invoke.BoardUndo();
             if (Undostatus == false)
             {
-                PlayGame(false);
+                await PlayGame(false);
                 return false;
             }
             else
@@ -490,14 +485,21 @@ namespace gomoku_uwp
                     else
                         DrawNoticeLine(x3, x2, false);
                 }
-                PlayGame(false);
+                await PlayGame(false);
                 return true;
             }
         }
         private async void chessboard_background_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            if (computerrunning || invoke.Checkwin(false) != 0)
+            bool valid_Val = chessboard_lock.Wait(0);
+            if (!valid_Val)
                 return;
+            // locked
+            if (invoke.Checkwin(false) != 0)
+            {
+                chessboard_lock.Release();
+                return;
+            }
             var deltax = Convert.ToDouble(chessboard_background.ActualWidth) / 16;
             var deltay = Convert.ToDouble(chessboard_background.ActualHeight) / 16;
             PointerPoint ptr = e.GetCurrentPoint(chessboard_background);
@@ -513,7 +515,7 @@ namespace gomoku_uwp
                     ++turn;
                     Update_Output();
                     UndoButton.IsEnabled = true;
-                    PlayGame();
+                    await PlayGame();
                     if (invoke.Checkwin(false) == 1)
                     {
                         WinPrinter();
@@ -528,7 +530,10 @@ namespace gomoku_uwp
                     }
                 }
                 else
+                {
+                    chessboard_lock.Release();
                     return;
+                }
             }
             else
             {
@@ -541,7 +546,7 @@ namespace gomoku_uwp
                     ++turn;
                     Update_Output();
                     UndoButton.IsEnabled = true;
-                    PlayGame();
+                    await PlayGame();
                     if (invoke.Checkwin(false) == 2)
                     {
                         WinPrinter();
@@ -556,8 +561,12 @@ namespace gomoku_uwp
                     }
                 }
                 else
+                {
+                    chessboard_lock.Release();
                     return;
+                }
             }
+            chessboard_lock.Release();
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -565,37 +574,41 @@ namespace gomoku_uwp
             operationCanceled = true;
         }
 
-        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        private async void UndoButton_Click(object sender, RoutedEventArgs e)
         {
             if (_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "computer")
                 return;
+            chessboard_lock.Wait();
             if (_gameOptions.Values["black"].ToString() == "human" && _gameOptions.Values["white"].ToString() == "human")
             {
                 if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 3)
                     Clear_noticeLine();
-                bool Undostatus = UndoGame();
+                bool Undostatus = await UndoGame();
             }
             else
             {
                 if (_gameOptions.Values["black"].ToString() == "human" && _gameOptions.Values["white"].ToString() == "computer" && invoke.Checkwin(false) == 1)
                 {
                     Clear_noticeLine();
-                    UndoGame();
+                    await UndoGame();
                 }
                 else if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 6)
                 {
                     Clear_noticeLine();
-                    UndoGame();
-                    UndoGame();
+                    await UndoGame();
+                    await UndoGame();
                 }
             }
+            chessboard_lock.Release();
         }
 
-        private void RestartButton_Click(object sender, RoutedEventArgs e)
+        private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
+            chessboard_lock.Wait();
             Clear_noticeLine();
-            while (UndoGame() == true) ;
-            PlayGame();
+            while (await UndoGame() == true) ;
+            await PlayGame();
+            chessboard_lock.Release();
         }
 
         private void Update_Output()
@@ -625,16 +638,18 @@ namespace gomoku_uwp
             Update_Output();
         }
 
-        private void Flyout_Closed(object sender, object e)
+        private async void Flyout_Closed(object sender, object e)
         {
             var currentSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             if ((currentSettings.Values["mode"].ToString() == flyout_mode) && (currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white))
                 return;
             if ((currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white) && flyout_black == "human" && flyout_white == "human")
                 return;
+            chessboard_lock.Wait();
             Clear_noticeLine();
-            while (UndoGame() == true) ;
-            PlayGame();
+            while (await UndoGame() == true) ;
+            await PlayGame();
+            chessboard_lock.Release();
         }
 
         private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
