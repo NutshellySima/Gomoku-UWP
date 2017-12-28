@@ -101,6 +101,7 @@ namespace gomoku_uwp
             chessboard_lock.Wait();
             initSettings();
             InitWindow();
+            Update_Output();
             chessboard_lock.Release();
         }
         public void initSettings()

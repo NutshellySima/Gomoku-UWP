@@ -61,8 +61,8 @@ namespace unmanaged
 		Array<int>^ Gethistory()
 		{
 			auto x = ptr->Gethistory();
-			auto res = ref new Array<int>(x.size() * 3);
-			for (size_t i = 0; i < x.size(); i++)
+			auto res = ref new Array<int>(static_cast<unsigned int>(x.size()) * 3);
+			for (int i = 0; i < x.size(); i++)
 			{
 				res[3 * i] = std::get<0>(x[i]);
 				res[3 * i + 1] = std::get<1>(x[i]);

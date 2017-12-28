@@ -1,30 +1,31 @@
-﻿/*
-   Copyright 2017 Chijun Sima
+/*
+Copyright 2017 Chijun Sima
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #pragma once
-#include"pch.h"
+#include "pch.h"
+#include "chessboard.h"
 #ifndef DllExport
 #define DllExport   __declspec( dllexport )  
 #endif // !DllExport
 
-class DllExport evaluation
+class evaluation
 {
 public:
-	evaluation() noexcept {};
-	int evaluate(chessboard &, const int turn, const int row, const int col, bool pure) noexcept;
+	DllExport evaluation() noexcept {};
+	DllExport int evaluate(chessboard &, const int turn, const int row, const int col, bool pure) noexcept;
 
 private:
 	void reset_point(chessboard &board, int row, int col, bool pure) noexcept;

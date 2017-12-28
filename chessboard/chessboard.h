@@ -20,18 +20,18 @@
 #define DllExport   __declspec( dllexport )  
 #endif // !DllExport
 
-class DllExport chessboard
+class chessboard
 {
 	friend class evaluation;
 public:
-	chessboard() noexcept;
-	void reset() noexcept;
-	int get(const int row, const int col) const noexcept;
-	bool put(const int row, const int col, const int x) noexcept;
-	bool Fullboard() const noexcept;
-	int undo(const int row, const int col) noexcept;
-	int checkpoint(const int row, const int col) const noexcept;
-	std::vector<std::tuple<int, int8_t, int8_t>> genmove() const noexcept;
+	DllExport chessboard() noexcept;
+	DllExport void reset() noexcept;
+	DllExport int get(const int row, const int col) const noexcept;
+	DllExport bool put(const int row, const int col, const int x) noexcept;
+	DllExport bool Fullboard() const noexcept;
+	DllExport int undo(const int row, const int col) noexcept;
+	DllExport int checkpoint(const int row, const int col) const noexcept;
+	DllExport std::vector<std::tuple<int, int8_t, int8_t>> genmove() const noexcept;
 protected:
 	std::vector<std::array<int8_t, 15>> board = std::vector<std::array<int8_t, 15>>(15);
 	std::vector<std::array<std::array<uint8_t, 15>, 29>> layer_2 = std::vector<std::array<std::array<uint8_t, 15>, 29>>(4);

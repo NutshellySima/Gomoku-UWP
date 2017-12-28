@@ -10,10 +10,12 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="chessboard.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="evaluation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chessboard.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="evaluation.h" />
   </ItemGroup>
 </Project>

@@ -192,12 +192,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="chessboard.h" />
+    <ClInclude Include="evaluation.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="chessboard.cpp" />
+    <ClCompile Include="evaluation.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
