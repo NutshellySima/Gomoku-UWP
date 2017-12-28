@@ -192,7 +192,7 @@ std::tuple<int, int8_t, int8_t> searcher::alpha_beta_search(int8_t turn, chessbo
 	trueval = std::make_tuple(-0x7fffffff, -1, -1);
 	evaluation evaluator;
 	evaluator.evaluate(ref(board), turn, -1, -1, true);
-	return max_value_first(turn, ref(board), -0x7fffffff, 0x7fffffff, depth, -1, -1, 0, ref(evaluator));
+	return max_value_first(turn, ref(board), 0x7fffffff, depth, -1, -1, 0, ref(evaluator));
 }
 
 std::tuple<int, int8_t, int8_t> searcher::max_value(int8_t turn, chessboard& board, int alpha, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation& evaluator)
@@ -280,7 +280,7 @@ std::tuple<int, int8_t, int8_t> searcher::min_value(int8_t turn, chessboard& boa
 	return v;
 }
 
-std::tuple<int, int8_t, int8_t> searcher::max_value_first(int8_t turn, chessboard& board, int alpha, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation& evaluator)
+std::tuple<int, int8_t, int8_t> searcher::max_value_first(int8_t turn, chessboard& board, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation& evaluator)
 {
 	bool changed = false;
 	bool first = false;
