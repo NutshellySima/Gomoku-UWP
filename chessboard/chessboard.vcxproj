@@ -127,6 +127,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <WarningLevel>Level3</WarningLevel>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +142,7 @@
       <ControlFlowGuard>Guard</ControlFlowGuard>
       <WarningLevel>Level3</WarningLevel>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,6 +156,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <WarningLevel>Level3</WarningLevel>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,6 +171,7 @@
       <ControlFlowGuard>Guard</ControlFlowGuard>
       <WarningLevel>Level3</WarningLevel>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -181,6 +185,7 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <WarningLevel>Level3</WarningLevel>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -195,6 +200,7 @@
       <ControlFlowGuard>Guard</ControlFlowGuard>
       <WarningLevel>Level3</WarningLevel>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
