@@ -98,9 +98,13 @@ namespace gomoku_uwp
         public Home()
         {
             this.InitializeComponent();
-            chessboard_lock.Wait();
+            init();
+        }
+        public async void init()
+        {
+            await chessboard_lock.WaitAsync();
             initSettings();
-            InitWindow();
+            await InitWindow();
             Update_Output();
             chessboard_lock.Release();
         }
@@ -296,7 +300,7 @@ namespace gomoku_uwp
             }
         }
         // Main logic related
-        public async void InitWindow()
+        public async Task InitWindow()
         {
             for (int ii = 1; ii <= 15; ++ii)
             {
