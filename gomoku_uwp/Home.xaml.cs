@@ -90,6 +90,8 @@ namespace gomoku_uwp
         string flyout_white;
         // Resource
         Windows.Storage.ApplicationDataContainer _gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
+        private bool undo_but_ori;
+        private bool res_but_ori;
         private unmanaged.cliwrapper invoke = new unmanaged.cliwrapper();
         // UIElement List
         private List<chessboard_line_class> chessboard_line = new List<chessboard_line_class>();
@@ -640,18 +642,29 @@ namespace gomoku_uwp
 
         private void DumpButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        private async void Flyout_Closed(object sender, object e)
+        private async void Flyout_Closing(object sender, object e)
         {
             var currentSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             if ((currentSettings.Values["mode"].ToString() == flyout_mode) && (currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white))
+            {
+                UndoButton.IsEnabled = undo_but_ori;
+                RestartButton.IsEnabled = res_but_ori;
+                chessboard_lock.Release();
                 return;
+            }
             if ((currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white) && flyout_black == "human" && flyout_white == "human")
+            {
+                UndoButton.IsEnabled = undo_but_ori;
+                RestartButton.IsEnabled = res_but_ori;
+                chessboard_lock.Release();
                 return;
-            await chessboard_lock.WaitAsync();
+            }
             Clear_noticeLine();
+            UndoButton.IsEnabled = undo_but_ori;
+            RestartButton.IsEnabled = res_but_ori;
             while (await UndoGame() == true) ;
             await PlayGame();
             chessboard_lock.Release();
@@ -668,8 +681,13 @@ namespace gomoku_uwp
             initSettings();
         }
 
-        private void Flyout_Opening(object sender, object e)
+        private async void Flyout_Opening(object sender, object e)
         {
+            await chessboard_lock.WaitAsync();
+            undo_but_ori = UndoButton.IsEnabled;
+            res_but_ori = RestartButton.IsEnabled;
+            UndoButton.IsEnabled = false;
+            RestartButton.IsEnabled = false;
             initSettings();
             Windows.Storage.ApplicationDataContainer temp = Windows.Storage.ApplicationData.Current.LocalSettings;
             flyout_mode = temp.Values["mode"].ToString();

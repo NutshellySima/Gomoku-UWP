@@ -9,7 +9,7 @@
     >
     <Page.Resources>
         <CollectionViewSource x:Key="cvs" x:Name="cvs" IsSourceGrouped="True"/>
-        <Flyout x:Key="Settings-fly" Closed="Flyout_Closed" Opened="Flyout_Opened" Opening="Flyout_Opening">
+        <Flyout x:Key="Settings-fly" Closing="Flyout_Closing" Opened="Flyout_Opened" Opening="Flyout_Opening">
             <StackPanel>
                 <StackPanel>
                     <TextBlock Text="Mode" Style="{ThemeResource BaseTextBlockStyle}" x:Uid="Mode"/>
