@@ -17,13 +17,16 @@
 #include "pch.h"
 #include "searcher.h"
 #include "chessboard.h"
-#include <mutex>
+#include <shared_mutex>
 #include <future>
 using namespace std;
 
-mutex alphaval_mutex;
-mutex trueval_mutex;
-mutex betaval_mutex;
+// fixed 1
+shared_mutex alphaval_mutex;
+// fixed 2
+shared_mutex trueval_mutex;
+// fixed 3
+shared_mutex betaval_mutex;
 
 std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(int8_t turn, chessboard& board, int8_t depth, int8_t current, evaluation& evaluator)
 {
@@ -353,14 +356,14 @@ void searcher::min_value_first(int8_t turn, chessboard board, int beta, int8_t d
 	for (auto&x : moves)
 	{
 		board.put(ref(std::get<1>(x)), ref(std::get<2>(x)), ref(turn));
-		int alpha = alphaval;
+		int alpha = getAlphaVal();
 		auto temp = max_value(nturn, ref(board), alpha, beta, depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, ref(evaluator));
 		auto com = make_tuple(std::get<0>(temp), i, ii);
 		if (get<0>(v) > get<0>(com))
 			v = com;
 		board.undo(ref(std::get<1>(x)), ref(std::get<2>(x)));
 		evaluator.evaluate(ref(board), turn, std::get<1>(x), std::get<2>(x), true);
-		if (std::get<0>(v) <= alphaval)
+		if (std::get<0>(v) <= getAlphaVal())
 		{
 			return;
 		}
@@ -403,7 +406,7 @@ void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t 
 	for (auto&x : moves)
 	{
 		board.put(ref(std::get<1>(x)), ref(std::get<2>(x)), ref(turn));
-		int alpha = alphaval;
+		int alpha = getAlphaVal();
 		futures.emplace_back(std::async(std::launch::async, &searcher::max_value_second, this, nturn, board, alpha, ref(beta), depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, evaluator));
 		board.undo(ref(std::get<1>(x)), ref(std::get<2>(x)));
 		evaluator.evaluate(ref(board), turn, std::get<1>(x), std::get<2>(x), true);
@@ -421,9 +424,14 @@ void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t 
 
 std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboard board, int alpha, int& beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation evaluator)
 {
-	auto betachanger = [&beta](const std::tuple<int, int8_t, int8_t>&val) {
+	auto betageter = [&beta]()
+	{
+		std::shared_lock<std::shared_mutex> lock(betaval_mutex);
+		return beta;
+	};
+	auto betachanger = [&beta, &betageter](const std::tuple<int, int8_t, int8_t>&val) {
 		// Change betaval to min
-		if (std::get<0>(val) < beta)
+		if (std::get<0>(val) < betageter())
 		{
 			betaval_mutex.lock();
 			if (std::get<0>(val) < beta)
@@ -469,13 +477,13 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 				changed = true;
 			}
 		}
-		temp = min_value(nturn, ref(board), alpha, beta, depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, ref(evaluator));
+		temp = min_value(nturn, ref(board), alpha, betageter(), depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, ref(evaluator));
 		auto com = make_tuple(std::get<0>(temp), std::get<1>(x), std::get<2>(x));
 		if (std::get<0>(v) < std::get<0>(com))
 			v = com;
 		board.undo(ref(std::get<1>(x)), ref(std::get<2>(x)));
 		evaluator.evaluate(ref(board), turn, std::get<1>(x), std::get<2>(x), true);
-		if (std::get<0>(v) >= beta)
+		if (std::get<0>(v) >= betageter())
 		{
 			return v;
 		}
@@ -490,7 +498,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 void searcher::write_val(const std::tuple<int, int8_t, int8_t>& val)
 {
 	// Change trueval
-	if (std::get<0>(trueval) < std::get<0>(val))
+	if (std::get<0>(getTrueVal()) < std::get<0>(val))
 	{
 		trueval_mutex.lock();
 		if (std::get<0>(trueval) < std::get<0>(val))
@@ -498,11 +506,22 @@ void searcher::write_val(const std::tuple<int, int8_t, int8_t>& val)
 		trueval_mutex.unlock();
 	}
 	// Change alphaval to max
-	if (std::get<0>(trueval) > alphaval)
+	if (std::get<0>(getTrueVal()) > getAlphaVal())
 	{
 		alphaval_mutex.lock();
-		if (std::get<0>(trueval) > alphaval)
-			alphaval = std::get<0>(trueval);
+		if (std::get<0>(getTrueVal()) > alphaval)
+			alphaval = std::get<0>(getTrueVal());
 		alphaval_mutex.unlock();
 	}
+}
+
+const std::tuple<int, int8_t, int8_t> searcher::getTrueVal()
+{
+	std::shared_lock<std::shared_mutex> lock(trueval_mutex);
+	return trueval;
+}
+const int searcher::getAlphaVal()
+{
+	std::shared_lock<std::shared_mutex> lock(alphaval_mutex);
+	return alphaval;
 }
