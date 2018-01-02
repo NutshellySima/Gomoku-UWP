@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="f71f81b9-d921-4157-9366-a866d1547256" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Nut-gomoku</DisplayName>
-    <PublisherDisplayName>NutshellySima</PublisherDisplayName>
+    <PublisherDisplayName>Chijun Sima</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
