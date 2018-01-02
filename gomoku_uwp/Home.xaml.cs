@@ -44,35 +44,35 @@ namespace gomoku_uwp
     /// </summary>
     public sealed partial class Home : Page
     {
-        class chessboard_line_class
+        class Chessboard_line_class
         {
             public UIElement line;
             public int i;
             public bool horizontal;
-            public chessboard_line_class(UIElement line, int i, bool horizontal)
+            public Chessboard_line_class(UIElement line, int i, bool horizontal)
             {
                 this.line = line;
                 this.i = i;
                 this.horizontal = horizontal;
             }
         }
-        class chessboard_point_class
+        class Chessboard_point_class
         {
             public UIElement point;
             public int row, col;
-            public chessboard_point_class(UIElement point, int row, int col)
+            public Chessboard_point_class(UIElement point, int row, int col)
             {
                 this.point = point;
                 this.row = row;
                 this.col = col;
             }
         }
-        class chessboard_notice_line_class
+        class Chessboard_notice_line_class
         {
             public UIElement notice_line;
             public int row, col;
             public bool first;
-            public chessboard_notice_line_class(UIElement notice_line, int row, int col, bool first)
+            public Chessboard_notice_line_class(UIElement notice_line, int row, int col, bool first)
             {
                 this.notice_line = notice_line;
                 this.row = row;
@@ -94,23 +94,23 @@ namespace gomoku_uwp
         private bool res_but_ori;
         private unmanaged.cliwrapper invoke = new unmanaged.cliwrapper();
         // UIElement List
-        private List<chessboard_line_class> chessboard_line = new List<chessboard_line_class>();
-        private List<chessboard_point_class> chessboard_point = new List<chessboard_point_class>();
-        private List<chessboard_notice_line_class> chessboard_noticeline = new List<chessboard_notice_line_class>();
+        private List<Chessboard_line_class> chessboard_line = new List<Chessboard_line_class>();
+        private List<Chessboard_point_class> chessboard_point = new List<Chessboard_point_class>();
+        private List<Chessboard_notice_line_class> chessboard_noticeline = new List<Chessboard_notice_line_class>();
         public Home()
         {
             this.InitializeComponent();
-            init();
+            Init();
         }
-        public async void init()
+        public async void Init()
         {
             await chessboard_lock.WaitAsync();
-            initSettings();
+            InitSettings();
             await InitWindow();
             Update_Output();
             chessboard_lock.Release();
         }
-        public void initSettings()
+        public void InitSettings()
         {
             Object valueMode = _gameOptions.Values["mode"];
             Object valueBlack = _gameOptions.Values["black"];
@@ -154,8 +154,7 @@ namespace gomoku_uwp
         }
         private void B_Checked(object sender, RoutedEventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
-            if (rb != null)
+            if (sender is RadioButton rb)
             {
                 string Name = rb.Tag.ToString();
                 switch (Name)
@@ -210,7 +209,7 @@ namespace gomoku_uwp
             line.Stroke = new SolidColorBrush(Colors.Black);
             line.StrokeThickness = 2.5;
             chessboard_father.Children.Add(line);
-            chessboard_line.Add(new chessboard_line_class(line, i, horizontal));
+            chessboard_line.Add(new Chessboard_line_class(line, i, horizontal));
         }
         public void DrawPoint(int row, int col, bool black)
         {
@@ -230,7 +229,7 @@ namespace gomoku_uwp
             else
                 circle.Fill = new SolidColorBrush(Colors.White);
             chessboard_father.Children.Add(circle);
-            chessboard_point.Add(new chessboard_point_class(circle, row, col));
+            chessboard_point.Add(new Chessboard_point_class(circle, row, col));
         }
         public void DrawNoticeLine(int row, int col, bool black)
         {
@@ -250,7 +249,7 @@ namespace gomoku_uwp
                 line.Stroke = new SolidColorBrush(Colors.Black);
             line.StrokeThickness = 3;
             chessboard_father.Children.Add(line);
-            chessboard_noticeline.Add(new chessboard_notice_line_class(line, row, col, true));
+            chessboard_noticeline.Add(new Chessboard_notice_line_class(line, row, col, true));
             line = new Windows.UI.Xaml.Shapes.Line()
             {
                 Y1 = 10 + (col + 0.875) * deltay,
@@ -264,7 +263,7 @@ namespace gomoku_uwp
                 line.Stroke = new SolidColorBrush(Colors.Black);
             line.StrokeThickness = 3;
             chessboard_father.Children.Add(line);
-            chessboard_noticeline.Add(new chessboard_notice_line_class(line, row, col, false));
+            chessboard_noticeline.Add(new Chessboard_notice_line_class(line, row, col, false));
         }
         // specific Remove related
         public void Remove_noticeLine(int i)
@@ -496,7 +495,7 @@ namespace gomoku_uwp
                 return true;
             }
         }
-        private async void chessboard_background_PointerReleased(object sender, PointerRoutedEventArgs e)
+        private async void Chessboard_background_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             bool valid_Val = await chessboard_lock.WaitAsync(0);
             if (!valid_Val)
@@ -645,7 +644,7 @@ namespace gomoku_uwp
 
         }
 
-        private async void Flyout_Closing(object sender, object e)
+        private async void Flyout_Closed(object sender, object e)
         {
             var currentSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             if ((currentSettings.Values["mode"].ToString() == flyout_mode) && (currentSettings.Values["black"].ToString() == flyout_black) && (currentSettings.Values["white"].ToString() == flyout_white))
@@ -678,7 +677,7 @@ namespace gomoku_uwp
 
         private void Flyout_Opened(object sender, object e)
         {
-            initSettings();
+            InitSettings();
         }
 
         private async void Flyout_Opening(object sender, object e)
@@ -688,7 +687,7 @@ namespace gomoku_uwp
             res_but_ori = RestartButton.IsEnabled;
             UndoButton.IsEnabled = false;
             RestartButton.IsEnabled = false;
-            initSettings();
+            InitSettings();
             Windows.Storage.ApplicationDataContainer temp = Windows.Storage.ApplicationData.Current.LocalSettings;
             flyout_mode = temp.Values["mode"].ToString();
             flyout_black = temp.Values["black"].ToString();
