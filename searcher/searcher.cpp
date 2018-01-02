@@ -414,8 +414,7 @@ void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t 
 		x.wait();
 	for (auto&x : futures)
 		result.emplace_back(make_tuple(std::get<0>(x.get()), i, ii));
-	sort(result.begin(), result.end(), [](const auto& x1, const auto& x2) {return get<0>(x1) < get<0>(x2); });
-	v = result[0];
+	v = *min_element(result.begin(), result.end(), [](const auto& x1, const auto& x2) {return get<0>(x1) < get<0>(x2); });
 	write_val(v);
 	return;
 }
