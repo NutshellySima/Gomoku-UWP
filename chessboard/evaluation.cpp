@@ -16,6 +16,7 @@ limitations under the License.
 
 #include "pch.h"
 #include "evaluation.h"
+
 void evaluation::reset_point(chessboard &board, int row, int col, bool pure) noexcept
 {
 	if (pure)
@@ -156,19 +157,27 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 		bool leftfour = false;
 		if (xl > 0)
 		{
+			// Maybe only left or double
 			if (line[xl - 1] == 0)
+			{
 				leftfour = true;
+				result[pos] = SFOUR;
+				copy_place[flag] = pos;
+				++flag;
+			}
 		}
 		if (xr < num)
 		{
 			if (line[xr + 1] == 0)
 			{
+				// double
 				if (leftfour)
 				{
 					result[pos] = FOUR;
 					copy_place[flag] = pos;
 					++flag;
 				}
+				// only right has blank
 				else
 				{
 					result[pos] = SFOUR;
@@ -176,14 +185,8 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 					++flag;
 				}
 			}
-			else if (leftfour)
-			{
-				result[pos] = SFOUR;
-				copy_place[flag] = pos;
-				++flag;
-			}
-			return;
 		}
+		return;
 	}
 	if (srange == 2)
 	{
@@ -192,6 +195,7 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 		{
 			if (line[xl - 1] == 0)
 			{
+				// -|--- SFOUR
 				if (xl > 1 && line[xl - 2] == stone)
 				{
 					result[xl] = SFOUR;
@@ -201,9 +205,16 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 					copy_place[flag] = xl - 2;
 					++flag;
 				}
+				// x|---
 				else
+				{
 					left3 = true;
+					result[pos] = STHREE;
+					copy_place[flag] = pos;
+					++flag;
+				}
 			}
+			// ---
 			else if (xr == num || line[xr + 1] != 0)
 				return;
 		}
@@ -211,6 +222,7 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 		{
 			if (line[xr + 1] == 0)
 			{
+				// ---|- SFOUR
 				if (xr < num - 1 && line[xr + 2] == stone)
 				{
 					result[xr] = SFOUR;
@@ -220,12 +232,14 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 					copy_place[flag] = xr + 2;
 					++flag;
 				}
+				// x|---|x THREE
 				else if (left3)
 				{
 					result[xr] = THREE;
 					copy_place[flag] = xr;
 					++flag;
 				}
+				// x--- STHREE
 				else
 				{
 					result[xr] = STHREE;
@@ -233,37 +247,19 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 					++flag;
 				}
 			}
-			else if (result[xl] == SFOUR)
-				return;
-			else if (left3)
-			{
-				result[pos] = STHREE;
-				copy_place[flag] = pos;
-				++flag;
-			}
-		}
-		else
-		{
-			if (result[xl] == SFOUR)
-				return;
-			if (left3)
-			{
-				result[pos] = STHREE;
-				copy_place[flag] = pos;
-				++flag;
-			}
 		}
 		return;
 	}
 	if (srange == 1)
 	{
 		bool left2 = false;
-		if (xl > 2)
+		if (xl > 0)
 		{
 			if (line[xl - 1] == 0)
 			{
-				if (line[xl - 2] == stone)
+				if (xl > 2 && line[xl - 2] == stone)
 				{
+					// --|--
 					if (line[xl - 3] == stone)
 					{
 						result[xl - 3] = ANALYSED;
@@ -276,6 +272,7 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 						copy_place[flag] = xl;
 						++flag;
 					}
+					// |-|--
 					else if (line[xl - 3] == 0)
 					{
 						result[xl - 2] = ANALYSED;
@@ -287,7 +284,12 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 					}
 				}
 				else
+				{
 					left2 = true;
+					result[pos] = STWO;
+					copy_place[flag] = pos;
+					++flag;
+				}
 			}
 		}
 		if (xr < num)
@@ -350,17 +352,6 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 						copy_place[flag] = pos;
 						++flag;
 					}
-				}
-			}
-			else
-			{
-				if (result[xl] == SFOUR)
-					return;
-				if (left2)
-				{
-					result[pos] = STWO;
-					copy_place[flag] = pos;
-					++flag;
 				}
 			}
 		}

@@ -17,6 +17,7 @@ limitations under the License.
 #pragma once
 #include "pch.h"
 #include "chessboard.h"
+
 #ifndef DllExport
 #define DllExport   __declspec( dllexport )  
 #endif // !DllExport
@@ -49,10 +50,11 @@ private:
 	int __evaluate(chessboard &, int turn, const int row, const int col, bool pure) noexcept;
 	void evaluate_point(chessboard &board, int row, int col) noexcept;
 	const uint8_t STWO = 1, STHREE = 2, SFOUR = 3, TWO = 4, THREE = 5, FOUR = 6, FIVE = 7,
-		  ANALYSED = 255, TODO = 0;
+		ANALYSED = 255, TODO = 0;
 	const uint8_t BLACK = 1, WHITE = 2;
 	const std::vector<uint8_t> nturn = { 0, 2, 1 };
 	std::vector<uint8_t> result = std::vector<uint8_t>(15);
 	uint8_t flag;
-	std::vector<uint8_t>copy_place = std::vector<uint8_t>(30);
+	std::vector<uint8_t>copy_place = std::vector<uint8_t>(33);
 };
+
