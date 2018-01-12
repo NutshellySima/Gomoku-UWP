@@ -30,7 +30,7 @@ shared_mutex betaval_mutex;
 
 std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(int8_t turn, chessboard& board, int8_t depth, int8_t current, evaluation& evaluator)
 {
-	int maxnum = 16;
+	int maxnum = 32;
 	auto moves = board.genmove();
 	if (current <= 2)
 		return moves;
