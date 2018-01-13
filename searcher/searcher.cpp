@@ -28,9 +28,9 @@ shared_mutex trueval_mutex;
 // fixed 3
 shared_mutex betaval_mutex;
 
-std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(int8_t turn, chessboard& board, int8_t depth, int8_t current, evaluation& evaluator)
+std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(const int8_t turn, chessboard& board, const int8_t current, evaluation& evaluator)
 {
-	int maxnum = 32;
+	const int maxnum = 32;
 	auto moves = board.genmove();
 	if (current <= 2)
 		return moves;
@@ -52,7 +52,15 @@ std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(int8_t turn
 			nturn = 2;
 		else
 			nturn = 1;
-		auto temp = min_value(nturn, ref(board), alpha, beta, depth - 1, std::get<1>(x), std::get<2>(x), 0, ref(evaluator));
+		std::tuple<int, int8_t, int8_t> temp;
+		evaluator.evaluate(ref(board), nturn, std::get<1>(x), std::get<2>(x), true);
+		int res = 0 - evaluator.evaluate(ref(board), nturn, std::get<1>(x), std::get<2>(x), false);
+		if (res == -100000)
+			temp = std::make_tuple(0 - 10000000, std::get<1>(x), std::get<2>(x));
+		else if (res == 100000)
+			temp = std::make_tuple(10000000, std::get<1>(x), std::get<2>(x));
+		else
+			temp = std::make_tuple(res, std::get<1>(x), std::get<2>(x));
 		auto com = make_tuple(std::get<0>(temp), std::get<1>(x), std::get<2>(x));
 		if (!checkneg2&&std::get<0>(temp) >= -9000)
 			checkneg2 = true;
@@ -188,6 +196,10 @@ std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(int8_t turn
 
 std::tuple<int, int8_t, int8_t> searcher::alpha_beta_search(int8_t turn, chessboard board, int8_t depth, int timeout)
 {
+	if (board.getNumber() == 0)
+	{
+		return std::make_tuple(0, 'H' - 'A', 'H' - 'A');
+	}
 	timeoutnum = timeout;
 	start = clock.now();
 	this->search_depth = depth;
@@ -217,7 +229,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value(int8_t turn, chessboard& boa
 		return std::make_tuple(res, i, ii);
 	}
 	std::vector<std::tuple<int, int8_t, int8_t>> moves;
-	moves = smart_genmove(turn, ref(board), 1, depth, ref(evaluator));
+	moves = smart_genmove(turn, ref(board), depth, ref(evaluator));
 	std::tuple<int, int, int> v = std::make_tuple(-0x7fffffff, -1, -1);
 	for (auto&x : moves)
 	{
@@ -263,7 +275,7 @@ std::tuple<int, int8_t, int8_t> searcher::min_value(int8_t turn, chessboard& boa
 	{
 		return std::make_tuple(res, i, ii);
 	}
-	auto moves = smart_genmove(turn, ref(board), 1, depth, ref(evaluator));
+	auto moves = smart_genmove(turn, ref(board), depth, ref(evaluator));
 	std::tuple<int, int, int> v = std::make_tuple(0x7fffffff, -1, -1);
 	for (auto&x : moves)
 	{
@@ -304,7 +316,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_first(int8_t turn, chessboar
 	}
 	std::vector<std::tuple<int, int8_t, int8_t>> moves;
 	vector<future<void>>futures;
-	moves = smart_genmove(turn, ref(board), 1, depth, ref(evaluator));
+	moves = smart_genmove(turn, ref(board), depth, ref(evaluator));
 	trueval = std::make_tuple(-0x7fffffff, -1, -1);
 	for (auto&x : moves)
 	{
@@ -351,7 +363,7 @@ void searcher::min_value_first(int8_t turn, chessboard board, int beta, int8_t d
 		write_val(std::make_tuple(res, i, ii));
 		return;
 	}
-	auto moves = smart_genmove(turn, ref(board), 1, depth, ref(evaluator));
+	auto moves = smart_genmove(turn, ref(board), depth, ref(evaluator));
 	std::tuple<int, int8_t, int8_t> v = std::make_tuple(0x7fffffff, i, ii);
 	for (auto&x : moves)
 	{
@@ -399,7 +411,7 @@ void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t 
 		write_val(std::make_tuple(res, i, ii));
 		return;
 	}
-	auto moves = smart_genmove(turn, ref(board), 1, depth, ref(evaluator));
+	auto moves = smart_genmove(turn, ref(board), depth, ref(evaluator));
 	std::tuple<int, int8_t, int8_t> v = std::make_tuple(0x7fffffff, i, ii);
 	vector<future<std::tuple<int, int8_t, int8_t>>>futures;
 	vector<std::tuple<int, int8_t, int8_t>>result;
@@ -463,7 +475,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 		return std::make_tuple(res, i, ii);
 	}
 	std::vector<std::tuple<int, int8_t, int8_t>> moves;
-	moves = smart_genmove(turn, ref(board), 1, depth, ref(evaluator));
+	moves = smart_genmove(turn, ref(board), depth, ref(evaluator));
 	std::tuple<int, int, int> v = std::make_tuple(-0x7fffffff, -1, -1);
 	for (auto&x : moves)
 	{
@@ -497,8 +509,9 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 
 void searcher::write_val(const std::tuple<int, int8_t, int8_t>& val)
 {
+	std::tuple<int, int8_t, int8_t> temp;
 	// Change trueval
-	if (std::get<0>(getTrueVal()) < std::get<0>(val))
+	if (getTrueVal(ref(temp)); std::get<0>(temp) < std::get<0>(val))
 	{
 		trueval_mutex.lock();
 		if (std::get<0>(trueval) < std::get<0>(val))
@@ -506,19 +519,21 @@ void searcher::write_val(const std::tuple<int, int8_t, int8_t>& val)
 		trueval_mutex.unlock();
 	}
 	// Change alphaval to max
-	if (std::get<0>(getTrueVal()) > getAlphaVal())
+	if (getTrueVal(ref(temp)); std::get<0>(temp) > getAlphaVal())
 	{
 		alphaval_mutex.lock();
-		if (std::get<0>(getTrueVal()) > alphaval)
-			alphaval = std::get<0>(getTrueVal());
+		if (getTrueVal(ref(temp)); std::get<0>(temp) > alphaval)
+		{
+			alphaval = std::get<0>(temp);
+		}
 		alphaval_mutex.unlock();
 	}
 }
 
-const std::tuple<int, int8_t, int8_t> searcher::getTrueVal()
+void searcher::getTrueVal(std::tuple<int, int8_t, int8_t>& temp)
 {
 	std::shared_lock<std::shared_mutex> lock(trueval_mutex);
-	return trueval;
+	temp = trueval;
 }
 const int searcher::getAlphaVal()
 {

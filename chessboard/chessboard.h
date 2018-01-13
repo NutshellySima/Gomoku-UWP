@@ -32,6 +32,10 @@ public:
 	DllExport int undo(const int row, const int col) noexcept;
 	DllExport int checkpoint(const int row, const int col) const noexcept;
 	DllExport std::vector<std::tuple<int, int8_t, int8_t>> genmove() const noexcept;
+	DllExport uint8_t getNumber()const noexcept
+	{
+		return number;
+	}
 protected:
 	std::vector<std::array<int8_t, 15>> board = std::vector<std::array<int8_t, 15>>(15);
 	std::vector<std::array<std::array<uint8_t, 15>, 29>> layer_2 = std::vector<std::array<std::array<uint8_t, 15>, 29>>(4);

@@ -28,7 +28,7 @@ class searcher
 public:
 	DllExport std::tuple<int, int8_t, int8_t> alpha_beta_search(int8_t turn, chessboard board, int8_t depth, int timeout);
 private:
-	std::vector<std::tuple<int, int8_t, int8_t>> smart_genmove(int8_t turn, chessboard& board, int8_t depth, int8_t current, evaluation& evaluator);
+	std::vector<std::tuple<int, int8_t, int8_t>> smart_genmove(const int8_t turn, chessboard& board, const int8_t current, evaluation& evaluator);
 	std::tuple<int, int8_t, int8_t> max_value(int8_t turn, chessboard& board, int alpha, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation& evaluator);
 	std::tuple<int, int8_t, int8_t> min_value(int8_t turn, chessboard& board, int alpha, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation& evaluator);
 	std::tuple<int, int8_t, int8_t> max_value_first(int8_t turn, chessboard& board, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation& evaluator);
@@ -36,7 +36,7 @@ private:
 	void min_value_second(int8_t turn, chessboard board, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation evaluator);
 	std::tuple<int, int8_t, int8_t> max_value_second(int8_t turn, chessboard board, int alpha, int& beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation evaluator);
 	void write_val(const std::tuple<int, int8_t, int8_t>&);
-	const std::tuple<int, int8_t, int8_t> getTrueVal();
+	void getTrueVal(std::tuple<int, int8_t, int8_t>& temp);
 	const int getAlphaVal();
 	int timeoutnum = 30000;
 	std::chrono::steady_clock clock;

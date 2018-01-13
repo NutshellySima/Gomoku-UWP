@@ -118,13 +118,13 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 	int left_range = xl, right_range = xr;
 	while (left_range > 0)
 	{
-		if (line[left_range - 1] == inverse)
+		if (right_range - left_range >= 4 || line[left_range - 1] == inverse)
 			break;
 		--left_range;
 	}
 	while (right_range < num)
 	{
-		if (line[right_range + 1] == inverse)
+		if (right_range - left_range >= 4 || line[right_range + 1] == inverse)
 			break;
 		++right_range;
 	}
@@ -145,16 +145,12 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 		++flag;
 	}
 	const int srange = xr - xl;
-	if (srange >= 4)
+	bool left2 = false;
+	bool leftfour = false;
+	bool left3 = false;
+	switch (srange)
 	{
-		result[pos] = FIVE;
-		copy_place[flag] = pos;
-		++flag;
-		return;
-	}
-	if (srange == 3)
-	{
-		bool leftfour = false;
+	case 3:
 		if (xl > 0)
 		{
 			// Maybe only left or double
@@ -187,10 +183,9 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 			}
 		}
 		return;
-	}
-	if (srange == 2)
-	{
-		bool left3 = false;
+		break;
+	case 2:
+
 		if (xl > 0)
 		{
 			if (line[xl - 1] == 0)
@@ -249,10 +244,8 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 			}
 		}
 		return;
-	}
-	if (srange == 1)
-	{
-		bool left2 = false;
+		break;
+	case 1:
 		if (xl > 0)
 		{
 			if (line[xl - 1] == 0)
@@ -356,8 +349,16 @@ void evaluation::analyse_line(const std::array<uint8_t, 15> &line, int num, cons
 			}
 		}
 		return;
+		break;
+	case 0:
+		break;
+	default:
+		result[pos] = FIVE;
+		copy_place[flag] = pos;
+		++flag;
+		return;
+		break;
 	}
-	return;
 }
 
 void evaluation::analysis_horizon(chessboard &board, int i, int j) noexcept

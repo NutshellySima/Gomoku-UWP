@@ -55,6 +55,6 @@ private:
 	const std::vector<uint8_t> nturn = { 0, 2, 1 };
 	std::vector<uint8_t> result = std::vector<uint8_t>(15);
 	uint8_t flag;
-	std::vector<uint8_t>copy_place = std::vector<uint8_t>(33);
+	std::vector<uint8_t>copy_place = std::vector<uint8_t>(100);
 };
 
