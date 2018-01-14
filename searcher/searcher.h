@@ -37,11 +37,11 @@ private:
 	std::tuple<int, int8_t, int8_t> max_value_second(int8_t turn, chessboard board, int alpha, int& beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation evaluator);
 	void write_val(const std::tuple<int, int8_t, int8_t>&);
 	void getTrueVal(std::tuple<int, int8_t, int8_t>& temp);
-	const int getAlphaVal();
+	int getAlphaVal();
 	int timeoutnum = 30000;
-	std::chrono::steady_clock clock;
 	std::chrono::time_point<std::chrono::steady_clock> start;
 	int8_t search_depth;
 	std::tuple<int, int8_t, int8_t> trueval;
 	int alphaval;
+	uint8_t maxnum;
 };

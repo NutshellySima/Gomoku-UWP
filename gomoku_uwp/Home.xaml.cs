@@ -598,6 +598,11 @@ namespace gomoku_uwp
                     Clear_noticeLine();
                     await UndoGame();
                 }
+                else if(_gameOptions.Values["black"].ToString() == "computer" && _gameOptions.Values["white"].ToString() == "human" && invoke.Checkwin(false) == 2)
+                {
+                    Clear_noticeLine();
+                    await UndoGame();
+                }
                 else if (invoke.Gethistory() != null && invoke.Gethistory().Length >= 6)
                 {
                     Clear_noticeLine();

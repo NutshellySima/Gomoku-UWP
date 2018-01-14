@@ -30,11 +30,9 @@ shared_mutex betaval_mutex;
 
 std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(const int8_t turn, chessboard& board, const int8_t current, evaluation& evaluator)
 {
-	const int maxnum = 32;
 	auto moves = board.genmove();
 	if (current <= 2)
 		return moves;
-	const int alpha = -0x7fffffff, beta = 0x7fffffff;
 	std::vector<std::tuple<int, int8_t, int8_t>> ress;
 	decltype(ress) realretval;
 	ress.reserve(1 + moves.size());
@@ -200,8 +198,12 @@ std::tuple<int, int8_t, int8_t> searcher::alpha_beta_search(int8_t turn, chessbo
 	{
 		return std::make_tuple(0, 'H' - 'A', 'H' - 'A');
 	}
+	if (depth >= 7)
+		maxnum = 16;
+	else
+		maxnum = 32;
 	timeoutnum = timeout;
-	start = clock.now();
+	start = chrono::steady_clock::now();
 	this->search_depth = depth;
 	this->alphaval = -0x7fffffff;
 	trueval = std::make_tuple(-0x7fffffff, -1, -1);
@@ -252,7 +254,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value(int8_t turn, chessboard& boa
 		if (std::get<0>(v) >= beta)
 			return v;
 		alpha = max(alpha, std::get<0>(v));
-		if (chrono::duration_cast<chrono::milliseconds>(clock.now() - start).count() >= timeoutnum)
+		if (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - start).count() >= timeoutnum)
 			break;
 	}
 	return v;
@@ -289,7 +291,7 @@ std::tuple<int, int8_t, int8_t> searcher::min_value(int8_t turn, chessboard& boa
 		if (std::get<0>(v) <= alpha)
 			return v;
 		beta = min(beta, std::get<0>(v));
-		if (chrono::duration_cast<chrono::milliseconds>(clock.now() - start).count() >= timeoutnum)
+		if (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - start).count() >= timeoutnum)
 			break;
 	}
 	return v;
@@ -380,7 +382,7 @@ void searcher::min_value_first(int8_t turn, chessboard board, int beta, int8_t d
 			return;
 		}
 		beta = min(beta, std::get<0>(v));
-		if (chrono::duration_cast<chrono::milliseconds>(clock.now() - start).count() >= timeoutnum)
+		if (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - start).count() >= timeoutnum)
 			break;
 	}
 	write_val(v);
@@ -422,7 +424,7 @@ void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t 
 		futures.emplace_back(std::async(std::launch::async, &searcher::max_value_second, this, nturn, board, alpha, ref(beta), depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, evaluator));
 		board.undo(ref(std::get<1>(x)), ref(std::get<2>(x)));
 		evaluator.evaluate(ref(board), turn, std::get<1>(x), std::get<2>(x), true);
-		if (chrono::duration_cast<chrono::milliseconds>(clock.now() - start).count() >= timeoutnum)
+		if (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - start).count() >= timeoutnum)
 			break;
 	}
 	for (auto&x : futures)
@@ -500,7 +502,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 			return v;
 		}
 		alpha = max(alpha, std::get<0>(v));
-		if (chrono::duration_cast<chrono::milliseconds>(clock.now() - start).count() >= timeoutnum)
+		if (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - start).count() >= timeoutnum)
 			break;
 	}
 	betachanger(v);
@@ -535,7 +537,7 @@ void searcher::getTrueVal(std::tuple<int, int8_t, int8_t>& temp)
 	std::shared_lock<std::shared_mutex> lock(trueval_mutex);
 	temp = trueval;
 }
-const int searcher::getAlphaVal()
+int searcher::getAlphaVal()
 {
 	std::shared_lock<std::shared_mutex> lock(alphaval_mutex);
 	return alphaval;
