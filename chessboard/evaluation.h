@@ -35,7 +35,7 @@ private:
 	void analysis_vertical(chessboard &, int i, int j) noexcept;
 	void analysis_left(chessboard &, int i, int j) noexcept;
 	void analysis_right(chessboard &, int i, int j) noexcept;
-	inline int checkturn(const int &side, const int &turn) const noexcept
+	inline int checkturn(const int side, const int turn) const noexcept
 	{
 		if (side == turn)
 			return 1;

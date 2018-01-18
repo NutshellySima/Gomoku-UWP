@@ -83,7 +83,7 @@ void chessboard::reset() noexcept
 	}
 }
 
-int chessboard::get(const int row, const int col) const noexcept
+int8_t chessboard::get(const int8_t row, const int8_t col) const noexcept
 {
 	if (row >= 0 && row < 15 && col >= 0 && col < 15)
 		return board[row][col];
@@ -91,7 +91,7 @@ int chessboard::get(const int row, const int col) const noexcept
 		return -1;
 }
 
-bool chessboard::put(const int row, const int col, const int x) noexcept
+bool chessboard::put(const int8_t row, const int8_t col, const int8_t x) noexcept
 {
 	if (row >= 0 && row < 15 && col >= 0 && col < 15 && board[row][col] == 0)
 	{
@@ -108,7 +108,7 @@ bool chessboard::put(const int row, const int col, const int x) noexcept
 	}
 }
 
-int chessboard::undo(const int row, const int col) noexcept
+int8_t chessboard::undo(const int8_t row, const int8_t col) noexcept
 {
 	if (row < 0 || row >= 15 || col < 0 || col >= 15 || board[row][col] == 0)
 		return 2;
@@ -251,7 +251,7 @@ int chessboard::check() const noexcept
 	return 0;
 }
 
-int chessboard::checkpoint(const int row, const int col) const noexcept
+int8_t chessboard::checkpoint(const int8_t row, const int8_t col) const noexcept
 {
 	if (row < 0 || row >= 15 || col < 0 || col >= 15)
 		return 0;
@@ -383,7 +383,7 @@ int chessboard::checkpoint(const int row, const int col) const noexcept
 	return 0;
 }
 
-void chessboard::update_remotecell(const int row, const int col, const bool add) noexcept
+void chessboard::update_remotecell(const int8_t row, const int8_t col, const bool add) noexcept
 {
 	for (int i = row - 2; i <= row + 2; ++i)
 	{
@@ -401,7 +401,7 @@ void chessboard::update_remotecell(const int row, const int col, const bool add)
 	}
 }
 
-void chessboard::update_layer_2(const int row, const int col, const bool add) noexcept
+void chessboard::update_layer_2(const int8_t row, const int8_t col, const bool add) noexcept
 {
 	// 0 - horizontal
 	// 1 - vertical

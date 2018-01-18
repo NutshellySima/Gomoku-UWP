@@ -26,11 +26,11 @@ class chessboard
 public:
 	DllExport chessboard() noexcept;
 	DllExport void reset() noexcept;
-	DllExport int get(const int row, const int col) const noexcept;
-	DllExport bool put(const int row, const int col, const int x) noexcept;
+	DllExport int8_t get(const int8_t row, const int8_t col) const noexcept;
+	DllExport bool put(const int8_t row, const int8_t col, const int8_t x) noexcept;
 	DllExport bool Fullboard() const noexcept;
-	DllExport int undo(const int row, const int col) noexcept;
-	DllExport int checkpoint(const int row, const int col) const noexcept;
+	DllExport int8_t undo(const int8_t row, const int8_t col) noexcept;
+	DllExport int8_t checkpoint(const int8_t row, const int8_t col) const noexcept;
 	DllExport std::vector<std::tuple<int, int8_t, int8_t>> genmove() const noexcept;
 	DllExport uint8_t getNumber()const noexcept
 	{
@@ -45,8 +45,8 @@ protected:
 
 private:
 	int check() const noexcept;
-	void update_remotecell(const int row, const int col, const bool add) noexcept;
-	void update_layer_2(const int row, const int col, const bool add) noexcept;
+	void update_remotecell(const int8_t row, const int8_t col, const bool add) noexcept;
+	void update_layer_2(const int8_t row, const int8_t col, const bool add) noexcept;
 	std::vector<std::array<uint8_t, 15>> remote_cell = std::vector<std::array<uint8_t, 15>>(15);
 	uint8_t number;
 	std::vector<std::array<uint8_t, 15>> pos = std::vector<std::array<uint8_t, 15>>(15);
