@@ -74,13 +74,6 @@ void chessboard::reset() noexcept
 			}
 		}
 	}
-	for (int i = 0; i < 3; ++i)
-	{
-		for (int ii = 0; ii < 20; ++ii)
-		{
-			layer_4[i][ii] = 0;
-		}
-	}
 }
 
 int8_t chessboard::get(const int8_t row, const int8_t col) const noexcept
@@ -460,3 +453,4 @@ bool chessboard::Fullboard() const noexcept
 {
 	return number == 15 * 15;
 }
+

@@ -40,7 +40,6 @@ protected:
 	std::vector<std::array<int8_t, 15>> board = std::vector<std::array<int8_t, 15>>(15);
 	std::vector<std::array<std::array<uint8_t, 15>, 29>> layer_2 = std::vector<std::array<std::array<uint8_t, 15>, 29>>(4);
 	std::vector<std::array<std::array<uint8_t, 15>, 15>> layer_3 = std::vector<std::array<std::array<uint8_t, 15>, 15>>(4); //[direction][row][col]
-	std::vector<std::array<uint8_t, 20>> layer_4 = std::vector<std::array<uint8_t, 20>>(3);
 	std::vector<std::pair<uint8_t, uint8_t>>layer_5 = std::vector<std::pair<uint8_t, uint8_t>>(225);
 
 private:

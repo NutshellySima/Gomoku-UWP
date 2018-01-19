@@ -17,69 +17,143 @@ limitations under the License.
 #include "pch.h"
 #include "evaluation.h"
 
-void evaluation::reset_point(chessboard &board, int row, int col, bool pure) noexcept
+void evaluation::pop_state(chessboard & board)
 {
-	if (pure)
+	const auto& tmp = state.back();
+	int row = tmp[0];
+	int col = tmp[1];
+	size_t curpos = 2;
+	for (int ii = 0; ii < 15; ++ii)
 	{
-		if (row < 0 || col < 0 || row >= 15 || col >= 15)
-		{
-			for (int i = 0; i < 15; ++i)
-			{
-				for (int ii = 0; ii < 15; ++ii)
-				{
-					board.layer_3[0][i][ii] = 0;
-					board.layer_3[1][i][ii] = 0;
-					board.layer_3[2][i][ii] = 0;
-					board.layer_3[3][i][ii] = 0;
-				}
-			}
-		}
-		else
+		board.layer_3[0][row][ii] = tmp[curpos++];
+		board.layer_3[1][ii][col] = tmp[curpos++];
+	}
+	int x, y;
+	if (row < col)
+	{
+		y = col - row;
+		x = 0;
+	}
+	else
+	{
+		y = 0;
+		x = row - col;
+	}
+	for (; x < 15 && y < 15; ++x, ++y)
+	{
+		board.layer_3[2][x][y] = tmp[curpos++];
+	}
+	if (14 - row < col)
+	{
+		y = col - 14 + row;
+		x = 14;
+	}
+	else
+	{
+		y = 0;
+		x = row + col;
+	}
+	for (; x >= 0 && y < 15; --x, ++y)
+	{
+		board.layer_3[3][x][y] = tmp[curpos++];
+	}
+	state.pop_back();
+}
+
+void evaluation::save_state(chessboard & board, int row, int col)
+{
+	std::array<uint8_t, 62>tmp;
+	int curpos = 0;
+	tmp[curpos++] = row;
+	tmp[curpos++] = col;
+	for (int ii = 0; ii < 15; ++ii)
+	{
+		tmp[curpos++] = board.layer_3[0][row][ii];
+		tmp[curpos++] = board.layer_3[1][ii][col];
+	}
+	int x, y;
+	if (row < col)
+	{
+		y = col - row;
+		x = 0;
+	}
+	else
+	{
+		y = 0;
+		x = row - col;
+	}
+	for (; x < 15 && y < 15; ++x, ++y)
+	{
+		tmp[curpos++] = board.layer_3[2][x][y];
+	}
+	if (14 - row < col)
+	{
+		y = col - 14 + row;
+		x = 14;
+	}
+	else
+	{
+		y = 0;
+		x = row + col;
+	}
+	for (; x >= 0 && y < 15; --x, ++y)
+	{
+		tmp[curpos++] = board.layer_3[3][x][y];
+	}
+	state.emplace_back(tmp);
+}
+
+void evaluation::reset_point(chessboard &board, int row, int col) noexcept
+{
+	if (row < 0 || col < 0 || row >= 15 || col >= 15)
+	{
+		for (int i = 0; i < 15; ++i)
 		{
 			for (int ii = 0; ii < 15; ++ii)
 			{
-				board.layer_3[0][row][ii] = 0;
-				board.layer_3[1][ii][col] = 0;
-			}
-			int x, y;
-			if (row < col)
-			{
-				y = col - row;
-				x = 0;
-			}
-			else
-			{
-				y = 0;
-				x = row - col;
-			}
-			for (; x < 15 && y < 15; ++x, ++y)
-			{
-				board.layer_3[2][x][y] = 0;
-			}
-			if (14 - row < col)
-			{
-				y = col - 14 + row;
-				x = 14;
-			}
-			else
-			{
-				y = 0;
-				x = row + col;
-			}
-			for (; x >= 0 && y < 15; --x, ++y)
-			{
-				board.layer_3[3][x][y] = 0;
+				board.layer_3[0][i][ii] = 0;
+				board.layer_3[1][i][ii] = 0;
+				board.layer_3[2][i][ii] = 0;
+				board.layer_3[3][i][ii] = 0;
 			}
 		}
 	}
 	else
 	{
-		for (int i = 0; i < 3; ++i)
+		save_state(board, row, col);
+		for (int ii = 0; ii < 15; ++ii)
 		{
-			for (int ii = 0; ii < 20; ++ii)
-			{
-				board.layer_4[i][ii] = 0;
-			}
+			board.layer_3[0][row][ii] = 0;
+			board.layer_3[1][ii][col] = 0;
+		}
+		int x, y;
+		if (row < col)
+		{
+			y = col - row;
+			x = 0;
+		}
+		else
+		{
+			y = 0;
+			x = row - col;
+		}
+		for (; x < 15 && y < 15; ++x, ++y)
+		{
+			board.layer_3[2][x][y] = 0;
+		}
+		if (14 - row < col)
+		{
+			y = col - 14 + row;
+			x = 14;
+		}
+		else
+		{
+			y = 0;
+			x = row + col;
+		}
+		for (; x >= 0 && y < 15; --x, ++y)
+		{
+			board.layer_3[3][x][y] = 0;
 		}
 	}
 }
@@ -429,117 +503,168 @@ void evaluation::analysis_right(chessboard &board, int i, int j) noexcept
 	}
 }
 
-int evaluation::__evaluate(chessboard &board, int turn, const int row, const int col, bool pure) noexcept
+int evaluation::evaluate(chessboard &board, int turn, const int row, const int col, bool pure) noexcept
 {
-	reset_point(board, row, col, pure);
 	if (pure)
 	{
+		reset_point(board, row, col);
 		evaluate_point(board, row, col);
 		return 0;
 	}
+	std::array<std::array<uint8_t, 20>, 3> layer_4;
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int ii = 0; ii < 20; ++ii)
+		{
+			layer_4[i][ii] = 0;
+		}
+	}
 	for (int i = 0; i < board.number; ++i)
 	{
-		auto temp = board.layer_5[i];
-		int ch1 = board.layer_3[0][temp.first][temp.second];
-		if (ch1 >= STWO && ch1 <= FIVE)
-			++board.layer_4[board.board[temp.first][temp.second]][ch1];
-		int ch2 = board.layer_3[1][temp.first][temp.second];
-		if (ch2 >= STWO && ch2 <= FIVE)
-			++board.layer_4[board.board[temp.first][temp.second]][ch2];
-		int ch3 = board.layer_3[2][temp.first][temp.second];
-		if (ch3 >= STWO && ch3 <= FIVE)
-			++board.layer_4[board.board[temp.first][temp.second]][ch3];
-		int ch4 = board.layer_3[3][temp.first][temp.second];
-		if (ch4 >= STWO && ch4 <= FIVE)
-			++board.layer_4[board.board[temp.first][temp.second]][ch4];
+		const auto temp = board.layer_5[i];
+		if (const uint8_t ch1 = board.layer_3[0][temp.first][temp.second]; ch1 >= STWO && ch1 <= FIVE)
+			++layer_4[board.board[temp.first][temp.second]][ch1];
+		if (const uint8_t ch2 = board.layer_3[1][temp.first][temp.second]; ch2 >= STWO && ch2 <= FIVE)
+			++layer_4[board.board[temp.first][temp.second]][ch2];
+		if (const uint8_t ch3 = board.layer_3[2][temp.first][temp.second]; ch3 >= STWO && ch3 <= FIVE)
+			++layer_4[board.board[temp.first][temp.second]][ch3];
+		if (const uint8_t ch4 = board.layer_3[3][temp.first][temp.second]; ch4 >= STWO && ch4 <= FIVE)
+			++layer_4[board.board[temp.first][temp.second]][ch4];
 	}
-	if (board.layer_4[WHITE][SFOUR] >= 2)
-		++board.layer_4[WHITE][FOUR];
-	if (board.layer_4[BLACK][SFOUR] >= 2)
-		++board.layer_4[BLACK][FOUR];
-
-	if (board.layer_4[BLACK][FIVE])
-		return 9999 * checkturn(BLACK, turn);
-	if (board.layer_4[WHITE][FIVE])
-		return 9999 * checkturn(WHITE, turn);
-	int wvalue = 0, bvalue = 0;
+	if (layer_4[WHITE][SFOUR] >= 2)
+		++layer_4[WHITE][FOUR];
+	if (layer_4[BLACK][SFOUR] >= 2)
+		++layer_4[BLACK][FOUR];
+	int score, wvalue = 0, bvalue = 0;
+	if (layer_4[BLACK][FIVE])
+	{
+		score = 9999 * checkturn(BLACK, turn);
+		goto end;
+	}
+	if (layer_4[WHITE][FIVE])
+	{
+		score = 9999 * checkturn(WHITE, turn);
+		goto end;
+	}
 	if (turn == WHITE)
 	{
-		if (board.layer_4[WHITE][FOUR] > 0)
-			return 9990;
-		if (board.layer_4[WHITE][SFOUR] > 0)
-			return 9980;
-		if (board.layer_4[BLACK][FOUR] > 0)
-			return -9970;
-		if (board.layer_4[BLACK][SFOUR] && board.layer_4[BLACK][THREE])
-			return -9960;
-		if (board.layer_4[WHITE][THREE] && board.layer_4[BLACK][SFOUR] == 0)
-			return 9950;
-		if (board.layer_4[BLACK][THREE] > 1 &&
-			board.layer_4[WHITE][SFOUR] == 0 &&
-			board.layer_4[WHITE][THREE] == 0 &&
-			board.layer_4[WHITE][STHREE] == 0)
-			return -9940;
-		if (board.layer_4[WHITE][THREE] > 1)
+		if (layer_4[WHITE][FOUR] > 0)
+		{
+			score = 9990; goto end;
+		}
+		if (layer_4[WHITE][SFOUR] > 0)
+		{
+			score = 9980; goto end;
+		}
+		if (layer_4[BLACK][FOUR] > 0)
+		{
+			score = -9970; goto end;
+		}
+		if (layer_4[BLACK][SFOUR] && layer_4[BLACK][THREE])
+		{
+			score = -9960; goto end;
+		}
+		if (layer_4[WHITE][THREE] && layer_4[BLACK][SFOUR] == 0)
+		{
+			score = 9950; goto end;
+		}
+		if (layer_4[BLACK][THREE] > 1 &&
+			layer_4[WHITE][SFOUR] == 0 &&
+			layer_4[WHITE][THREE] == 0 &&
+			layer_4[WHITE][STHREE] == 0)
+		{
+			score = -9940; goto end;
+		}
+		if (layer_4[WHITE][THREE] > 1)
 			wvalue += 2000;
-		else if (board.layer_4[WHITE][THREE])
+		else if (layer_4[WHITE][THREE])
 			wvalue += 200;
-		if (board.layer_4[BLACK][THREE] > 1)
+		if (layer_4[BLACK][THREE] > 1)
 			bvalue += 500;
-		else if (board.layer_4[BLACK][THREE])
+		else if (layer_4[BLACK][THREE])
 			bvalue += 100;
-		if (board.layer_4[WHITE][STHREE])
-			wvalue += board.layer_4[WHITE][STHREE] * 10;
-		if (board.layer_4[BLACK][STHREE])
-			bvalue += board.layer_4[BLACK][STHREE] * 10;
-		if (board.layer_4[WHITE][TWO])
-			wvalue += board.layer_4[WHITE][TWO] * 4;
-		if (board.layer_4[BLACK][TWO])
-			bvalue += board.layer_4[BLACK][TWO] * 4;
-		if (board.layer_4[WHITE][STWO])
-			wvalue += board.layer_4[WHITE][STWO];
-		if (board.layer_4[BLACK][STWO])
-			bvalue += board.layer_4[BLACK][STWO];
+		if (layer_4[WHITE][STHREE])
+			wvalue += layer_4[WHITE][STHREE] * 10;
+		if (layer_4[BLACK][STHREE])
+			bvalue += layer_4[BLACK][STHREE] * 10;
+		if (layer_4[WHITE][TWO])
+			wvalue += layer_4[WHITE][TWO] * 4;
+		if (layer_4[BLACK][TWO])
+			bvalue += layer_4[BLACK][TWO] * 4;
+		if (layer_4[WHITE][STWO])
+			wvalue += layer_4[WHITE][STWO];
+		if (layer_4[BLACK][STWO])
+			bvalue += layer_4[BLACK][STWO];
 	}
 	else
 	{
-		if (board.layer_4[BLACK][FOUR] > 0)
-			return 9990;
-		if (board.layer_4[BLACK][SFOUR] > 0)
-			return 9980;
-		if (board.layer_4[WHITE][FOUR] > 0)
-			return -9970;
-		if (board.layer_4[WHITE][SFOUR] && board.layer_4[WHITE][THREE])
-			return -9960;
-		if (board.layer_4[BLACK][THREE] && board.layer_4[WHITE][SFOUR] == 0)
-			return 9950;
-		if (board.layer_4[WHITE][THREE] > 1 &&
-			board.layer_4[BLACK][SFOUR] == 0 &&
-			board.layer_4[BLACK][THREE] == 0 &&
-			board.layer_4[BLACK][STHREE] == 0)
-			return -9940;
-		if (board.layer_4[BLACK][THREE] > 1)
+		if (layer_4[BLACK][FOUR] > 0)
+		{
+			score = 9990; goto end;
+		}
+		if (layer_4[BLACK][SFOUR] > 0)
+		{
+			score = 9980; goto end;
+		}
+		if (layer_4[WHITE][FOUR] > 0)
+		{
+			score = -9970; goto end;
+		}
+		if (layer_4[WHITE][SFOUR] && layer_4[WHITE][THREE])
+		{
+			score = -9960; goto end;
+		}
+		if (layer_4[BLACK][THREE] && layer_4[WHITE][SFOUR] == 0)
+		{
+			score = 9950; goto end;
+		}
+		if (layer_4[WHITE][THREE] > 1 &&
+			layer_4[BLACK][SFOUR] == 0 &&
+			layer_4[BLACK][THREE] == 0 &&
+			layer_4[BLACK][STHREE] == 0)
+		{
+			score = -9940; goto end;
+		}
+		if (layer_4[BLACK][THREE] > 1)
 			bvalue += 2000;
-		else if (board.layer_4[BLACK][THREE])
+		else if (layer_4[BLACK][THREE])
 			bvalue += 200;
-		if (board.layer_4[WHITE][THREE] > 1)
+		if (layer_4[WHITE][THREE] > 1)
 			wvalue += 500;
-		else if (board.layer_4[WHITE][THREE])
+		else if (layer_4[WHITE][THREE])
 			wvalue += 100;
-		if (board.layer_4[BLACK][STHREE])
-			bvalue += board.layer_4[BLACK][STHREE] * 10;
-		if (board.layer_4[WHITE][STHREE])
-			wvalue += board.layer_4[WHITE][STHREE] * 10;
-		if (board.layer_4[BLACK][TWO])
-			bvalue += board.layer_4[BLACK][TWO] * 4;
-		if (board.layer_4[WHITE][TWO])
-			wvalue += board.layer_4[WHITE][TWO] * 4;
-		if (board.layer_4[BLACK][STWO])
-			bvalue += board.layer_4[BLACK][STWO];
-		if (board.layer_4[WHITE][STWO])
-			wvalue += board.layer_4[WHITE][STWO];
+		if (layer_4[BLACK][STHREE])
+			bvalue += layer_4[BLACK][STHREE] * 10;
+		if (layer_4[WHITE][STHREE])
+			wvalue += layer_4[WHITE][STHREE] * 10;
+		if (layer_4[BLACK][TWO])
+			bvalue += layer_4[BLACK][TWO] * 4;
+		if (layer_4[WHITE][TWO])
+			wvalue += layer_4[WHITE][TWO] * 4;
+		if (layer_4[BLACK][STWO])
+			bvalue += layer_4[BLACK][STWO];
+		if (layer_4[WHITE][STWO])
+			wvalue += layer_4[WHITE][STWO];
 	}
-	return checkturn(turn, WHITE) * (wvalue - bvalue);
+	score = checkturn(turn, WHITE) * (wvalue - bvalue);
+end:
+	const int stone = nturn[turn];
+	if (score < -9995)
+	{
+		return -100000;
+	}
+	if (score > 9995)
+	{
+		return 100000;
+	}
+	if (abs(score) > 9000)
+	{
+		const int x = sign(score);
+		for (int i = 0; i < 20; ++i)
+			if (layer_4[stone][i] > 0)
+				score += (i * x);
+	}
+	return score;
 }
 
 void evaluation::evaluate_point(chessboard &board, int row, int col) noexcept
@@ -605,28 +730,3 @@ void evaluation::evaluate_point(chessboard &board, int row, int col) noexcept
 	}
 }
 
-int evaluation::evaluate(chessboard &board, const int turn, const int row, const int col, bool pure) noexcept
-{
-	int score = __evaluate(board, turn, row, col, pure);
-	if (pure)
-		return 0;
-	const int stone = nturn[turn];
-	if (score < -9995)
-	{
-		score = -100000;
-		return score;
-	}
-	if (score > 9995)
-	{
-		score = 100000;
-		return score;
-	}
-	if (abs(score) > 9000)
-	{
-		const int x = sign(score);
-		for (int i = 0; i < 20; ++i)
-			if (board.layer_4[stone][i] > 0)
-				score += (i * x);
-	}
-	return score;
-}
