@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>gomoku_uwp_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>26827ED4C6A2E88E856AFA6FAA3FD241292AD775</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>9D073661855785A11179672A90D5A8828AD12845</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
