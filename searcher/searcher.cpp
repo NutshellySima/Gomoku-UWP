@@ -18,7 +18,10 @@
 #include "searcher.h"
 #include "chessboard.h"
 #include <shared_mutex>
+#include <mutex>
 #include <future>
+#include <thread>
+#include <condition_variable>
 using namespace std;
 
 // fixed 1
@@ -27,6 +30,10 @@ shared_mutex alphaval_mutex;
 shared_mutex trueval_mutex;
 // fixed 3
 shared_mutex betaval_mutex;
+
+mutex cv_mutex;
+condition_variable cv;
+unsigned int max_concurrency = thread::hardware_concurrency();
 
 std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(const int8_t turn, chessboard& board, const int8_t current, evaluation& evaluator)
 {
@@ -211,6 +218,9 @@ std::vector<std::tuple<int, int8_t, int8_t>> searcher::smart_genmove(const int8_
 
 std::tuple<int, int8_t, int8_t> searcher::alpha_beta_search(int8_t turn, chessboard board, int8_t depth, int timeout)
 {
+	// If the value is not well defined or not computable, returns ​0​.
+	if (max_concurrency == 0)
+		max_concurrency = 1;
 	if (board.getNumber() == 0)
 	{
 		return std::make_tuple(0, 'H' - 'A', 'H' - 'A');
@@ -321,6 +331,7 @@ std::tuple<int, int8_t, int8_t> searcher::min_value(int8_t turn, chessboard& boa
 	return v;
 }
 
+// Act as parent thread
 std::tuple<int, int8_t, int8_t> searcher::max_value_first(int8_t turn, chessboard& board, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation& evaluator, int res)
 {
 	bool changed = false;
@@ -357,7 +368,14 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_first(int8_t turn, chessboar
 			std::async(std::launch::async, &searcher::min_value_second, this, nturn, board, beta, depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, evaluator, std::get<0>(x)).wait();
 		}
 		if (!first)
+		{
+			{
+				std::unique_lock<std::mutex> lk(cv_mutex);
+				cv.wait(lk, [] {return max_concurrency > 0; });
+				--max_concurrency;
+			}
 			futures.emplace_back(std::async(std::launch::async, &searcher::min_value_first, this, nturn, board, beta, depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, evaluator, std::get<0>(x)));
+		}
 		else
 			first = true;
 		board.undo(std::get<1>(x), std::get<2>(x));
@@ -368,6 +386,7 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_first(int8_t turn, chessboar
 	return trueval;
 }
 
+// Act as child thread
 void searcher::min_value_first(int8_t turn, chessboard board, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation evaluator, int res)
 {
 	int nturn;
@@ -382,16 +401,31 @@ void searcher::min_value_first(int8_t turn, chessboard board, int beta, int8_t d
 	if (res == -100000)
 	{
 		write_val(std::make_tuple(0 - 100000 + ply, i, ii));
+		{
+			std::lock_guard<std::mutex> lk(cv_mutex);
+			++max_concurrency;
+		}
+		cv.notify_one();
 		return;
 	}
 	else if (res == 100000)
 	{
 		write_val(std::make_tuple(100000 - ply, i, ii));
+		{
+			std::lock_guard<std::mutex> lk(cv_mutex);
+			++max_concurrency;
+		}
+		cv.notify_one();
 		return;
 	}
 	else if (depth <= 0 || board.Fullboard())
 	{
 		write_val(std::make_tuple(res, i, ii));
+		{
+			std::lock_guard<std::mutex> lk(cv_mutex);
+			++max_concurrency;
+		}
+		cv.notify_one();
 		return;
 	}
 	auto moves = smart_genmove(turn, ref(board), depth, ref(evaluator));
@@ -409,6 +443,11 @@ void searcher::min_value_first(int8_t turn, chessboard board, int beta, int8_t d
 		evaluator.pop_state(ref(board));
 		if (std::get<0>(v) <= getAlphaVal())
 		{
+			{
+				std::lock_guard<std::mutex> lk(cv_mutex);
+				++max_concurrency;
+			}
+			cv.notify_one();
 			return;
 		}
 		beta = min(beta, std::get<0>(v));
@@ -416,9 +455,15 @@ void searcher::min_value_first(int8_t turn, chessboard board, int beta, int8_t d
 			break;
 	}
 	write_val(v);
+	{
+		std::lock_guard<std::mutex> lk(cv_mutex);
+		++max_concurrency;
+	}
+	cv.notify_one();
 	return;
 }
 
+// Act as parent thread
 void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation evaluator, int res)
 {
 	int nturn;
@@ -454,6 +499,11 @@ void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t 
 		board.put(std::get<1>(x), std::get<2>(x), turn);
 		evaluator.evaluate(ref(board), nturn, std::get<1>(x), std::get<2>(x), true);
 		int alpha = getAlphaVal();
+		{
+			std::unique_lock<std::mutex> lk(cv_mutex);
+			cv.wait(lk, [] {return max_concurrency > 0; });
+			--max_concurrency;
+		}
 		futures.emplace_back(std::async(std::launch::async, &searcher::max_value_second, this, nturn, board, alpha, ref(beta), depth - 1, std::get<1>(x), std::get<2>(x), ply + 1, evaluator, 0 - std::get<0>(x)));
 		board.undo(std::get<1>(x), std::get<2>(x));
 		evaluator.pop_state(ref(board));
@@ -469,6 +519,7 @@ void searcher::min_value_second(int8_t turn, chessboard board, int beta, int8_t 
 	return;
 }
 
+// Called as child thread
 std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboard board, int alpha, int& beta, int8_t depth, int8_t i, int8_t ii, int8_t ply, evaluation evaluator, int res)
 {
 	auto betageter = [&beta]()
@@ -499,16 +550,31 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 	if (res == 100000)
 	{
 		betachanger(std::make_tuple(100000 - ply, i, ii));
+		{
+			std::lock_guard<std::mutex> lk(cv_mutex);
+			++max_concurrency;
+		}
+		cv.notify_one();
 		return std::make_tuple(100000 - ply, i, ii);
 	}
 	else if (res == -100000)
 	{
 		betachanger(std::make_tuple(0 - 100000 + ply, i, ii));
+		{
+			std::lock_guard<std::mutex> lk(cv_mutex);
+			++max_concurrency;
+		}
+		cv.notify_one();
 		return std::make_tuple(0 - 100000 + ply, i, ii);
 	}
 	else if (depth <= 0 || board.Fullboard())
 	{
 		betachanger(std::make_tuple(res, i, ii));
+		{
+			std::lock_guard<std::mutex> lk(cv_mutex);
+			++max_concurrency;
+		}
+		cv.notify_one();
 		return std::make_tuple(res, i, ii);
 	}
 	std::vector<std::tuple<int, int8_t, int8_t>> moves;
@@ -535,6 +601,11 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 		evaluator.pop_state(ref(board));
 		if (std::get<0>(v) >= betageter())
 		{
+			{
+				std::lock_guard<std::mutex> lk(cv_mutex);
+				++max_concurrency;
+			}
+			cv.notify_one();
 			return v;
 		}
 		alpha = max(alpha, std::get<0>(v));
@@ -542,6 +613,11 @@ std::tuple<int, int8_t, int8_t> searcher::max_value_second(int8_t turn, chessboa
 			break;
 	}
 	betachanger(v);
+	{
+		std::lock_guard<std::mutex> lk(cv_mutex);
+		++max_concurrency;
+	}
+	cv.notify_one();
 	return v;
 }
 
