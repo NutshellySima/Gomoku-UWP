@@ -511,41 +511,39 @@ int evaluation::evaluate(chessboard &board, int turn, const int row, const int c
 		evaluate_point(board, row, col);
 		return 0;
 	}
-	std::array<std::array<uint8_t, 20>, 3> layer_4;
+	std::array<std::array<uint8_t, 9>, 3> layer_4;
 	for (int i = 0; i < 3; ++i)
 	{
-		for (int ii = 0; ii < 20; ++ii)
+		for (int ii = 0; ii < 9; ++ii)
 		{
 			layer_4[i][ii] = 0;
 		}
 	}
 	for (int i = 0; i < board.number; ++i)
 	{
-		const auto temp = board.layer_5[i];
-		if (const uint8_t ch1 = board.layer_3[0][temp.first][temp.second]; ch1 >= STWO && ch1 <= FIVE)
-			++layer_4[board.board[temp.first][temp.second]][ch1];
-		if (const uint8_t ch2 = board.layer_3[1][temp.first][temp.second]; ch2 >= STWO && ch2 <= FIVE)
-			++layer_4[board.board[temp.first][temp.second]][ch2];
-		if (const uint8_t ch3 = board.layer_3[2][temp.first][temp.second]; ch3 >= STWO && ch3 <= FIVE)
-			++layer_4[board.board[temp.first][temp.second]][ch3];
-		if (const uint8_t ch4 = board.layer_3[3][temp.first][temp.second]; ch4 >= STWO && ch4 <= FIVE)
-			++layer_4[board.board[temp.first][temp.second]][ch4];
+		const auto& temp = board.layer_5[i];
+		const uint8_t ch1 = board.layer_3[0][temp.first][temp.second];
+		const uint8_t ch2 = board.layer_3[1][temp.first][temp.second];
+		const uint8_t ch3 = board.layer_3[2][temp.first][temp.second];
+		const uint8_t ch4 = board.layer_3[3][temp.first][temp.second];
+		++layer_4[board.board[temp.first][temp.second]][ch1];
+		++layer_4[board.board[temp.first][temp.second]][ch2];
+		++layer_4[board.board[temp.first][temp.second]][ch3];
+		++layer_4[board.board[temp.first][temp.second]][ch4];
+	}
+	if (layer_4[BLACK][FIVE])
+	{
+		return 100000 * checkturn(BLACK, turn);
+	}
+	if (layer_4[WHITE][FIVE])
+	{
+		return 100000 * checkturn(WHITE, turn);
 	}
 	if (layer_4[WHITE][SFOUR] >= 2)
 		++layer_4[WHITE][FOUR];
 	if (layer_4[BLACK][SFOUR] >= 2)
 		++layer_4[BLACK][FOUR];
 	int score, wvalue = 0, bvalue = 0;
-	if (layer_4[BLACK][FIVE])
-	{
-		score = 9999 * checkturn(BLACK, turn);
-		goto end;
-	}
-	if (layer_4[WHITE][FIVE])
-	{
-		score = 9999 * checkturn(WHITE, turn);
-		goto end;
-	}
 	if (turn == WHITE)
 	{
 		if (layer_4[WHITE][FOUR] > 0)
@@ -583,18 +581,13 @@ int evaluation::evaluate(chessboard &board, int turn, const int row, const int c
 			bvalue += 500;
 		else if (layer_4[BLACK][THREE])
 			bvalue += 100;
-		if (layer_4[WHITE][STHREE])
-			wvalue += layer_4[WHITE][STHREE] * 10;
-		if (layer_4[BLACK][STHREE])
-			bvalue += layer_4[BLACK][STHREE] * 10;
-		if (layer_4[WHITE][TWO])
-			wvalue += layer_4[WHITE][TWO] * 4;
-		if (layer_4[BLACK][TWO])
-			bvalue += layer_4[BLACK][TWO] * 4;
-		if (layer_4[WHITE][STWO])
-			wvalue += layer_4[WHITE][STWO];
-		if (layer_4[BLACK][STWO])
-			bvalue += layer_4[BLACK][STWO];
+		wvalue += layer_4[WHITE][STHREE] * 10;
+		bvalue += layer_4[BLACK][STHREE] * 10;
+		wvalue += layer_4[WHITE][TWO] * 4;
+		bvalue += layer_4[BLACK][TWO] * 4;
+		wvalue += layer_4[WHITE][STWO];
+		bvalue += layer_4[BLACK][STWO];
+		score = wvalue - bvalue;
 	}
 	else
 	{
@@ -633,36 +626,31 @@ int evaluation::evaluate(chessboard &board, int turn, const int row, const int c
 			wvalue += 500;
 		else if (layer_4[WHITE][THREE])
 			wvalue += 100;
-		if (layer_4[BLACK][STHREE])
-			bvalue += layer_4[BLACK][STHREE] * 10;
-		if (layer_4[WHITE][STHREE])
-			wvalue += layer_4[WHITE][STHREE] * 10;
-		if (layer_4[BLACK][TWO])
-			bvalue += layer_4[BLACK][TWO] * 4;
-		if (layer_4[WHITE][TWO])
-			wvalue += layer_4[WHITE][TWO] * 4;
-		if (layer_4[BLACK][STWO])
-			bvalue += layer_4[BLACK][STWO];
-		if (layer_4[WHITE][STWO])
-			wvalue += layer_4[WHITE][STWO];
+		bvalue += layer_4[BLACK][STHREE] * 10;
+		wvalue += layer_4[WHITE][STHREE] * 10;
+		bvalue += layer_4[BLACK][TWO] * 4;
+		wvalue += layer_4[WHITE][TWO] * 4;
+		bvalue += layer_4[BLACK][STWO];
+		wvalue += layer_4[WHITE][STWO];
+		score = bvalue - wvalue;
 	}
-	score = checkturn(turn, WHITE) * (wvalue - bvalue);
 end:
-	const int stone = nturn[turn];
-	if (score < -9995)
-	{
-		return -100000;
-	}
-	if (score > 9995)
-	{
-		return 100000;
-	}
+	const uint8_t stone = nturn[turn];
 	if (abs(score) > 9000)
 	{
 		const int x = sign(score);
-		for (int i = 0; i < 20; ++i)
-			if (layer_4[stone][i] > 0)
-				score += (i * x);
+		if (x == 1)
+		{
+			for (int i = 1; i <= 7; ++i)
+				if (layer_4[stone][i] > 0)
+					score += i;
+		}
+		else
+		{
+			for (int i = 1; i <= 7; ++i)
+				if (layer_4[stone][i] > 0)
+					score -= i;
+		}
 	}
 	return score;
 }
@@ -729,4 +717,3 @@ void evaluation::evaluate_point(chessboard &board, int row, int col) noexcept
 		}
 	}
 }
-
