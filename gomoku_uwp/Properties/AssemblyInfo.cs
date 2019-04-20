@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Gomoku")]
-[assembly: AssemblyCopyright("Copyright ©  2017-2018 Chijun Sima")]
+[assembly: AssemblyCopyright("Copyright ©  2017-2019 Chijun Sima")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
