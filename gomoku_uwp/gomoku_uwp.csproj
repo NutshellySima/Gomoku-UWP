@@ -11,8 +11,8 @@
     <AssemblyName>gomoku_uwp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22621.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -193,13 +193,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.8</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\unmanaged\unmanaged.vcxproj">
-      <Project>{72bb2445-02a7-45bf-88b8-02e5618f0b31}</Project>
-      <Name>unmanaged</Name>
+    <ProjectReference Include="..\RuntimeComponent\RuntimeComponent.vcxproj">
+      <Project>{bc5fe00f-39c0-4472-a132-a2f36694fea2}</Project>
+      <Name>RuntimeComponent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

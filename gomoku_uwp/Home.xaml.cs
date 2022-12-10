@@ -23,7 +23,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using unmanaged;
+using RuntimeComponent;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -82,7 +82,7 @@ namespace gomoku_uwp
         Windows.Storage.ApplicationDataContainer _gameOptions = Windows.Storage.ApplicationData.Current.LocalSettings;
         private bool undo_but_ori;
         private bool res_but_ori;
-        private unmanaged.cliwrapper invoke = new unmanaged.cliwrapper();
+        private RuntimeComponent.Class invoke = new RuntimeComponent.Class();
         // UIElement List
         private List<Chessboard_line_class> chessboard_line = new List<Chessboard_line_class>();
         private List<Chessboard_point_class> chessboard_point = new List<Chessboard_point_class>();
@@ -382,6 +382,7 @@ namespace gomoku_uwp
                     CloseButtonText = rl.GetString("ok_txt"),
                     CloseButtonStyle = this.Resources["b_s"] as Style
                 };
+                Result.XamlRoot = this.Content.XamlRoot;
                 ContentDialogResult result = await Result.ShowAsync();
             }
             else if ((!black) && invoke.Checkwin(false) == 2)
@@ -394,6 +395,7 @@ namespace gomoku_uwp
                     CloseButtonText = rl.GetString("ok_txt"),
                     CloseButtonStyle = this.Resources["b_s"] as Style
                 };
+                Result.XamlRoot = this.Content.XamlRoot;
                 ContentDialogResult result = await Result.ShowAsync();
             }
             await PlayGame();
@@ -419,6 +421,7 @@ namespace gomoku_uwp
                     CloseButtonText = rl.GetString("ok_txt"),
                     CloseButtonStyle = this.Resources["b_s"] as Style
                 };
+                Fullboard.XamlRoot = this.Content.XamlRoot;
                 ContentDialogResult result = await Fullboard.ShowAsync();
                 return;
             }
@@ -522,6 +525,7 @@ namespace gomoku_uwp
                             CloseButtonText = rl.GetString("ok_txt"),
                             CloseButtonStyle = this.Resources["b_s"] as Style
                         };
+                        Result.XamlRoot = this.Content.XamlRoot;
                         ContentDialogResult result = await Result.ShowAsync();
                     }
                 }
@@ -553,6 +557,7 @@ namespace gomoku_uwp
                             CloseButtonText = rl.GetString("ok_txt"),
                             CloseButtonStyle = this.Resources["b_s"] as Style
                         };
+                        Result.XamlRoot = this.Content.XamlRoot;
                         ContentDialogResult result = await Result.ShowAsync();
                     }
                 }
@@ -667,6 +672,7 @@ namespace gomoku_uwp
         private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog about = new AboutDialog();
+            about.XamlRoot = this.Content.XamlRoot;
             await about.ShowAsync();
         }
 

@@ -7,6 +7,7 @@
 
 #include "pch.h"
 #include "chessboard.h"
+#include <algorithm>
 
 chessboard::chessboard() noexcept
 {
