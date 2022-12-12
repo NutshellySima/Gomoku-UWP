@@ -22,6 +22,7 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using System.Runtime.InteropServices;
 using Microsoft.UI.Composition.SystemBackdrops;
+using Microsoft.UI.Windowing;
 using WinRT; // required to support Window.As<ICompositionSupportsSystemBackdrop>()
 
 // To learn more about WinUI, the WinUI project structure,
@@ -42,9 +43,21 @@ namespace gomoku
             this.InitializeComponent();
             TrySetAcrylicBackdrop();
 
+            SetTitleBarIcon();
+
             Title = AppInfo.Current.DisplayInfo.DisplayName;
             rootFrame.Navigate(typeof(Home));
         }
+
+        private void SetTitleBarIcon()
+        {
+            IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(this);
+            WindowId windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
+            var appWindow = AppWindow.GetFromWindowId(windowId);
+            appWindow.SetIcon(Path.Combine(Package.Current.InstalledLocation.Path, "Assets\\TB.ico"));
+        }
+
+
         bool TrySetAcrylicBackdrop()
         {
             if (Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicController.IsSupported())
