@@ -32,7 +32,7 @@ namespace gomoku
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            /*Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
                 return;
 
@@ -41,7 +41,7 @@ namespace gomoku
             if (rootFrame.CanGoBack)
             {
                 rootFrame.GoBack();
-            }
+            }*/
         }
     }
 }

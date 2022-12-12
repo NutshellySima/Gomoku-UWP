@@ -11,5 +11,5 @@
     mc:Ignorable="d">
 
     <Frame x:Name="rootFrame"/>
-    
+
 </Window>

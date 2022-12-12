@@ -44,6 +44,7 @@
         <Style TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}" x:Key="b_s"/>
     </Page.Resources>
 
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

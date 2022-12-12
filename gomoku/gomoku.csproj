@@ -14,6 +14,7 @@
 		https://api.nuget.org/v3/index.json;
 		../ClassLibraryRC/nuget
 	</RestoreSources>
+	<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\StoreLogo.png" />
