@@ -1,0 +1,21 @@
+﻿<ContentDialog
+    x:Class="gomoku.AboutDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:gomoku"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    PrimaryButtonText="OK"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    PrimaryButtonStyle="{StaticResource ButtonRevealStyle}"
+    x:Uid="about">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Nut-gomoku" HorizontalAlignment="Center" FontSize="25"/>
+            <TextBlock Text="© 2017-2022 Chijun Sima" HorizontalAlignment="Center"/>
+            <HyperlinkButton Content="Source code" HorizontalAlignment="Center" x:Uid="SourceCode" NavigateUri="https://github.com/NutshellySima/Gomoku-UWP"/>
+            <HyperlinkButton Content="Privacy policy" HorizontalAlignment="Center" x:Uid="PS" NavigateUri="https://github.com/NutshellySima/Gomoku-UWP/blob/master/privacy_policy.md"/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

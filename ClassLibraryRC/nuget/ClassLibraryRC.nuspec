@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+	<metadata>
+		<id>ClassLibraryRC</id>
+		<version>1.1.0</version>
+		<authors>Chijun Sima</authors>
+		<description>Cpp projection</description>
+		<dependencies>
+			<group targetFramework="net6.0-windows10.0.22621.0" />
+			<group targetFramework=".NETCoreApp3.0" />
+			<group targetFramework="UAP10.0" />
+			<group targetFramework=".NETFramework4.6" />
+		</dependencies>
+	</metadata>
+	<files>
+		<!--Support .NET 6, .NET Core 3, UAP, .NET Framework 4.6, C++ -->
+		<!--Architecture-netural assemblies-->
+		<file src="..\..\_build\AnyCPU\Release\ClassLibraryRC\bin\ClassLibraryRC.dll" target="lib\net6.0-windows10.0.22621.0\ClassLibraryRC.dll" />
+		<file src="..\..\_build\x64\Release\RuntimeComponent\bin\RuntimeComponent\RuntimeComponent.winmd" target="lib\netcoreapp3.0\RuntimeComponent.winmd" />
+		<file src="..\..\_build\x64\Release\RuntimeComponent\bin\RuntimeComponent\RuntimeComponent.winmd" target="lib\uap10.0\RuntimeComponent.winmd" />
+		<file src="..\..\_build\x64\Release\RuntimeComponent\bin\RuntimeComponent\RuntimeComponent.winmd" target="lib\net46\RuntimeComponent.winmd" />
+		<!--Architecture-specific implementation DLLs should be copied into RID-relative folders-->
+		<file src="..\..\_build\x64\Release\RuntimeComponent\bin\RuntimeComponent\RuntimeComponent.dll" target="runtimes\win10-x64\native\RuntimeComponent.dll" />
+		<file src="..\..\_build\Win32\Release\RuntimeComponent\bin\RuntimeComponent\RuntimeComponent.dll" target="runtimes\win10-x86\native\RuntimeComponent.dll" />
+		<file src="..\..\_build\arm64\Release\RuntimeComponent\bin\RuntimeComponent\RuntimeComponent.dll" target="runtimes\win10-arm64\native\RuntimeComponent.dll" />
+		<file src="..\..\_build\x64\Release\wrapper\bin\wrapper\wrapper.dll" target="runtimes\win10-x64\native\wrapper.dll" />
+		<file src="..\..\_build\Win32\Release\wrapper\bin\wrapper\wrapper.dll" target="runtimes\win10-x86\native\wrapper.dll" />
+		<file src="..\..\_build\arm64\Release\wrapper\bin\wrapper\wrapper.dll" target="runtimes\win10-arm64\native\wrapper.dll" />
+		<file src="..\..\_build\x64\Release\chessboard\bin\chessboard\chessboard.dll" target="runtimes\win10-x64\native\chessboard.dll" />
+		<file src="..\..\_build\Win32\Release\chessboard\bin\chessboard\chessboard.dll" target="runtimes\win10-x86\native\chessboard.dll" />
+		<file src="..\..\_build\arm64\Release\chessboard\bin\chessboard\chessboard.dll" target="runtimes\win10-arm64\native\chessboard.dll" />
+		<file src="..\..\_build\x64\Release\searcher\bin\searcher\searcher.dll" target="runtimes\win10-x64\native\searcher.dll" />
+		<file src="..\..\_build\Win32\Release\searcher\bin\searcher\searcher.dll" target="runtimes\win10-x86\native\searcher.dll" />
+		<file src="..\..\_build\arm64\Release\searcher\bin\searcher\searcher.dll" target="runtimes\win10-arm64\native\searcher.dll" />
+	</files>
+</package>
