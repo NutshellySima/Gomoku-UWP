@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
 	<metadata>
 		<id>ClassLibraryRC</id>
-		<version>1.1.0</version>
+		<version>1.2.0</version>
 		<authors>Chijun Sima</authors>
 		<description>Cpp projection</description>
 		<dependencies>
