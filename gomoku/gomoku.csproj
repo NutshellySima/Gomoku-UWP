@@ -15,6 +15,14 @@
 		../ClassLibraryRC/nuget
 	</RestoreSources>
 	<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+	<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
+	<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+	<AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+	<GenerateTestArtifacts>True</GenerateTestArtifacts>
+	<AppxBundle>Auto</AppxBundle>
+	<AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
+	<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\StoreLogo.png" />
