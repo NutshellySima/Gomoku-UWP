@@ -47,7 +47,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <CommandBar Grid.Row="0" FontFamily="Segoe UI" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+        <CommandBar Grid.Row="0" FontFamily="Segoe UI Variable" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
             <AppBarButton Icon="Undo" Label="Undo" Click="UndoButton_Click" Name="UndoButton" x:Uid="Undo_But" ToolTipService.Placement="Mouse" Style="{StaticResource AppBarButtonRevealStyle}"/>
 
             <AppBarButton Icon="Refresh" Label="Restart" Click="RestartButton_Click" Name="RestartButton" x:Uid="Restart_But" ToolTipService.Placement="Mouse" Style="{StaticResource AppBarButtonRevealStyle}"/>
