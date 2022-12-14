@@ -20,13 +20,14 @@
 	<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
 	<AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
 	<GenerateTestArtifacts>True</GenerateTestArtifacts>
-	<AppxBundle>Auto</AppxBundle>
+	<AppxBundle>Always</AppxBundle>
 	<AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
 	<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+	<AppxPackageDir>C:\Users\simac\Desktop\uwp2app\Gomoku-UWP\AppPackages-up-2\</AppxPackageDir>
+	<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+	<PackageCertificateThumbprint>69F35049854900CA5A2209C6108428297A093A7C</PackageCertificateThumbprint>
+	<AppxPackageSigningTimestampDigestAlgorithm>SHA512</AppxPackageSigningTimestampDigestAlgorithm>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Assets\StoreLogo.png" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -34,7 +35,6 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
 

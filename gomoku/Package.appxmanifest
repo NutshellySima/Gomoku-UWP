@@ -8,8 +8,8 @@
 
   <Identity
     Name="24493NutshellySima.Nut-gomoku"
-    Publisher="CN=70269625-7369-43FA-B651-F4915C3E94B8"
-    Version="3.0.35.0" />
+    Publisher="CN=simac"
+    Version="3.0.39.0" />
 
   <Properties>
     <DisplayName>Nut-gomoku</DisplayName>
